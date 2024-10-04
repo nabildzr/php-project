@@ -4,9 +4,9 @@
         </button>
         <div>
             <a href="index.php" class="sidebar-logo">
-                <img src="img/img.png" alt="site logo" class="light-logo">
-                <img src="img/img.png" alt="site logo" class="dark-logo">
-                <img src="img/img.png" alt="site logo" class="logo-icon">
+                <img src="/admin-restaurant/img/img.png" alt="site logo" class="light-logo">
+                <img src="/admin-restaurant/img/img.png" alt="site logo" class="dark-logo">
+                <img src="/admin-restaurant/img/img.png" alt="site logo" class="logo-icon">
             </a>
         </div>
         <div class="sidebar-menu-area">

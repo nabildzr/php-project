@@ -737,5 +737,6 @@
                 </div>
             </div>
 
+<?php $script = '<script src="/admin-restaurant/assets/js/homeTwoChart.js"></script>';?>
 
 <?php include_once $_SERVER['DOCUMENT_ROOT'] . '/admin-restaurant/partials/layouts/layoutBottom.php' ?>

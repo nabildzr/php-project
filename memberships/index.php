@@ -1,4 +1,7 @@
 <?php 
+
+ $title='Dashboard';
+    $subTitle = 'eCommerce';
 ?>
 
 
