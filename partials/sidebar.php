@@ -11,10 +11,16 @@
         </div>
         <div class="sidebar-menu-area">
             <ul class="sidebar-menu" id="sidebar-menu">
-                <li class="dropdown">
-                    <a href="javascript:void(0)">
+                <li class="">
+                    <a href="/admin-restaurant/">
                         <iconify-icon icon="solar:home-smile-angle-outline" class="menu-icon"></iconify-icon>
                         <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="">
+                    <a href="/admin-restaurant/memberships/">
+                        <iconify-icon icon="solar:user-outline" class="menu-icon"></iconify-icon>
+                        <span>Memberships</span>
                     </a>
                 </li>
             </ul>

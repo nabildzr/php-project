@@ -1,5 +1,9 @@
-<?php include './partials/layouts/layoutTop.php' ?>
+<?php 
+?>
+
+
+<?php include_once $_SERVER['DOCUMENT_ROOT'] . '/admin-restaurant/partials/layouts/layoutTop.php'; ?>
 
 
 
-<?php include './partials/layouts/layoutBottom.php' ?>
+<?php include_once $_SERVER['DOCUMENT_ROOT'] . '/admin-restaurant/partials/layouts/layoutBottom.php'; ?>

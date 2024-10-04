@@ -1,9 +1,9 @@
 </div>
 
-<?php include './partials/footer.php' ?>
+<?php include_once($_SERVER['DOCUMENT_ROOT'] . '/admin-restaurant/partials/footer.php') ?>
 </main>
 
-<?php include './partials/scripts.php' ?>
+<?php include_once($_SERVER['DOCUMENT_ROOT'] . '/admin-restaurant/partials/scripts.php') ?>
 </body>
 
 </html>
