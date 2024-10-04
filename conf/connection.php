@@ -1,16 +1,15 @@
 <?php
 
-$server = "localhost";
-    $user = "root";
-$password = "";
-$db = "admin";
+$host = 'localhost';
+$user = 'root';
+$password = '';
 
-$conn = mysqli_connect($server, $user, $password, $db);
+$database = 'db_restaurant';
 
-if (!$conn) {
-    echo "Not Connected";
-} else {
-    echo "Connected";
+$conn = mysqli_connect($host, $user, $password, $database);
+
+if(!$conn) {
+    die("db not connected" . mysqli_connect_error());
 }
 
-?>  
+?>
