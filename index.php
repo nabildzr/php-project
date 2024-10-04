@@ -168,7 +168,7 @@
                                         <tr>
                                             <td>
                                                 <div class="d-flex align-items-center">
-                                                    <img src="assets/images/users/user1.png" alt="" class="flex-shrink-0 me-12 radius-8">
+                                                    <img src="/admin-restaurant/assets/images/users/user1.png" alt="" class="flex-shrink-0 me-12 radius-8">
                                                     <span class="text-lg text-secondary-light fw-semibold flex-grow-1">Dianne Russell</span>
                                                 </div>
                                             </td>
@@ -181,7 +181,7 @@
                                         <tr>
                                             <td>
                                                 <div class="d-flex align-items-center">
-                                                    <img src="assets/images/users/user2.png" alt="" class="flex-shrink-0 me-12 radius-8">
+                                                    <img src="/admin-restaurant/assets/images/users/user2.png" alt="" class="flex-shrink-0 me-12 radius-8">
                                                     <span class="text-lg text-secondary-light fw-semibold flex-grow-1">Wade Warren</span>
                                                 </div>
                                             </td>
@@ -194,7 +194,7 @@
                                         <tr>
                                             <td>
                                                 <div class="d-flex align-items-center">
-                                                    <img src="assets/images/users/user3.png" alt="" class="flex-shrink-0 me-12 radius-8">
+                                                    <img src="/admin-restaurant/assets/images/users/user3.png" alt="" class="flex-shrink-0 me-12 radius-8">
                                                     <span class="text-lg text-secondary-light fw-semibold flex-grow-1">Albert Flores</span>
                                                 </div>
                                             </td>
@@ -207,7 +207,7 @@
                                         <tr>
                                             <td>
                                                 <div class="d-flex align-items-center">
-                                                    <img src="assets/images/users/user4.png" alt="" class="flex-shrink-0 me-12 radius-8">
+                                                    <img src="/admin-restaurant/assets/images/users/user4.png" alt="" class="flex-shrink-0 me-12 radius-8">
                                                     <span class="text-lg text-secondary-light fw-semibold flex-grow-1">Bessie Cooper</span>
                                                 </div>
                                             </td>
@@ -220,7 +220,7 @@
                                         <tr>
                                             <td>
                                                 <div class="d-flex align-items-center">
-                                                    <img src="assets/images/users/user5.png" alt="" class="flex-shrink-0 me-12 radius-8">
+                                                    <img src="/admin-restaurant/assets/images/users/user5.png" alt="" class="flex-shrink-0 me-12 radius-8">
                                                     <span class="text-lg text-secondary-light fw-semibold flex-grow-1">Arlene McCoy</span>
                                                 </div>
                                             </td>
@@ -253,7 +253,7 @@
                             <div class="mt-32">
                                 <div class="d-flex align-items-center justify-content-between gap-3 mb-32">
                                     <div class="d-flex align-items-center gap-2">
-                                        <img src="assets/images/payment/payment1.png" alt="" class="w-40-px h-40-px radius-8 flex-shrink-0">
+                                        <img src="/admin-restaurant/assets/images/payment/payment1.png" alt="" class="w-40-px h-40-px radius-8 flex-shrink-0">
                                         <div class="flex-grow-1">
                                             <h6 class="text-md mb-0 fw-normal">Paytm</h6>
                                             <span class="text-sm text-secondary-light fw-normal">Starbucks</span>
@@ -264,7 +264,7 @@
 
                                 <div class="d-flex align-items-center justify-content-between gap-3 mb-32">
                                     <div class="d-flex align-items-center gap-2">
-                                        <img src="assets/images/payment/payment2.png" alt="" class="w-40-px h-40-px radius-8 flex-shrink-0">
+                                        <img src="/admin-restaurant/assets/images/payment/payment2.png" alt="" class="w-40-px h-40-px radius-8 flex-shrink-0">
                                         <div class="flex-grow-1">
                                             <h6 class="text-md mb-0 fw-normal">PayPal</h6>
                                             <span class="text-sm text-secondary-light fw-normal">Client Payment</span>
@@ -275,7 +275,7 @@
 
                                 <div class="d-flex align-items-center justify-content-between gap-3 mb-32">
                                     <div class="d-flex align-items-center gap-2">
-                                        <img src="assets/images/payment/payment3.png" alt="" class="w-40-px h-40-px radius-8 flex-shrink-0">
+                                        <img src="/admin-restaurant/assets/images/payment/payment3.png" alt="" class="w-40-px h-40-px radius-8 flex-shrink-0">
                                         <div class="flex-grow-1">
                                             <h6 class="text-md mb-0 fw-normal">Stripe</h6>
                                             <span class="text-sm text-secondary-light fw-normal">Ordered iPhone 14</span>
@@ -286,7 +286,7 @@
 
                                 <div class="d-flex align-items-center justify-content-between gap-3 mb-32">
                                     <div class="d-flex align-items-center gap-2">
-                                        <img src="assets/images/payment/payment4.png" alt="" class="w-40-px h-40-px radius-8 flex-shrink-0">
+                                        <img src="/admin-restaurant/assets/images/payment/payment4.png" alt="" class="w-40-px h-40-px radius-8 flex-shrink-0">
                                         <div class="flex-grow-1">
                                             <h6 class="text-md mb-0 fw-normal">Razorpay</h6>
                                             <span class="text-sm text-secondary-light fw-normal">Refund</span>
@@ -297,7 +297,7 @@
 
                                 <div class="d-flex align-items-center justify-content-between gap-3 mb-32">
                                     <div class="d-flex align-items-center gap-2">
-                                        <img src="assets/images/payment/payment1.png" alt="" class="w-40-px h-40-px radius-8 flex-shrink-0">
+                                        <img src="/admin-restaurant/assets/images/payment/payment1.png" alt="" class="w-40-px h-40-px radius-8 flex-shrink-0">
                                         <div class="flex-grow-1">
                                             <h6 class="text-md mb-0 fw-normal">Paytm</h6>
                                             <span class="text-sm text-secondary-light fw-normal">Starbucks</span>
@@ -308,7 +308,7 @@
 
                                 <div class="d-flex align-items-center justify-content-between gap-3">
                                     <div class="d-flex align-items-center gap-2">
-                                        <img src="assets/images/payment/payment3.png" alt="" class="w-40-px h-40-px radius-8 flex-shrink-0">
+                                        <img src="/admin-restaurant/assets/images/payment/payment3.png" alt="" class="w-40-px h-40-px radius-8 flex-shrink-0">
                                         <div class="flex-grow-1">
                                             <h6 class="text-md mb-0 fw-normal">Stripe</h6>
                                             <span class="text-sm text-secondary-light fw-normal">Ordered iPhone 14</span>
@@ -363,7 +363,7 @@
 
                                 <div class="d-flex align-items-center justify-content-between gap-3 mb-12 pb-2">
                                     <div class="d-flex align-items-center w-100">
-                                        <img src="assets/images/flags/flag1.png" alt="" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12">
+                                        <img src="/admin-restaurant/assets/images/flags/flag1.png" alt="" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12">
                                         <div class="flex-grow-1">
                                             <h6 class="text-sm mb-0">USA</h6>
                                             <span class="text-xs text-secondary-light fw-medium">1,240 Users</span>
@@ -381,7 +381,7 @@
 
                                 <div class="d-flex align-items-center justify-content-between gap-3 mb-12 pb-2">
                                     <div class="d-flex align-items-center w-100">
-                                        <img src="assets/images/flags/flag2.png" alt="" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12">
+                                        <img src="/admin-restaurant/assets/images/flags/flag2.png" alt="" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12">
                                         <div class="flex-grow-1">
                                             <h6 class="text-sm mb-0">Japan</h6>
                                             <span class="text-xs text-secondary-light fw-medium">1,240 Users</span>
@@ -399,7 +399,7 @@
 
                                 <div class="d-flex align-items-center justify-content-between gap-3 mb-12 pb-2">
                                     <div class="d-flex align-items-center w-100">
-                                        <img src="assets/images/flags/flag3.png" alt="" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12">
+                                        <img src="/admin-restaurant/assets/images/flags/flag3.png" alt="" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12">
                                         <div class="flex-grow-1">
                                             <h6 class="text-sm mb-0">France</h6>
                                             <span class="text-xs text-secondary-light fw-medium">1,240 Users</span>
@@ -417,7 +417,7 @@
 
                                 <div class="d-flex align-items-center justify-content-between gap-3">
                                     <div class="d-flex align-items-center w-100">
-                                        <img src="assets/images/flags/flag4.png" alt="" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12">
+                                        <img src="/admin-restaurant/assets/images/flags/flag4.png" alt="" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12">
                                         <div class="flex-grow-1">
                                             <h6 class="text-sm mb-0">Germany</h6>
                                             <span class="text-xs text-secondary-light fw-medium">1,240 Users</span>
@@ -454,7 +454,7 @@
 
                                 <div class="d-flex align-items-center justify-content-between gap-3 mb-32">
                                     <div class="d-flex align-items-center gap-2">
-                                        <img src="assets/images/users/user6.png" alt="" class="w-40-px h-40-px radius-8 flex-shrink-0">
+                                        <img src="/admin-restaurant/assets/images/users/user6.png" alt="" class="w-40-px h-40-px radius-8 flex-shrink-0">
                                         <div class="flex-grow-1">
                                             <h6 class="text-md mb-0 fw-normal">Dianne Russell</h6>
                                             <span class="text-sm text-secondary-light fw-normal">017******58</span>
@@ -465,7 +465,7 @@
 
                                 <div class="d-flex align-items-center justify-content-between gap-3 mb-32">
                                     <div class="d-flex align-items-center gap-2">
-                                        <img src="assets/images/users/user1.png" alt="" class="w-40-px h-40-px radius-8 flex-shrink-0">
+                                        <img src="/admin-restaurant/assets/images/users/user1.png" alt="" class="w-40-px h-40-px radius-8 flex-shrink-0">
                                         <div class="flex-grow-1">
                                             <h6 class="text-md mb-0 fw-normal">Wade Warren</h6>
                                             <span class="text-sm text-secondary-light fw-normal">017******58</span>
@@ -476,7 +476,7 @@
 
                                 <div class="d-flex align-items-center justify-content-between gap-3 mb-32">
                                     <div class="d-flex align-items-center gap-2">
-                                        <img src="assets/images/users/user2.png" alt="" class="w-40-px h-40-px radius-8 flex-shrink-0">
+                                        <img src="/admin-restaurant/assets/images/users/user2.png" alt="" class="w-40-px h-40-px radius-8 flex-shrink-0">
                                         <div class="flex-grow-1">
                                             <h6 class="text-md mb-0 fw-normal">Albert Flores</h6>
                                             <span class="text-sm text-secondary-light fw-normal">017******58</span>
@@ -487,7 +487,7 @@
 
                                 <div class="d-flex align-items-center justify-content-between gap-3 mb-32">
                                     <div class="d-flex align-items-center gap-2">
-                                        <img src="assets/images/users/user3.png" alt="" class="w-40-px h-40-px radius-8 flex-shrink-0">
+                                        <img src="/admin-restaurant/assets/images/users/user3.png" alt="" class="w-40-px h-40-px radius-8 flex-shrink-0">
                                         <div class="flex-grow-1">
                                             <h6 class="text-md mb-0 fw-normal">Bessie Cooper</h6>
                                             <span class="text-sm text-secondary-light fw-normal">017******58</span>
@@ -498,7 +498,7 @@
 
                                 <div class="d-flex align-items-center justify-content-between gap-3 mb-32">
                                     <div class="d-flex align-items-center gap-2">
-                                        <img src="assets/images/users/user4.png" alt="" class="w-40-px h-40-px radius-8 flex-shrink-0">
+                                        <img src="/admin-restaurant/assets/images/users/user4.png" alt="" class="w-40-px h-40-px radius-8 flex-shrink-0">
                                         <div class="flex-grow-1">
                                             <h6 class="text-md mb-0 fw-normal">Arlene McCoy</h6>
                                             <span class="text-sm text-secondary-light fw-normal">017******58</span>
@@ -509,7 +509,7 @@
 
                                 <div class="d-flex align-items-center justify-content-between gap-3">
                                     <div class="d-flex align-items-center gap-2">
-                                        <img src="assets/images/users/user6.png" alt="" class="w-40-px h-40-px radius-8 flex-shrink-0">
+                                        <img src="/admin-restaurant/assets/images/users/user6.png" alt="" class="w-40-px h-40-px radius-8 flex-shrink-0">
                                         <div class="flex-grow-1">
                                             <h6 class="text-md mb-0 fw-normal">John Doe</h6>
                                             <span class="text-sm text-secondary-light fw-normal">017******58</span>
@@ -547,7 +547,7 @@
                                         <tr>
                                             <td>
                                                 <div class="d-flex align-items-center">
-                                                    <img src="assets/images/product/product-img1.png" alt="" class="flex-shrink-0 me-12 radius-8 me-12">
+                                                    <img src="/admin-restaurant/assets/images/product/product-img1.png" alt="" class="flex-shrink-0 me-12 radius-8 me-12">
                                                     <div class="flex-grow-1">
                                                         <h6 class="text-md mb-0 fw-normal">Blue t-shirt</h6>
                                                         <span class="text-sm text-secondary-light fw-normal">Fashion</span>
@@ -564,7 +564,7 @@
                                         <tr>
                                             <td>
                                                 <div class="d-flex align-items-center">
-                                                    <img src="assets/images/product/product-img2.png" alt="" class="flex-shrink-0 me-12 radius-8 me-12">
+                                                    <img src="/admin-restaurant/assets/images/product/product-img2.png" alt="" class="flex-shrink-0 me-12 radius-8 me-12">
                                                     <div class="flex-grow-1">
                                                         <h6 class="text-md mb-0 fw-normal">Nike Air Shoe</h6>
                                                         <span class="text-sm text-secondary-light fw-normal">Fashion</span>
@@ -581,7 +581,7 @@
                                         <tr>
                                             <td>
                                                 <div class="d-flex align-items-center">
-                                                    <img src="assets/images/product/product-img3.png" alt="" class="flex-shrink-0 me-12 radius-8 me-12">
+                                                    <img src="/admin-restaurant/assets/images/product/product-img3.png" alt="" class="flex-shrink-0 me-12 radius-8 me-12">
                                                     <div class="flex-grow-1">
                                                         <h6 class="text-md mb-0 fw-normal">Woman Dresses</h6>
                                                         <span class="text-sm text-secondary-light fw-normal">Fashion</span>
@@ -598,7 +598,7 @@
                                         <tr>
                                             <td>
                                                 <div class="d-flex align-items-center">
-                                                    <img src="assets/images/product/product-img4.png" alt="" class="flex-shrink-0 me-12 radius-8 me-12">
+                                                    <img src="/admin-restaurant/assets/images/product/product-img4.png" alt="" class="flex-shrink-0 me-12 radius-8 me-12">
                                                     <div class="flex-grow-1">
                                                         <h6 class="text-md mb-0 fw-normal">Smart Watch</h6>
                                                         <span class="text-sm text-secondary-light fw-normal">Fashion</span>
@@ -615,7 +615,7 @@
                                         <tr>
                                             <td>
                                                 <div class="d-flex align-items-center">
-                                                    <img src="assets/images/product/product-img5.png" alt="" class="flex-shrink-0 me-12 radius-8 me-12">
+                                                    <img src="/admin-restaurant/assets/images/product/product-img5.png" alt="" class="flex-shrink-0 me-12 radius-8 me-12">
                                                     <div class="flex-grow-1">
                                                         <h6 class="text-md mb-0 fw-normal">Hoodie Rose</h6>
                                                         <span class="text-sm text-secondary-light fw-normal">Fashion</span>
@@ -737,6 +737,6 @@
                 </div>
             </div>
 
-<?php $script = '<script src="/admin-restaurant/assets/js/homeTwoChart.js"></script>';?>
+<?php $script = '<script src="/admin-restaurant/assets/js/homeThreeChart.js"></script>';?>
 
 <?php include_once $_SERVER['DOCUMENT_ROOT'] . '/admin-restaurant/partials/layouts/layoutBottom.php' ?>

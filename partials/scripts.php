@@ -10,7 +10,7 @@
     <!-- Iconify Font js -->
     <script src="/admin-restaurant/assets/js/lib/iconify-icon.min.js"></script>
     <!-- jQuery UI js -->
-    <script src="/admin-restaurantassets/js/lib/jquery-ui.min.js"></script>
+    <script src="/admin-restaurant/assets/js/lib/jquery-ui.min.js"></script>
     <!-- Vector Map js -->
     <script src="/admin-restaurant/assets/js/lib/jquery-jvectormap-2.0.5.min.js"></script>
     <script src="/admin-restaurant/assets/js/lib/jquery-jvectormap-world-mill-en.js"></script>
