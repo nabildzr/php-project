@@ -1,8 +1,9 @@
+<!-- membuat title -->
 # Structures
 
-<!-- create table -->
-| Name | Divisions | Our Github |
-|------|-----------|------------|
-| M. Nabil Dzikrika Ramdani | Leader | [GitHub Profile](https://github.com/nabildzr) |
-| Riqzan | Member | [GitHub Profile](https://github.com/) |
-| Insan Munazat Zarahan | Member | [GitHub Profile](https://github.com/nabildzr) |
+<!-- membuat table -->
+| Name | Division | Role | Our Github |
+|------|----------|------|------------|
+| M. Nabil Dzikrika Ramdani | Development | Leader | [GitHub Profile](https://github.com/nabildzr) |
+| Riqzan | Research | Member | [GitHub Profile](https://github.com/nabildzr) |
+| Insan Munazat Zarahan | Research | Member | [GitHub Profile](https://github.com/nabildzr) |
