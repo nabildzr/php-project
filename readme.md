@@ -8,4 +8,4 @@
 | Riqzan | Research | Member | [GitHub Profile](https://github.com/nabildzr) |
 | Insan Munazat Zarahan | Research | Member | [GitHub Profile](https://github.com/nabildzr) |
 
-![Image](https://id.pinterest.com/pin/2674081023516123/)
+<img src="https://id.pinterest.com/pin/2674081023516123/"/>
