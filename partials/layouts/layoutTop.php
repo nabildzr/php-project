@@ -1,3 +1,5 @@
+<?php session_start() ?>
+
 <!-- meta tags and other links -->
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
