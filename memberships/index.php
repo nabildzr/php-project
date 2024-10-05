@@ -15,25 +15,11 @@ if (isset($_POST['addMember'])) {
     if (addMembership($_POST) > 0) {
 ?>
         <script>
-            Swal.fire({
-                position: "bottom-end",
-                icon: "success",
-                title: "Member successfully Added",
-                showConfirmButton: false,
-                timer: 1500,
-                innerWidth: 100
-            });
-        </script>';
+            window.location.href = "/admin-restaurant/memberships/?alert=2";
+        </script>
     <?php    } else { ?>
         <script>
-            Swal.fire({
-                position: "bottom-end",
-                icon: "danger",
-                title: "Member Unsuccessfully Added",
-                showConfirmButton: false,
-                timer: 1500,
-                innerWidth: 1000
-            });
+            window.location.href = "/admin-restaurant/memberships/?alert=4";
         </script>
 <?php
     }
