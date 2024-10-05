@@ -11,8 +11,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/admin-restaurant/conf/connection.php'
 <?php include_once $_SERVER['DOCUMENT_ROOT'] . '/admin-restaurant/partials/layouts/layoutTop.php'; ?>
 
 <?php
-if (isset($_POST['addMember'])) {
-    if (addMembership($_POST) > 0) {
+if (isset($_POST['addMenu'])) {
+    if (addMenu($_POST) > 0) {
 ?>
         <script>
             window.location.href = "/admin-restaurant/memberships/?alert=2";
@@ -32,7 +32,7 @@ if (isset($_POST['addMember'])) {
     <div class="card-header">
         <h5 class="card-title mb-3">Menu</h5>
 
-        <button type="button" data-bs-toggle="modal" data-bs-target="#addMemberModal" class=" btn btn-primary-600 radius-8 px-20 py-11 d-flex align-items-center gap-2">
+        <button type="button" data-bs-toggle="modal" data-bs-target="#addMenuModal" class=" btn btn-primary-600 radius-8 px-20 py-11 d-flex align-items-center gap-2">
             <iconify-icon icon="gridicons:user-add" class="text-xl"></iconify-icon> Menu
         </button>
 
@@ -60,44 +60,55 @@ if (isset($_POST['addMember'])) {
                     <th scope="col">Price</th>
                     <th scope="col">Description</th>
                     <th scope="col">Image</th>
-                    <th scope="col">action</th>
+                    <th scope="col">Action</th>
 
                 </tr>
             </thead>
             <tbody>
                 <?php
-
+                $no = 1;
                 $menus = query("SELECT * FROM menu");
 
-                foreach ($menus as  $mmenu) :
+                foreach ($menus as  $menu) :
                 ?>
                     <tr>
+
                         <td>
                             <div class="form-check style-check d-flex align-items-center">
                                 <input class="form-check-input" type="checkbox">
                                 <label class="form-check-label">
-                                    <?= $member['member_id'] ?>
+                                    <?= $no++ ?>
                                 </label>
                             </div>
                         </td>
-                        <!-- <td><a href="javascript:void(0)" class="text-primary-600">
-                        
-                    </a></td> -->
+                        <td><a href="javascript:void(0)" class="text-primary-600">
+                                <?= $menu['item_id'] ?>
+                            </a></td>
                         <td>
                             <div class="d-flex align-items-center">
                                 <img src="assets/images/user-list/user-list10.png" alt="" class="flex-shrink-0 me-12 radius-8">
                                 <h6 class="text-md mb-0 fw-medium flex-grow-1">
-                                    <?= $member['member_name'] ?>
+                                    <?= $menu['name'] ?>
 
                                 </h6>
                             </div>
                         </td>
                         <td>
-                            <?= $member['points'] ?>
+                            <?= $menu['type'] ?>
 
                         </td>
                         <td>
-                            <?= $member['account_id'] ?>
+                            <?= $menu['price'] ?>
+
+                        </td>
+                        <td>
+                            <?= $menu['description'] ?>
+
+                        </td>
+                        <td>
+                            <!-- ternary operator -> jika image_url ada maka tampilkan image_url, jika tidak maka tampilkan blanknotfound -->
+
+                            <img style="width: 200px; height: 200px; object-fit: cover;" class="rounded" src="<?= $menu['image_url'] ?: 'https://i.pinimg.com/236x/52/48/c2/5248c280324fcda02107c062c423b601.jpg' ?>" alt="<?= $menu['name'] ?>">
 
                         </td>
                         <td>
@@ -116,43 +127,17 @@ if (isset($_POST['addMember'])) {
     </div>
 </div>
 
-<?php
-//? Mengambil nilai account_id terbesar dan menginisialisasinya sebagai kodeTerbesar
-$query = mysqli_query($conn, "SELECT max(account_id) as kodeTerbesar FROM memberships");
-
-//? Mengambil hasil query sebagai array
-$data = mysqli_fetch_array($query);
-
-
-
-$idAccount = (int) $data['kodeTerbesar']; //? Mengonversi langsung ke integer
-
-switch ($idAccount) {
-        // jika 0 maka ganti ke 1
-    case 0:
-        $idAccount = 1;
-        break;
-        // mengembalikan seperti normal
-    default:
-        $idAccount++;
-        break;
-}
-
-
-
-//? Menggunakan nilai integer langsung tanpa mengonversi ke string
-?>
 
 
 <!-- Modal -->
-<div class="modal fade" id="addMemberModal" tabindex="-1" aria-labelledby="addMemberModalLabel" aria-hidden="true">
+<div class="modal fade" id="addMenuModal" tabindex="-1" aria-labelledby="addMenuModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <form method="POST" action="">
                 <div class="modal-header">
                     <span class="d-flex gap-2 align-items-center">
-                        <iconify-icon icon="gridicons:user-add" class="text-2xl text-primary"></iconify-icon>
-                        <h5 class="modal-title" id="exampleModalLabel">Add Membership</h5>
+                        <iconify-icon icon="material-symbols-light:menu-book-outline-rounded" class="text-2xl text-primary"></iconify-icon>
+                        <h5 class="modal-title" id="exampleModalLabel">Add Menu</h5>
 
                     </span>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -160,27 +145,86 @@ switch ($idAccount) {
                 <div class="modal-body card">
                     <div class="row gy-3">
                         <div class="col-12">
-                            <label class="form-label">Membership Name</label>
-                            <input type="text" name="member_name" placeholder="Name" class="form-control">
+                            <label class="form-label">Item ID</label>
+                            <input type="text" name="item_id" placeholder="Item ID" class="form-control">
                         </div>
                         <div class="col-12">
-                            <label class="form-label">Points</label>
+                            <label class="form-label">Item Name</label>
+                            <input type="text" name="item_name" placeholder="Item ID" class="form-control">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Item Type</label>
+                            <select name="item_type" placeholder="Item Type" class="form-control">
+                                <option value="">Select Type</option>
+
+                                <!-- mengambil isi/values length dari enum type -->
+                                <?php
+                                $query = "SHOW COLUMNS FROM menu LIKE 'type'";
+                                $result = $conn->query($query);
+                                $row = $result->fetch_assoc();
+                                $type = $row['Type'];
+                                preg_match('/^enum\((.*)\)$/', $type, $matches);
+                                $enum = explode(',', $matches[1]);
+
+                                ?>
+
+                                <!-- menerapkan -->
+                                <?php foreach ($enum as $value): ?>
+                                    <option value="<?= trim($value, "'") ?>"><?= trim($value, "'") ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Item Caategory</label>
+                            <select name="item_category" placeholder="Item Category" class="form-control">
+                                <option value="">Select Category</option>
+
+                                <!-- mengambil isi/values length dari enum type -->
+                                <?php
+                                $query2 = "SHOW COLUMNS FROM menu LIKE 'category'";
+                                $result2 = $conn->query($query2);
+                                $row2 = $result2->fetch_assoc();
+                                $category = $row2['Type'];
+                                preg_match('/^enum\((.*)\)$/', $category, $matches2);
+                                $enum2 = explode(',', $matches2[1]);
+
+                                ?>
+
+                                <!-- menerapkan -->
+                                <?php foreach ($enum2 as $value2): ?>
+                                    <option value="<?= trim($value2, "'") ?>"><?= trim($value2, "'") ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Item Price</label>
                             <div class="input-group">
                                 <span class=" input-group-text bg-base">
-                                    <iconify-icon icon="ph:coins" class="text-xl"></iconify-icon>
+                                    <iconify-icon icon="fe:money" class="text-xl"></iconify-icon>
                                 </span>
-                                <input type="text" name="points" class="form-control flex-grow-1" placeholder="Points">
+                                <input type="text" name="item_price" class="form-control flex-grow-1" placeholder="12.345">
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label">Description</label>
+                            <textarea type="text" name="description" placeholder="Enter Description" class="form-control"></textarea>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Image (URL ONLY)</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="https://">
                             </div>
                         </div>
 
 
-                        <input type="text" name="account_id" value="<?= $idAccount ?>" placeholder="Account ID" hidden>
+
 
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" name="addMember" class="btn btn-primary">Add Member</button>
+                    <button type="submit" name="addMenu" class="btn btn-primary">Add Menu</button>
                 </div>
             </form>
         </div>
