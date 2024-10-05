@@ -13,9 +13,29 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/admin-restaurant/conf/connection.php'
 <?php
 if (isset($_POST['addMember'])) {
     if (addMembership($_POST) > 0) {
-        echo 'Success';
-    } else {
-        echo 'Failed';
+?>
+        <script>
+            Swal.fire({
+                position: "bottom-end",
+                icon: "success",
+                title: "Member successfully Added",
+                showConfirmButton: false,
+                timer: 1500,
+                innerWidth: 100
+            });
+        </script>';
+    <?php    } else { ?>
+        <script>
+            Swal.fire({
+                position: "bottom-end",
+                icon: "danger",
+                title: "Member Unsuccessfully Added",
+                showConfirmButton: false,
+                timer: 1500,
+                innerWidth: 1000
+            });
+        </script>
+<?php
     }
 }
 
@@ -91,7 +111,7 @@ if (isset($_POST['addMember'])) {
 
                         </td>
                         <td>
-                         
+
                             <a href="javascript:void(0)" class="w-32-px h-32-px bg-success-focus text-success-main rounded-circle d-inline-flex align-items-center justify-content-center">
                                 <iconify-icon icon="lucide:edit"></iconify-icon>
                             </a>
@@ -118,11 +138,11 @@ $data = mysqli_fetch_array($query);
 $idAccount = (int) $data['kodeTerbesar']; //? Mengonversi langsung ke integer
 
 switch ($idAccount) {
-    // jika 0 maka ganti ke 1
+        // jika 0 maka ganti ke 1
     case 0:
         $idAccount = 1;
         break;
-    // mengembalikan seperti normal
+        // mengembalikan seperti normal
     default:
         $idAccount++;
         break;
@@ -162,10 +182,10 @@ switch ($idAccount) {
                                 <input type="text" name="points" class="form-control flex-grow-1" placeholder="Points">
                             </div>
                         </div>
-                       
-                          
-                            <input type="text" name="account_id" value="<?= $idAccount ?>" placeholder="Account ID" hidden>
-                      
+
+
+                        <input type="text" name="account_id" value="<?= $idAccount ?>" placeholder="Account ID" hidden>
+
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -188,6 +208,7 @@ switch ($idAccount) {
                 myInput.focus()
                 });
                 </script>
+                
                 '; ?>
 
 <?php include_once $_SERVER['DOCUMENT_ROOT'] . '/admin-restaurant/partials/layouts/layoutBottom.php'; ?>
