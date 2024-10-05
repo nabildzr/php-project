@@ -34,6 +34,26 @@ function addMembership($data)
     return mysqli_affected_rows($conn);
 }
 
+function addMenu($data) {
+    global $conn;
+
+    $menuID = $data['menu_id'];
+    $menuName = $data['menu_name'];
+    $menuType = $data['menu_type'];
+    $menuCategory = $data['menu_category'];
+    $menuPrice = $data['menu_price'];
+    $menuDescription = $data['menu_description'];
+    $menuUrl = $data['menu_url'];
+
+    $query = "INSERT INTO menu (menu_id, name, type, category, price, description, image_url) VALUES(
+        '$menuID', '$menuName', '$menuType', '$menuCategory', $menuPrice, '$menuDescription', '$menuUrl'
+        )";
+
+    mysqli_query($conn, $query);
+
+    return mysqli_affected_rows($conn);
+}
+
 
 
 ?>
