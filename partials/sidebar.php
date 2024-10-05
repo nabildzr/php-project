@@ -23,6 +23,12 @@
                         <span>Memberships</span>
                     </a>
                 </li>
+                <li class="">
+                    <a href="/admin-restaurant/menu/">
+                        <iconify-icon icon="emojione-monotone:pot-of-food" class="menu-icon"></iconify-icon>
+                        <span>Menu</span>
+                    </a>
+                </li>
             </ul>
         </div>
     </aside>
