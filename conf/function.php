@@ -45,7 +45,7 @@ function addMenu($data) {
     $menuDescription = $data['menu_description'];
     $menuUrl = $data['menu_url'];
 
-    $query = "INSERT INTO menu (menu_id, name, type, category, price, description, image_url) VALUES(
+    $query = "INSERT INTO menu (item_id, name, type, category, price, description, image_url) VALUES(
         '$menuID', '$menuName', '$menuType', '$menuCategory', $menuPrice, '$menuDescription', '$menuUrl'
         )";
 

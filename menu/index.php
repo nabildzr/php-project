@@ -15,11 +15,11 @@ if (isset($_POST['addMenu'])) {
     if (addMenu($_POST) > 0) {
 ?>
         <script>
-            window.location.href = "/admin-restaurant/memberships/?alert=2";
+            window.location.href = "/admin-restaurant/menu/?alert=10";
         </script>
     <?php    } else { ?>
         <script>
-            window.location.href = "/admin-restaurant/memberships/?alert=4";
+            window.location.href = "/admin-restaurant/menu/?alert=11";
         </script>
 <?php
     }
@@ -98,7 +98,7 @@ if (isset($_POST['addMenu'])) {
 
                         </td>
                         <td>
-                            <?= $menu['price'] ?>
+                           Rp.  <?= $menu['price'] ?>
 
                         </td>
                         <td>
@@ -146,15 +146,15 @@ if (isset($_POST['addMenu'])) {
                     <div class="row gy-3">
                         <div class="col-12">
                             <label class="form-label">Item ID</label>
-                            <input type="text" name="item_id" placeholder="Item ID" class="form-control">
+                            <input type="text" name="menu_id" placeholder="Item ID" class="form-control">
                         </div>
                         <div class="col-12">
                             <label class="form-label">Item Name</label>
-                            <input type="text" name="item_name" placeholder="Item ID" class="form-control">
+                            <input type="text" name="menu_name" placeholder="Item ID" class="form-control">
                         </div>
                         <div class="col-12">
                             <label class="form-label">Item Type</label>
-                            <select name="item_type" placeholder="Item Type" class="form-control">
+                            <select name="menu_type" placeholder="Item Type" class="form-control">
                                 <option value="">Select Type</option>
 
                                 <!-- mengambil isi/values length dari enum type -->
@@ -176,7 +176,7 @@ if (isset($_POST['addMenu'])) {
                         </div>
                         <div class="col-12">
                             <label class="form-label">Item Caategory</label>
-                            <select name="item_category" placeholder="Item Category" class="form-control">
+                            <select name="menu_category" placeholder="Item Category" class="form-control">
                                 <option value="">Select Category</option>
 
                                 <!-- mengambil isi/values length dari enum type -->
@@ -192,7 +192,7 @@ if (isset($_POST['addMenu'])) {
 
                                 <!-- menerapkan -->
                                 <?php foreach ($enum2 as $value2): ?>
-                                    <option value="<?= trim($value2, "'") ?>"><?= trim($value2, "'") ?></option>
+                                    <option  value="<?= trim($value2, "'") ?>"><?= trim($value2, "'") ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -202,18 +202,18 @@ if (isset($_POST['addMenu'])) {
                                 <span class=" input-group-text bg-base">
                                     <iconify-icon icon="fe:money" class="text-xl"></iconify-icon>
                                 </span>
-                                <input type="text" name="item_price" class="form-control flex-grow-1" placeholder="12.345">
+                                <input type="text" name="menu_price" class="form-control flex-grow-1" placeholder="12.345">
                             </div>
                         </div>
 
                         <div class="col-12">
                             <label class="form-label">Description</label>
-                            <textarea type="text" name="description" placeholder="Enter Description" class="form-control"></textarea>
+                            <textarea type="text" name="menu_description" placeholder="Enter Description" class="form-control"></textarea>
                         </div>
                         <div class="col-12">
                             <label class="form-label">Image (URL ONLY)</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="https://">
+                                <input type="text" name="menu_url" class="form-control" placeholder="https://">
                             </div>
                         </div>
 

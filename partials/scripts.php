@@ -80,6 +80,20 @@ if (isset($_GET['alert'])) {
                     timer: 1500,
                     showConfirmButton: false
                 });
+            } else if (x == 10) {
+                Swal.fire({
+                    icon: 'success',
+                    text: 'Menu successfully Added',
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+            } else if (x == 11) {
+                Swal.fire({
+                    icon: 'error',
+                    text: 'Menu Unsuccessfully Added',
+                    timer: 1500,
+                    showConfirmButton: false
+                });
             }
         });
     </script>";
