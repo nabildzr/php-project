@@ -50,8 +50,18 @@
                                                     <span class="mb-12 w-44-px h-44-px text-primary-600 bg-primary-light border border-primary-light-white flex-shrink-0 d-flex justify-content-center align-items-center radius-8 h6 mb-12">
                                                         <iconify-icon icon="fa-solid:box-open" class="icon"></iconify-icon>
                                                     </span>
-                                                    <span class="mb-1 fw-medium text-secondary-light text-md">Total Products</span>
-                                                    <h6 class="fw-semibold text-primary-light mb-1">300</h6>
+                                                    <span class="mb-1 fw-medium text-secondary-light text-md">Total Menu</span>
+                                                    <h6 class="fw-semibold text-primary-light mb-1">
+                                                        <?php
+                                                        require_once $_SERVER['DOCUMENT_ROOT'] . '/admin-restaurant/conf/connection.php';
+
+                                                        $sql1 = "SELECT COUNT(*) as total FROM menu";
+
+                                                        $result = $conn->query($sql1);
+                                                        $row1 = $result->fetch_assoc();
+                                                        ?>
+                                                        <?= $row1['total']; ?>
+                                                     </h6>
                                                 </div>
                                             </div>
                                             <p class="text-sm mb-0">Increase by <span class="bg-success-focus px-1 rounded-2 fw-medium text-success-main text-sm">+200</span> this week</p>
@@ -64,8 +74,18 @@
                                                     <span class="mb-12 w-44-px h-44-px text-yellow bg-yellow-light border border-yellow-light-white flex-shrink-0 d-flex justify-content-center align-items-center radius-8 h6 mb-12">
                                                         <iconify-icon icon="flowbite:users-group-solid" class="icon"></iconify-icon>
                                                     </span>
-                                                    <span class="mb-1 fw-medium text-secondary-light text-md">Total Customer</span>
-                                                    <h6 class="fw-semibold text-primary-light mb-1">50,000</h6>
+                                                    <span class="mb-1 fw-medium text-secondary-light text-md">Total Memberships</span>
+                                                    <h6 class="fw-semibold text-primary-light mb-1"><?php 
+                                                    
+                                                        
+
+                                                        $sql2 = "SELECT COUNT(*) as total FROM memberships";
+
+                                                        $result2 = $conn->query($sql2);
+                                                        $row2 = $result2->fetch_assoc();
+                                                        ?>
+                                                        <?= $row2['total']; ?>
+                                                    </h6>
                                                 </div>
                                             </div>
                                             <p class="text-sm mb-0">Increase by <span class="bg-danger-focus px-1 rounded-2 fw-medium text-danger-main text-sm">-5k</span> this week</p>
