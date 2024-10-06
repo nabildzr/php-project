@@ -14,6 +14,7 @@ if(isset($_POST['signin'])) {
 
     if($row) {
         $_SESSION['role'] = $row['staff_role'];
+        $_SESSION['username'] = $row['staff_name'];
         header('Location: index.php');
     } else {
         echo "<script>alert('Username atau password salah!')</script>";

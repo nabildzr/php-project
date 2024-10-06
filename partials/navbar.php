@@ -312,8 +312,8 @@
                             <div class="dropdown-menu to-top dropdown-menu-sm">
                                 <div class="py-12 px-16 radius-8 bg-primary-50 mb-16 d-flex align-items-center justify-content-between gap-2">
                                     <div>
-                                        <h6 class="text-lg text-primary-light fw-semibold mb-2"><?= $_SESSION['username'] ?></h6>
-                                        <span class="text-secondary-light fw-medium text-sm"><?= $_SESSION['role'] ?></span>
+                                        <h6 class="text-lg text-primary-light fw-semibold mb-2"><?= $_SESSION['username'] ?: 'Guest' ?></h6>
+                                        <span class="text-secondary-light fw-medium text-sm"><?= $_SESSION['role'] ?: 'Unknown' ?></span>
                                     </div>
                                     <button type="button" class="hover-text-danger">
                                         <iconify-icon icon="radix-icons:cross-1" class="icon text-xl"></iconify-icon>
