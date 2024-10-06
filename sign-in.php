@@ -2,23 +2,73 @@
 session_start();
 require_once('conf/connection.php');
 
+if(isset($_SESSION['isLogin']) && $_SESSION['isLogin'] === true) {
+    header('Location: /admin-restaurant/index.php');
+    exit();
+}
+
 
 
 if(isset($_POST['signin'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    $query = "SELECT * FROM staff WHERE staff_name = '$username' AND password = '$password'";
+    $query = "SELECT * FROM staff WHERE staff_name = '$username'";
     $result = mysqli_query($conn, $query);
-    $row = mysqli_fetch_assoc($result);
+    $row = mysqli_num_rows($result);
 
-    if($row) {
-        $_SESSION['role'] = $row['staff_role'];
-        $_SESSION['username'] = $row['staff_name'];
-        header('Location: index.php');
+    if($row > 0) {
+        $staff = mysqli_fetch_assoc($result);
+        
+        if(password_verify($password, $staff['password'] )) {
+            $_SESSION['username'] = $staff['staff_name'];
+            $_SESSION['role'] = $staff['staff_role'];
+            $_SESSION['isLogin'] = true;
+
+            header('location: index.php');
+            exit();
+        } else {
+            echo "<script>alert('Gagal masuk!')</script>";
+        }
     } else {
         echo "<script>alert('Username atau password salah!')</script>";
+        
+        exit();
     }
+
+       // if username and password has wrong, use buku-tamu.php?error=1
+    // if ($rows > 0) {
+    //     $user = mysqli_fetch_assoc($result);
+    //         $_SESSION['role'] = $user['role'];                                  
+
+    //     if (password_verify($password, $user['password'])) {
+    //         // Login successful, redirect to buku-tamu.php
+    //         $_SESSION['username'] = $username;
+    //         $_SESSION['isLogin'] = true;
+    //         header("Location: app/index.php");
+    //         exit();
+    //     } else {
+    //         header("Location: index.php?error=1");
+    //         // Login failed, redirect to buku-tamu.php with error=1
+    //         exit();
+    //     }
+    // } else {
+    //     header("Location: index.php?error=1");
+    //     // Login failed, redirect to buku-tamu.php with error=1
+    //     exit();
+    // }
+
+    // if($row && isset($row['password'])) {
+    //   if($row) {
+    //     $_SESSION['role'] = $row['staff_role'];
+    //     $_SESSION['username'] = $row['staff_name'];
+    //     header('Location: index.php');
+    //   } else {
+    //         echo '<script>alert("Ada kesalahan")</script>';
+    //   }
+    // } else {
+    //     echo "<script>alert('Username atau password salah!')</script>";
+    // }
 }
 
 ?>

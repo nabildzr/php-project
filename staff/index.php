@@ -15,11 +15,11 @@ if (isset($_POST['addStaff'])) {
     if (addStaff($_POST) > 0) {
 ?>
         <script>
-            window.location.href = "/admin-restaurant/memberships/?alert=12";
+            window.location.href = "/admin-restaurant/staff/?alert=12";
         </script>
     <?php    } else { ?>
         <script>
-            window.location.href = "/admin-restaurant/memberships/?alert=13";
+            window.location.href = "/admin-restaurant/staff/?alert=13";
         </script>
 <?php
     }

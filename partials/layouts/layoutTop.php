@@ -1,4 +1,11 @@
-<?php session_start() ?>
+<?php session_start();
+
+if(!$_SESSION['isLogin'] == true) {
+    header('Location: /admin-restaurant/sign-in.php');
+    exit();
+}
+
+?>
 
 <!-- meta tags and other links -->
 <!DOCTYPE html>
