@@ -148,7 +148,7 @@ switch ($idAccount) {
                 <div class="modal-header">
                     <span class="d-flex gap-2 align-items-center">
                         <iconify-icon icon="gridicons:user-add" class="text-2xl text-primary"></iconify-icon>
-                        <h5 class="modal-title" id="addStaffModalLabel">Add Membership</h5>
+                        <h5 class="modal-title" id="addStaffModalLabel">Add Staff</h5>
 
                     </span>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -161,7 +161,7 @@ switch ($idAccount) {
                         </div>
                         <div class="col-12">
                             <label class="form-label">Staff Name</label>
-                            <input type="text" name="staff_name" placeholder="Name" class="form-control">
+                            <input type="text" name="staff_name" placeholder="Name" class="form-control" required>
                         </div>
                         <div class="col-12">
                             <label class="form-label">Staff Email</label>
@@ -169,7 +169,7 @@ switch ($idAccount) {
                         </div>
                         <div class="col-12">
                             <label class="form-label">Staff Password</label>
-                            <input type="password" name="password" placeholder="******" class="form-control styled-password">
+                            <input type="password" name="password" placeholder="******" class="form-control styled-password" required>
                         </div>
                         <div class="col-12">
                             <label class="form-label">Staff Role</label>
@@ -193,11 +193,16 @@ switch ($idAccount) {
                                 <?php endforeach; ?>
                             </select>
                         </div>
+                        <div class="col-12">
+                            <label class="form-label">Register Date</label>
+                            <input type="date" name="#0" class="form-control">
+                        </div>
 
                         <div class="col-12">
                             <label for="" class="form-label">Staff Phone Number</label>
-                            <input type="number" class="form-control" name="staff_phone" placeholder="Account ID" >
+                            <input type="number" class="form-control" name="staff_phone" placeholder="+62 12345678910">
                         </div>
+
 
 
                     </div>

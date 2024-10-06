@@ -25,7 +25,13 @@
                 </li>
                 <li class="">
                     <a href="/admin-restaurant/menu/">
-                        <iconify-icon icon="emojione-monotone:pot-of-food" class="menu-icon"></iconify-icon>
+                        <iconify-icon icon="solar:book-2-outline" class="menu-icon"></iconify-icon>
+                        <span>Menu</span>
+                    </a>
+                </li>
+                <li class="">
+                    <a href="/admin-restaurant/staff/">
+                        <iconify-icon icon="solar:users-group-rounded-outline" class="menu-icon"></iconify-icon>
                         <span>Menu</span>
                     </a>
                 </li>
