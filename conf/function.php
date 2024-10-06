@@ -54,6 +54,26 @@ function addMenu($data) {
     return mysqli_affected_rows($conn);
 }
 
+function addStaff($data) {
+    global $conn;
+
+    $staffName = $data['staff_name'];
+    $staffPassword = $data['password'];
+    $passwordhash = password_hash($staffPassword, PASSWORD_DEFAULT);
+    $staffEmail = $data['staff_email'];
+    $staffRole = $data['staff_role'];
+    $registerDate = $data['register_date'];
+    $staffPhone = $data['staff_phone'];
+    $AccountID = $data['account_id'];
+
+    $query = "INSERT INTO staff (staff_name, password, staff_email, staff_role, register_date, staff_phone, account_id) VALUES(
+        '$staffName', '$passwordhash', '$staffEmail', '$staffRole', '$registerDate', $staffPhone, $AccountID
+    )";
+
+    mysqli_query($conn, $query);
+
+    return mysqli_affected_rows($conn);
+}
 
 
 ?>

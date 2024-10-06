@@ -11,15 +11,15 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/admin-restaurant/conf/connection.php'
 <?php include_once $_SERVER['DOCUMENT_ROOT'] . '/admin-restaurant/partials/layouts/layoutTop.php'; ?>
 
 <?php
-if (isset($_POST['addMember'])) {
-    if (addMembership($_POST) > 0) {
+if (isset($_POST['addStaff'])) {
+    if (addStaff($_POST) > 0) {
 ?>
         <script>
-            window.location.href = "/admin-restaurant/memberships/?alert=2";
+            window.location.href = "/admin-restaurant/memberships/?alert=12";
         </script>
     <?php    } else { ?>
         <script>
-            window.location.href = "/admin-restaurant/memberships/?alert=4";
+            window.location.href = "/admin-restaurant/memberships/?alert=13";
         </script>
 <?php
     }
@@ -195,7 +195,7 @@ switch ($idAccount) {
                         </div>
                         <div class="col-12">
                             <label class="form-label">Register Date</label>
-                            <input type="date" name="#0" class="form-control">
+                            <input type="date" name="register_date" class="form-control">
                         </div>
 
                         <div class="col-12">
@@ -209,7 +209,7 @@ switch ($idAccount) {
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" name="addMember" class="btn btn-primary">Add Member</button>
+                    <button type="submit" name="addStaff" class="btn btn-primary">Add Member</button>
                 </div>
             </form>
         </div>
