@@ -32,7 +32,7 @@ CREATE TABLE `memberships` (
   `member_name` varchar(255) NOT NULL,
   `points` int NOT NULL,
   `account_id` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `memberships`
@@ -114,7 +114,7 @@ CREATE TABLE `menu` (
   `price` decimal(19,4) NOT NULL,
   `description` varchar(255) NOT NULL,
   `image_url` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `menu`
@@ -139,7 +139,7 @@ CREATE TABLE `staff` (
   `password` varchar(255) NOT NULL,
   `staff_role` enum('Waiter','Chef','Manager') NOT NULL,
   `account_id` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `staff`
