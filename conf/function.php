@@ -20,9 +20,9 @@ function addMembership($data)
 {
     global $conn;
 
-    $memberName = $data['member_name'];
-    $points = $data['points'];
-    $account_id = $data['account_id'];
+    $memberName = htmlspecialchars($data['member_name']);
+    $points = htmlspecialchars($data['points']);
+    $account_id = htmlspecialchars($data['account_id']);
 
     $query = "INSERT INTO memberships (member_name, points, account_id) VALUES(
         '$memberName', $points, $account_id
@@ -34,16 +34,17 @@ function addMembership($data)
     return mysqli_affected_rows($conn);
 }
 
-function addMenu($data) {
+function addMenu($data)
+{
     global $conn;
 
-    $menuID = $data['menu_id'];
-    $menuName = $data['menu_name'];
-    $menuType = $data['menu_type'];
-    $menuCategory = $data['menu_category'];
-    $menuPrice = $data['menu_price'];
-    $menuDescription = $data['menu_description'];
-    $menuUrl = $data['menu_url'];
+    $menuID = htmlspecialchars($data['menu_id']);
+    $menuName = htmlspecialchars($data['menu_name']);
+    $menuType = htmlspecialchars($data['menu_type']);
+    $menuCategory = htmlspecialchars($data['menu_category']);
+    $menuPrice = htmlspecialchars($data['menu_price']);
+    $menuDescription = htmlspecialchars($data['menu_description']);
+    $menuUrl = htmlspecialchars($data['menu_url']);
 
     $query = "INSERT INTO menu (item_id, name, type, category, price, description, image_url) VALUES(
         '$menuID', '$menuName', '$menuType', '$menuCategory', $menuPrice, '$menuDescription', '$menuUrl'
@@ -54,17 +55,18 @@ function addMenu($data) {
     return mysqli_affected_rows($conn);
 }
 
-function addStaff($data) {
+function addStaff($data)
+{
     global $conn;
 
-    $staffName = $data['staff_name'];
-    $staffPassword = $data['password'];
-    $passwordhash = password_hash($staffPassword, PASSWORD_DEFAULT);
-    $staffEmail = $data['staff_email'];
-    $staffRole = $data['staff_role'];
-    $registerDate = $data['register_date'];
-    $staffPhone = $data['staff_phone'];
-    $AccountID = $data['account_id'];
+    $staffName = htmlspecialchars($data['staff_name']);
+    $staffPassword = htmlspecialchars($data['password']);
+    $passwordhash = password_hash ($staffPassword, PASSWORD_DEFAULT);
+    $staffEmail = htmlspecialchars($data['staff_email']);
+    $staffRole = htmlspecialchars($data['staff_role']);
+    $registerDate = htmlspecialchars($data['register_date']);
+    $staffPhone = htmlspecialchars($data['staff_phone']);
+    $AccountID = htmlspecialchars($data['account_id']);
 
     $query = "INSERT INTO staff (staff_name, password, staff_email, staff_role, register_date, staff_phone, account_id) VALUES(
         '$staffName', '$passwordhash', '$staffEmail', '$staffRole', '$registerDate', $staffPhone, $AccountID
@@ -74,7 +76,3 @@ function addStaff($data) {
 
     return mysqli_affected_rows($conn);
 }
-
-
-?>
-

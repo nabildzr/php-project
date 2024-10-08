@@ -4,12 +4,10 @@ $host = 'localhost';
 $user = 'root';
 $password = '';
 
-$database = 'db_restaurant';
+$database = 'db_restaurant_vv1';
 
 $conn = mysqli_connect($host, $user, $password, $database);
 
-if(!$conn) {
+if (!$conn) {
     die("db not connected" . mysqli_connect_error());
 }
-
-?>
