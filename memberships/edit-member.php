@@ -1,6 +1,6 @@
 <?php
 
-$title = 'Memberships';
+$title = 'Edit Memberships';
 $subTitle = 'Restaurant';
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/admin-restaurant/conf/function.php';
@@ -11,17 +11,31 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/admin-restaurant/conf/connection.php'
 <?php include_once $_SERVER['DOCUMENT_ROOT'] . '/admin-restaurant/partials/layouts/layoutTop.php'; ?>
 
 <?php
-if (isset($_POST['addMember'])) {
-    if (addMembership($_POST) > 0) {
+if (isset($_POST['confirm'])) {
+    if (editMembership($_POST) > 0) {
 ?>
         <script>
-            window.location.href = "/admin-restaurant/memberships/?alert=2";
+            window.location.href = "/admin-restaurant/memberships/?alert=20";
         </script>
     <?php    } else { ?>
         <script>
-            window.location.href = "/admin-restaurant/memberships/?alert=4";
+            window.location.href = "/admin-restaurant/memberships/edit-members?member_id=<?= $memberId ?>&alert=21";
+        </script>
+    <?php
+    }
+} 
+
+if (isset($_GET['member_id'])) {
+    $memberId = $_GET['member_id'];
+    if (empty($_GET['member_id'])) {
+    ?>
+        <script>
+            window.location.href = "/admin-restaurant/memberships/?alert=21";
         </script>
 <?php
+    } else {
+        $data = query("SELECT * FROM memberships WHERE member_id = $memberId")[0];
+
     }
 }
 
@@ -32,84 +46,34 @@ if (isset($_POST['addMember'])) {
     <div class="card-header">
         <h5 class="card-title mb-3">Memberships</h5>
 
-        <button type="button" data-bs-toggle="modal" data-bs-target="#addMemberModal" class=" btn btn-primary-600 radius-8 px-20 py-11 d-flex align-items-center gap-2">
-            <iconify-icon icon="gridicons:user-add" class="text-xl"></iconify-icon> Member
-        </button>
-
 
     </div>
     <div class="card-body">
+        <form method="post" action="">
+            
+        <input type="text" name="member_id" value="<?= $memberId ?>" hidden>
 
-        <table class="table bordered-table mb-0" id="dataTable" data-page-length='10'>
-
-            <thead>
-
-                <tr>
-                    <th scope="col">
-                        <div class="form-check style-check d-flex align-items-center">
-                            <input class="form-check-input" type="checkbox">
-                            <label class="form-check-label">
-                                Member ID
-                            </label>
-                        </div>
-                    </th>
-
-                    <th scope="col">Member Name</th>
-                    <th scope="col">Points</th>
-                    <th scope="col">Account ID</th>
-                    <th scope="col">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-
-                $members = query("SELECT * FROM memberships");
-
-                foreach ($members as  $member) :
-                ?>
-                    <tr>
-                        <td>
-                            <div class="form-check style-check d-flex align-items-center">
-                                <input class="form-check-input" type="checkbox">
-                                <label class="form-check-label">
-                                    <?= $member['member_id'] ?>
-                                </label>
-                            </div>
-                        </td>
-                        <!-- <td><a href="javascript:void(0)" class="text-primary-600">
-                        
-                    </a></td> -->
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <img src="assets/images/user-list/user-list10.png" alt="" class="flex-shrink-0 me-12 radius-8">
-                                <h6 class="text-md mb-0 fw-medium flex-grow-1">
-                                    <?= $member['member_name'] ?>
-
-                                </h6>
-                            </div>
-                        </td>
-                        <td>
-                            <?= $member['points'] ?>
-
-                        </td>
-                        <td>
-                            <?= $member['account_id'] ?>
-
-                        </td>
-                        <td>
-
-                            <a href="edit-member.php?member_id=<?= $member['member_id'] ?>" class="w-32-px h-32-px bg-success-focus text-success-main rounded-circle d-inline-flex align-items-center justify-content-center">
-                                <iconify-icon icon="lucide:edit"></iconify-icon>
-                            </a>
-                            <a href="javascript:void(0)" class="w-32-px h-32-px bg-danger-focus text-danger-main rounded-circle d-inline-flex align-items-center justify-content-center">
-                                <iconify-icon icon="mingcute:delete-2-line"></iconify-icon>
-                            </a>
-                        </td>
-                    </tr>
-                <?php endforeach ?>
-            </tbody>
-        </table>
+            <div class="col-12">
+                <label class="form-label">Membership Name</label>
+                <input class="form-control" type="text" name="member_name" placeholder="Name" value="<?= $data['member_name'] ?>">
+            </div>
+            <div class="col-12">
+                <label class="form-label">Points</label>
+                <div class="input-group">
+                    <span class=" input-group-text bg-base">
+                        <iconify-icon icon="ph:coins" class="text-xl"></iconify-icon>
+                    </span>
+                    <input type="text" name="points" class="form-control flex-grow-1" placeholder="Points" value="<?= $data['points'] ?>">
+                </div>
+                <div class="modal-footer gap-10">
+                    <a href="index.php">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Back</button>
+                    </a>
+                    <button type="submit" name="confirm" class="btn btn-primary">Confirm</button>
+                </div>
+        </form>
     </div>
+</div>
 </div>
 
 <?php

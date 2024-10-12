@@ -80,6 +80,7 @@ if (isset($_GET['alert'])) {
                     timer: 1500,
                     showConfirmButton: false
                 });
+                // menu
             } else if (x == 10) {
                 Swal.fire({
                     icon: 'success',
@@ -94,6 +95,21 @@ if (isset($_GET['alert'])) {
                     timer: 1500,
                     showConfirmButton: false
                 });
+                // membership
+            } else if (x == 20) {
+                Swal.fire({
+                    icon: 'success',
+                    text: 'Successfully Edited',
+                    timer: 1500,
+                    showConfirmButton: false
+                })
+            } else if (x == 21) {
+                Swal.fire({
+                    icon: 'error',
+                    text: 'Something went wrong',
+                    timer: 1500,
+                    showConfirmButton: false
+                })
             }
         });
     </script>";

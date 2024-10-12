@@ -32,7 +32,7 @@
                 <li class="">
                     <a href="/admin-restaurant/staff/">
                         <iconify-icon icon="solar:users-group-rounded-outline" class="menu-icon"></iconify-icon>
-                        <span>Menu</span>
+                        <span>Staff</span>
                     </a>
                 </li>
             </ul>

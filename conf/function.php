@@ -34,6 +34,21 @@ function addMembership($data)
     return mysqli_affected_rows($conn);
 }
 
+function editMembership($data) {
+    global $conn;
+
+    $memberId = htmlspecialchars($data['member_id']);
+    $memberName = htmlspecialchars($data['member_name']);
+    $points = htmlspecialchars($data['points']);
+
+    $query = "UPDATE memberships SET member_name = '$memberName', points = $points WHERE member_id = $memberId";
+
+    mysqli_query($conn, $query);
+
+    return mysqli_affected_rows($conn);
+}
+
+
 function addMenu($data)
 {
     global $conn;
