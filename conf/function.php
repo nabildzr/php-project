@@ -91,3 +91,38 @@ function addStaff($data)
 
     return mysqli_affected_rows($conn);
 }
+
+function editStaff($data) {
+    global $conn;
+
+    $staffId = htmlspecialchars($data['staff_id']);
+    $staffName = htmlspecialchars($data['staff_name']);
+    $staffEmail = htmlspecialchars($data['staff_email']);
+    $staffRole = htmlspecialchars($data['staff_role']);
+    $registerDate = htmlspecialchars($data['register_date']);
+    $staffPhone = htmlspecialchars($data['staff_phone']);
+
+    $staffRoleOld = mysqli_query($conn, "SELECT staff_role FROM staff WHERE staff_id = '$staffId'");
+
+    $query = $staffRole == $staffRoleOld ?
+    "UPDATE staff SET
+        staff_name = '$staffName',
+        staff_email = '$staffEmail',
+        staff_role = '$staffRole',
+        register_date = '$registerDate',
+        staff_phone = '$staffPhone'
+        WHERE staff_id = '$staffId'
+    " : "UPDATE staff SET
+        staff_name = '$staffName',
+        staff_email = '$staffEmail',
+        register_date = '$registerDate',
+        staff_phone = '$staffPhone'
+        WHERE staff_id = '$staffId'
+    ";
+
+  
+
+    mysqli_query($conn, $query);
+
+    return mysqli_affected_rows($conn);
+}
