@@ -20,15 +20,27 @@ function addMembership($data)
 {
     global $conn;
 
+    $idAccount = htmlspecialchars($data['account_id']);
+    $idMember = htmlspecialchars($data['member_id']);
     $memberName = htmlspecialchars($data['member_name']);
     $points = htmlspecialchars($data['points']);
-    $account_id = htmlspecialchars($data['account_id']);
+    $registerDate = htmlspecialchars($data['register_date']);
+    $email = htmlspecialchars($data['member_email']);
+    
 
-    $query = "INSERT INTO memberships (member_name, points, account_id) VALUES(
-        '$memberName', $points, $account_id
-        )
-    ";
+    // $memberName = htmlspecialchars($data['member_name']);
+    // $points = htmlspecialchars($data['points']);
+    // $account_id = htmlspecialchars($data['account_id']);
 
+    // $query = "INSERT INTO memberships (member_name, points, account_id) VALUES(
+    //     '$memberName', $points, $account_id
+    //     )
+    // ";
+    $queryID = "";
+git 
+    // $query = "INSERT INTO memberships (member_email, points, account_id) VALUES(
+    //     )";
+        
     mysqli_query($conn, $query);
 
     return mysqli_affected_rows($conn);
@@ -126,3 +138,37 @@ function editStaff($data) {
 
     return mysqli_affected_rows($conn);
 }
+
+// Function to get the next available account ID
+    function getNextAvailableAccountID() {
+        global $conn;
+
+        $sql = "SELECT MAX(account_id) as max_account_id FROM Accounts";
+        $result = mysqli_query($conn, $sql);
+        $row = mysqli_fetch_assoc($result);
+        $next_account_id = $row['max_account_id'] + 1;
+        return $next_account_id;
+    }
+
+    // Function to get the next available Staff ID
+    function getNextAvailableStaffID() {
+        global $conn;
+
+        $sql = "SELECT MAX(staff_id) as max_staff_id FROM Staffs";
+        $result = mysqli_query($conn, $sql);
+        $row = mysqli_fetch_assoc($result);
+        $next_staff_id = $row['max_staff_id'] + 1;
+        return $next_staff_id;
+    }
+
+
+    // Function to get the next available Staff ID
+    function getNextAvailableMemberID() {
+        global $conn;
+
+        $sql = "SELECT MAX(member_id) as max_member_id FROM memberships";
+        $result = mysqli_query($conn, $sql);
+        $row = mysqli_fetch_assoc($result);
+        $next_member_id = $row['max_member_id'] + 1;
+        return $next_member_id;
+    }

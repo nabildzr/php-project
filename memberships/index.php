@@ -114,31 +114,35 @@ if (isset($_POST['addMember'])) {
 
 <?php
 //? Mengambil nilai account_id terbesar dan menginisialisasinya sebagai kodeTerbesar
-$query = mysqli_query($conn, "SELECT max(account_id) as kodeTerbesar FROM memberships");
+// $query = mysqli_query($conn, "SELECT max(account_id) as kodeTerbesar FROM memberships");
 
 //? Mengambil hasil query sebagai array
-$data = mysqli_fetch_array($query);
+// $data = mysqli_fetch_array($query);
 
 
 
-$idAccount = (int) $data['kodeTerbesar']; //? Mengonversi langsung ke integer
+// $idAccount = (int) $data['kodeTerbesar']; //? Mengonversi langsung ke integer
 
-switch ($idAccount) {
-        // jika 0 maka ganti ke 1
-    case 0:
-        $idAccount = 1;
-        break;
-        // mengembalikan seperti normal
-    default:
-        $idAccount++;
-        break;
-}
+// switch ($idAccount) {
+//         // jika 0 maka ganti ke 1
+//     case 0:
+//         $idAccount = 1;
+//         break;
+//         // mengembalikan seperti normal
+//     default:
+//         $idAccount++;
+//         break;
+// }
 
 
 
 //? Menggunakan nilai integer langsung tanpa mengonversi ke string
 ?>
 
+<?php
+$idAccount = $next_account_id = getNextAvailableAccountID();
+$idMember = $next_member_id = getNextAvailableMemberID();
+?>
 
 <!-- Modal -->
 <div class="modal fade" id="addMemberModal" tabindex="-1" aria-labelledby="addMemberModalLabel" aria-hidden="true">
@@ -156,8 +160,12 @@ switch ($idAccount) {
                 <div class="modal-body card">
                     <div class="row gy-3">
                         <div class="col-12">
-                            <label class="form-label">Membership Name</label>
-                            <input type="text" name="member_name" placeholder="Name" class="form-control">
+                            <label for="" class="form-label">Member ID</label>
+                            <input type="text" class="form-control" name="member_id" value="<?= $idMember ?>" placeholder="Account ID" readonly>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Member Name</label>
+                            <input type="text" name="member_name" placeholder="Name" class="form-control" required>
                         </div>
                         <div class="col-12">
                             <label class="form-label">Points</label>
@@ -165,12 +173,33 @@ switch ($idAccount) {
                                 <span class=" input-group-text bg-base">
                                     <iconify-icon icon="ph:coins" class="text-xl"></iconify-icon>
                                 </span>
-                                <input type="text" name="points" class="form-control flex-grow-1" placeholder="Points">
+                                <input type="text" name="points" class="form-control flex-grow-1" placeholder="1234">
                             </div>
                         </div>
+                        <div class="col-12">
+                            <label for="" class="form-label">Account ID</label>
+                            <input type="text" class="form-control" name="account_id" value="<?= $idAccount ?>" placeholder="Account ID" readonly>
+                        </div>
+                     
+                        <div class="col-12">
+                            <label class="form-label">Email</label>
+                            <input type="text" name="email" placeholder="nabildzikrika@gmail.com" class="form-control">
+                        </div>
 
+                        <div class="col-12">
+                            <label class="form-label">Password</label>
+                            <input type="password" name="password" placeholder="******" class="form-control styled-password" required>
+                        </div>
+                        
+                        <div class="col-12">
+                            <label class="form-label">Register Date</label>
+                            <input type="date" name="register_date" class="form-control">
+                        </div>
 
-                        <input type="text" name="account_id" value="<?= $idAccount ?>" placeholder="Account ID" hidden>
+                        <div class="col-12">
+                            <label for="" class="form-label">Phone Number</label>
+                            <input type="number" class="form-control" name="phone_number" placeholder="+62 12345678910">
+                        </div>
 
                     </div>
                 </div>
