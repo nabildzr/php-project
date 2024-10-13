@@ -24,24 +24,30 @@ function addMembership($data)
     $idMember = htmlspecialchars($data['member_id']);
     $memberName = htmlspecialchars($data['member_name']);
     $points = htmlspecialchars($data['points']);
+    $email = htmlspecialchars($data['email'] ?? '');
+    $phoneNumber = htmlspecialchars($data['phone_number'] ?? '');
     $registerDate = htmlspecialchars($data['register_date']);
-    $email = htmlspecialchars($data['member_email']);
+    $password = htmlspecialchars($data['password']);
+    $passwordhash = password_hash($password, PASSWORD_DEFAULT);
     
-
-    // $memberName = htmlspecialchars($data['member_name']);
-    // $points = htmlspecialchars($data['points']);
-    // $account_id = htmlspecialchars($data['account_id']);
-
-    // $query = "INSERT INTO memberships (member_name, points, account_id) VALUES(
-    //     '$memberName', $points, $account_id
-    //     )
-    // ";
-    $queryID = "";
-git 
-    // $query = "INSERT INTO memberships (member_email, points, account_id) VALUES(
-    //     )";
+    
         
-    mysqli_query($conn, $query);
+        mysqli_query($conn, 
+        "INSERT INTO accounts (email, register_date, phone_number, password) VALUES (
+        '$email',
+        '$registerDate',
+        '$phoneNumber',
+        '$passwordhash'
+           )");
+
+        mysqli_query($conn, "INSERT INTO memberships (member_id, member_name, points, account_id) VALUES (
+        '$idMember',
+        '$memberName',
+        '$points',
+        '$idAccount'
+
+         )");
+        
 
     return mysqli_affected_rows($conn);
 }
