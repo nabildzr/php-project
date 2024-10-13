@@ -1,75 +1,53 @@
-<?php 
+<?php
 session_start();
 require_once('conf/connection.php');
 
-if(isset($_SESSION['isLogin']) && $_SESSION['isLogin'] === true) {
+if (isset($_SESSION['isLogin']) && $_SESSION['isLogin'] === true) {
     header('Location: /admin-restaurant/index.php');
     exit();
 }
 
 
 
-if(isset($_POST['signin'])) {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
 
-    $query = "SELECT * FROM staff WHERE staff_name = '$username'";
-    $result = mysqli_query($conn, $query);
-    $row = mysqli_num_rows($result);
 
-    if($row > 0) {
-        $staff = mysqli_fetch_assoc($result);
-        
-        if(password_verify($password, $staff['password'] )) {
-            $_SESSION['username'] = $staff['staff_name'];
-            $_SESSION['role'] = $staff['staff_role'];
-            $_SESSION['isLogin'] = true;
 
-            header('location: index.php');
-            exit();
-        } else {
-            echo "<script>alert('Gagal masuk!')</script>";
-        }
-    } else {
-        echo "<script>alert('Username atau password salah!')</script>";
-        
-        exit();
-    }
 
-       // if username and password has wrong, use buku-tamu.php?error=1
-    // if ($rows > 0) {
-    //     $user = mysqli_fetch_assoc($result);
-    //         $_SESSION['role'] = $user['role'];                                  
 
-    //     if (password_verify($password, $user['password'])) {
-    //         // Login successful, redirect to buku-tamu.php
-    //         $_SESSION['username'] = $username;
-    //         $_SESSION['isLogin'] = true;
-    //         header("Location: app/index.php");
-    //         exit();
-    //     } else {
-    //         header("Location: index.php?error=1");
-    //         // Login failed, redirect to buku-tamu.php with error=1
-    //         exit();
-    //     }
-    // } else {
-    //     header("Location: index.php?error=1");
-    //     // Login failed, redirect to buku-tamu.php with error=1
-    //     exit();
-    // }
 
-    // if($row && isset($row['password'])) {
-    //   if($row) {
-    //     $_SESSION['role'] = $row['staff_role'];
-    //     $_SESSION['username'] = $row['staff_name'];
-    //     header('Location: index.php');
-    //   } else {
-    //         echo '<script>alert("Ada kesalahan")</script>';
-    //   }
-    // } else {
-    //     echo "<script>alert('Username atau password salah!')</script>";
-    // }
-}
+// if username and password has wrong, use buku-tamu.php?error=1
+// if ($rows > 0) {
+//     $user = mysqli_fetch_assoc($result);
+//         $_SESSION['role'] = $user['role'];                                  
+
+//     if (password_verify($password, $user['password'])) {
+//         // Login successful, redirect to buku-tamu.php
+//         $_SESSION['username'] = $username;
+//         $_SESSION['isLogin'] = true;
+//         header("Location: app/index.php");
+//         exit();
+//     } else {
+//         header("Location: index.php?error=1");
+//         // Login failed, redirect to buku-tamu.php with error=1
+//         exit();
+//     }
+// } else {
+//     header("Location: index.php?error=1");
+//     // Login failed, redirect to buku-tamu.php with error=1
+//     exit();
+// }
+
+// if($row && isset($row['password'])) {
+//   if($row) {
+//     $_SESSION['role'] = $row['staff_role'];
+//     $_SESSION['username'] = $row['staff_name'];
+//     header('Location: index.php');
+//   } else {
+//         echo '<script>alert("Ada kesalahan")</script>';
+//   }
+// } else {
+//     echo "<script>alert('Username atau password salah!')</script>";
+// }
 
 ?>
 
@@ -111,18 +89,82 @@ if(isset($_POST['signin'])) {
     <link rel="stylesheet" href="assets/css/lib/file-upload.css">
 
     <link rel="stylesheet" href="assets/css/lib/audioplayer.css">
+
+    <!-- sweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <!-- main css -->
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
 
+    <?php
+
+    if (isset($_POST['signin'])) {
+        $idStaff = $_POST['staff_id'];
+        $password = $_POST['password'];
+
+        $query = "SELECT * FROM staff WHERE staff_id = '$idStaff'";
+        $result = mysqli_query($conn, $query);
+        $row = mysqli_num_rows($result);
+
+        if (
+            $row > 0
+        ) {
+            $staff = mysqli_fetch_assoc($result);
+            $accountID = $staff['account_id'];
+
+            // ambil password yang ada di tabel accounts sesuai id
+            $accountQuery = "SELECT password FROM accounts WHERE account_id = '$accountID'";
+            $accountResult = mysqli_query($conn, $accountQuery);
+            $accountPassword = mysqli_fetch_assoc($accountResult);
+
+            if (password_verify($password, $accountPassword['password'])) {
+                $_SESSION['username'] = $staff['staff_name'];
+                $_SESSION['role'] = $staff['staff_role'];
+                $_SESSION['isLogin'] = true;
+
+                header('location: index.php');
+                exit();
+            } else {
+                echo "<script> Swal.fire({
+                    icon: 'warning',
+                    text: 'Invalid Staff ID or Password. Please try again.',
+                    timer: 1500,
+                    showConfirmButton: false
+                })</script>";
+            }
+        } else {
+            echo "<script>
+          setTimeout(() => {
+                Swal.fire({
+                    icon: 'error',
+                    text: 'Invalid Staff ID or Password. Please try again.',
+                    timer: 1500,
+                    showConfirmButton: false
+                })
+                setTimeout(() => {
+                    window.location.href = 'sign-in.php';
+                }, 1600)
+          }, 1244)
+
+          
+          
+        </script>";
+
+            exit();
+        }
+    }
+
+    ?>
+
     <section class="auth bg-base d-flex flex-wrap">
         <div class="auth-left d-lg-block d-none">
             <div class="d-flex align-items-center flex-column h-100 justify-content-center">
                 <img style="width: 100%; height: 100vh; object-fit: cover;" class="" src="https://i.pinimg.com/originals/7e/05/75/7e05759481fa150d06c259c8d81b97da.gif" alt="">
 
-               
+
             </div>
         </div>
         <div class="auth-right py-32 px-24 d-flex flex-column justify-content-center">
@@ -131,7 +173,7 @@ if(isset($_POST['signin'])) {
                     <a href="index.php" class="mb-40 max-w-290-px">
                         <img src="assets/images/logo.png" alt="">
                     </a>
-                    <h4 class="mb-12">Sign In to your Account</h4>
+                    <h4 class="mb-12">Sign In to your Staff Account</h4>
                     <p class="mb-32 text-secondary-light text-lg">Welcome back! please enter your detail</p>
                 </div>
                 <form method="POST" action="#">
@@ -139,7 +181,7 @@ if(isset($_POST['signin'])) {
                         <span class="icon top-50 translate-middle-y">
                             <iconify-icon icon="mage:user"></iconify-icon>
                         </span>
-                        <input type="text" name="username" class="form-control h-56-px bg-neutral-50 radius-12" placeholder="Username">
+                        <input type="text" name="staff_id" class="form-control h-56-px bg-neutral-50 radius-12" placeholder="Staff ID">
                     </div>
                     <div class="position-relative mb-20">
                         <div class="icon-field">
@@ -210,6 +252,10 @@ if(isset($_POST['signin'])) {
     <!-- audioplayer -->
     <script src="assets/js/lib/audioplayer.js"></script>
 
+    <!-- sweetalertsssss -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.1/dist/sweetalert2.all.min.js"></script>
+
+
     <!-- main js -->
     <script src="assets/js/app.js"></script>
 
@@ -230,6 +276,8 @@ if(isset($_POST['signin'])) {
         initializePasswordToggle('.toggle-password');
         // ========================= Password Show Hide Js End ===========================
     </script>
+
+
 
 </body>
 

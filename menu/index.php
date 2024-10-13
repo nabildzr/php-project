@@ -40,7 +40,7 @@ if (isset($_POST['addMenu'])) {
     </div>
     <div class="card-body">
 
-        <table class="table bordered-table mb-0" id="dataTable" data-page-length='10'>
+        <table class="table bordered-table mb-0 table-responsive" id="dataTable" data-page-length='10'>
 
             <thead>
 
@@ -88,27 +88,27 @@ if (isset($_POST['addMenu'])) {
                             <div class="d-flex align-items-center">
                                 <img src="assets/images/user-list/user-list10.png" alt="" class="flex-shrink-0 me-12 radius-8">
                                 <h6 class="text-md mb-0 fw-medium flex-grow-1">
-                                    <?= $menu['name'] ?>
+                                    <?= $menu['item_name'] ?>
 
                                 </h6>
                             </div>
                         </td>
                         <td>
-                            <?= $menu['type'] ?>
+                            <?= $menu['item_type'] ?>
 
                         </td>
                         <td>
-                           Rp.  <?= $menu['price'] ?>
+                           Rp.  <?= $menu['item_price'] ?>
 
                         </td>
                         <td>
-                            <?= $menu['description'] ?>
+                            <?= $menu['item_description'] ?>
 
                         </td>
                         <td>
                             <!-- ternary operator -> jika image_url ada maka tampilkan image_url, jika tidak maka tampilkan blanknotfound -->
 
-                            <img style="width: 200px; height: 200px; object-fit: cover;" class="rounded" src="<?= $menu['image_url'] ?: 'https://i.pinimg.com/236x/52/48/c2/5248c280324fcda02107c062c423b601.jpg' ?>" alt="<?= $menu['name'] ?>">
+                            <img style="width: 200px; height: 200px; object-fit: cover;" class="rounded" src="<?= $menu['item_image_url'] ?: 'https://i.pinimg.com/236x/52/48/c2/5248c280324fcda02107c062c423b601.jpg' ?>" alt="<?= $menu['item_name'] ?>">
 
                         </td>
                         <td>
@@ -159,7 +159,7 @@ if (isset($_POST['addMenu'])) {
 
                                 <!-- mengambil isi/values length dari enum type -->
                                 <?php
-                                $query = "SHOW COLUMNS FROM menu LIKE 'type'";
+                                $query = "SHOW COLUMNS FROM menu LIKE 'item_type'";
                                 $result = $conn->query($query);
                                 $row = $result->fetch_assoc();
                                 $type = $row['Type'];
@@ -181,7 +181,7 @@ if (isset($_POST['addMenu'])) {
 
                                 <!-- mengambil isi/values length dari enum type -->
                                 <?php
-                                $query2 = "SHOW COLUMNS FROM menu LIKE 'category'";
+                                $query2 = "SHOW COLUMNS FROM menu LIKE 'item_category'";
                                 $result2 = $conn->query($query2);
                                 $row2 = $result2->fetch_assoc();
                                 $category = $row2['Type'];

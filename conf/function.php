@@ -30,23 +30,23 @@ function addMembership($data)
     $password = htmlspecialchars($data['password']);
     $passwordhash = password_hash($password, PASSWORD_DEFAULT);
     
-    
-        
-        mysqli_query($conn, 
-        "INSERT INTO accounts (email, register_date, phone_number, password) VALUES (
-        '$email',
-        '$registerDate',
-        '$phoneNumber',
-        '$passwordhash'
-           )");
+    $query1 = "INSERT INTO accounts (email, register_date, phone_number, password) VALUES (
+    '$email',
+    '$registerDate',
+    '$phoneNumber',
+    '$passwordhash'
+    )";
 
-        mysqli_query($conn, "INSERT INTO memberships (member_id, member_name, points, account_id) VALUES (
-        '$idMember',
-        '$memberName',
-        '$points',
-        '$idAccount'
+    mysqli_query($conn, $query1);
 
-         )");
+    $query2 = "INSERT INTO memberships (member_id, member_name, points, account_id) VALUES (
+    '$idMember',
+    '$memberName',
+    '$points',
+    '$idAccount
+    )";
+
+        mysqli_query($conn, $query2);
         
 
     return mysqli_affected_rows($conn);
@@ -67,31 +67,13 @@ function editMembership($data) {
 }
 
 
-function addMenu($data)
-{
-    global $conn;
-
-    $menuID = htmlspecialchars($data['menu_id']);
-    $menuName = htmlspecialchars($data['menu_name']);
-    $menuType = htmlspecialchars($data['menu_type']);
-    $menuCategory = htmlspecialchars($data['menu_category']);
-    $menuPrice = htmlspecialchars($data['menu_price']);
-    $menuDescription = htmlspecialchars($data['menu_description']);
-    $menuUrl = htmlspecialchars($data['menu_url']);
-
-    $query = "INSERT INTO menu (item_id, name, type, category, price, description, image_url) VALUES(
-        '$menuID', '$menuName', '$menuType', '$menuCategory', $menuPrice, '$menuDescription', '$menuUrl'
-        )";
-
-    mysqli_query($conn, $query);
-
-    return mysqli_affected_rows($conn);
-}
 
 function addStaff($data)
 {
     global $conn;
-
+    
+    $idAccount = htmlspecialchars($data['account_id']);
+    $idStaff = htmlspecialchars($data['staff_id']);
     $staffName = htmlspecialchars($data['staff_name']);
     $staffPassword = htmlspecialchars($data['password']);
     $passwordhash = password_hash ($staffPassword, PASSWORD_DEFAULT);
@@ -99,13 +81,34 @@ function addStaff($data)
     $staffRole = htmlspecialchars($data['staff_role']);
     $registerDate = htmlspecialchars($data['register_date']);
     $staffPhone = htmlspecialchars($data['staff_phone']);
-    $AccountID = htmlspecialchars($data['account_id']);
 
-    $query = "INSERT INTO staff (staff_name, password, staff_email, staff_role, register_date, staff_phone, account_id) VALUES(
-        '$staffName', '$passwordhash', '$staffEmail', '$staffRole', '$registerDate', $staffPhone, $AccountID
+    // account
+    $query1 = "INSERT INTO accounts (email, phone_number, register_date, password) VALUES (
+    '$staffEmail',
+    '$staffPhone',
+    '$registerDate',
+    '$passwordhash'
+    )
+    ";
+
+    mysqli_query($conn, $query1);
+
+    // staff
+    $query2 = "INSERT INTO staff (staff_id, staff_name, staff_role, account_id) VALUES (
+    '$idStaff',
+    '$staffName',
+    '$staffRole',
+    '$idAccount'
     )";
 
-    mysqli_query($conn, $query);
+    mysqli_query($conn, $query2);
+
+
+
+    // $query = "INSERT INTO staff (staff_name, password, staff_email, staff_role, register_date, staff_phone, account_id) VALUES(
+    //     '$staffName', '$passwordhash', '$staffEmail', '$staffRole', '$registerDate', $staffPhone, $AccountID
+    // )";
+
 
     return mysqli_affected_rows($conn);
 }
@@ -160,7 +163,7 @@ function editStaff($data) {
     function getNextAvailableStaffID() {
         global $conn;
 
-        $sql = "SELECT MAX(staff_id) as max_staff_id FROM Staffs";
+        $sql = "SELECT MAX(staff_id) as max_staff_id FROM Staff";
         $result = mysqli_query($conn, $sql);
         $row = mysqli_fetch_assoc($result);
         $next_staff_id = $row['max_staff_id'] + 1;
@@ -178,3 +181,25 @@ function editStaff($data) {
         $next_member_id = $row['max_member_id'] + 1;
         return $next_member_id;
     }
+
+// this is for add menu
+function addMenu($data)
+{
+    global $conn;
+
+    $menuID = htmlspecialchars($data['menu_id']);
+    $menuName = htmlspecialchars($data['menu_name']);
+    $menuType = htmlspecialchars($data['menu_type']);
+    $menuCategory = htmlspecialchars($data['menu_category']);
+    $menuPrice = htmlspecialchars($data['menu_price']);
+    $menuDescription = htmlspecialchars($data['menu_description']);
+    $menuUrl = htmlspecialchars($data['menu_url']);
+
+    $query = "INSERT INTO menu (item_id, item_name, item_type, item_category, item_price, item_description, item_image_url) VALUES(
+        '$menuID', '$menuName', '$menuType', '$menuCategory', $menuPrice, '$menuDescription', '$menuUrl'
+        )";
+
+    mysqli_query($conn, $query);
+
+    return mysqli_affected_rows($conn);
+}

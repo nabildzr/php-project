@@ -114,31 +114,35 @@ if (isset($_POST['addStaff'])) {
 
 <?php
 //? Mengambil nilai account_id terbesar dan menginisialisasinya sebagai kodeTerbesar
-$query = mysqli_query($conn, "SELECT max(account_id) as kodeTerbesar FROM staff");
+// $query = mysqli_query($conn, "SELECT max(account_id) as kodeTerbesar FROM staff");
 
 //? Mengambil hasil query sebagai array
-$data = mysqli_fetch_array($query);
+// $data = mysqli_fetch_array($query);
 
 
 
-$idAccount = (int) $data['kodeTerbesar']; //? Mengonversi langsung ke integer
+// $idAccount = (int) $data['kodeTerbesar']; //? Mengonversi langsung ke integer
 
-switch ($idAccount) {
-        // jika 0 maka ganti ke 1
-    case 0:
-        $idAccount = 1;
-        break;
-        // mengembalikan seperti normal
-    default:
-        $idAccount++;
-        break;
-}
+// switch ($idAccount) {
+//         // jika 0 maka ganti ke 1
+//     case 0:
+//         $idAccount = 1;
+//         break;
+//         // mengembalikan seperti normal
+//     default:
+//         $idAccount++;
+//         break;
+// }
 
 
 
 //? Menggunakan nilai integer langsung tanpa mengonversi ke string
 ?>
 
+<?php 
+$idAccount = getNextAvailableAccountID();
+$idStaff = getNextAvailableStaffID();
+?>
 
 <!-- Modal -->
 <div class="modal fade" id="addStaffModal" tabindex="-1" aria-labelledby="addStaffModalLabel" aria-hidden="true">
@@ -160,9 +164,14 @@ switch ($idAccount) {
                             <input type="text" class="form-control" name="account_id" value="<?= $idAccount ?>" placeholder="Account ID" readonly>
                         </div>
                         <div class="col-12">
+                            <label for="" class="form-label">Staff ID</label>
+                            <input type="text" class="form-control" name="staff_id" value="<?= $idStaff ?>" placeholder="Staff ID" readonly>
+                        </div>
+                        <div class="col-12">
                             <label class="form-label">Staff Name</label>
                             <input type="text" name="staff_name" placeholder="Name" class="form-control" required>
                         </div>
+                        
                         <div class="col-12">
                             <label class="form-label">Staff Email</label>
                             <input type="text" name="staff_email" placeholder="nabildzikrika@gmail.com" class="form-control">
