@@ -32,41 +32,57 @@
 
 <script>
     // ================================================ Upload Multiple image js Start here ================================================
-    const fileInputMultiple = document.getElementById("upload-file-multiple");
-    const uploadedImgsContainer = document.querySelector(".uploaded-imgs-container");
+    document.querySelector("#file-upload-name").addEventListener("change", function(event) {
+        var fileInput = event.target;
+        var fileList = fileInput.files;
+        var ul = document.querySelector("#uploaded-img-names");
 
-    fileInputMultiple.addEventListener("change", (e) => {
-        const files = e.target.files;
+        // Check if a file has already been uploaded
+        if (ul.children.length > 0) {
+            alert('You can only upload one image.');
+            fileInput.value = ''; // Clear the file input
+            return;
+        }
 
-        Array.from(files).forEach(file => {
-            const src = URL.createObjectURL(file);
+        // Add show-uploaded-img-name class to the ul element if not already added
+        ul.classList.add("show-uploaded-img-name");
 
-            const imgContainer = document.createElement("div");
-            imgContainer.classList.add("position-relative", "h-120-px", "w-120-px", "border", "input-form-light", "radius-8", "overflow-hidden", "border-dashed", "bg-neutral-50");
+        // Append each uploaded file name as a list item with Font Awesome and Iconify icons
+        for (var i = 0; i < fileList.length; i++) {
+            var li = document.createElement("li");
+            li.classList.add("uploaded-image-name-list", "text-primary-600", "fw-semibold", "d-flex", "align-items-center", "gap-2");
 
-            const removeButton = document.createElement("button");
-            removeButton.type = "button";
-            removeButton.classList.add("uploaded-img__remove", "position-absolute", "top-0", "end-0", "z-1", "text-2xxl", "line-height-1", "me-8", "mt-8", "d-flex");
-            removeButton.innerHTML = '<iconify-icon icon="radix-icons:cross-2" class="text-xl text-danger-600"></iconify-icon>';
+            // Create the Link Iconify icon element
+            var iconifyIcon = document.createElement("iconify-icon");
+            iconifyIcon.setAttribute("icon", "ph:link-break-light");
+            iconifyIcon.classList.add("text-xl", "text-secondary-light");
 
-            const imagePreview = document.createElement("img");
-            imagePreview.classList.add("w-100", "h-100", "object-fit-cover");
-            imagePreview.src = src;
+            // Create the Cross Iconify icon element
+            var crossIconifyIcon = document.createElement("iconify-icon");
+            crossIconifyIcon.setAttribute("icon", "radix-icons:cross-2");
+            crossIconifyIcon.classList.add("remove-image", "text-xl", "text-secondary-light", "text-hover-danger-600");
 
-            imgContainer.appendChild(removeButton);
-            imgContainer.appendChild(imagePreview);
-            uploadedImgsContainer.appendChild(imgContainer);
+            // Add event listener to remove the image on click
+            crossIconifyIcon.addEventListener("click", (function(liToRemove) {
+                return function() {
+                    ul.removeChild(liToRemove); // Remove the corresponding list item
+                    fileInput.value = ''; // Clear the file input
+                };
+            })(li)); // Pass the current list item as a parameter to the closure
 
-            removeButton.addEventListener("click", () => {
-                URL.revokeObjectURL(src);
-                imgContainer.remove();
-            });
-        });
+            // Append both icons to the list item
+            li.appendChild(iconifyIcon);
 
-        // Clear the file input so the same file(s) can be uploaded again if needed
-        fileInputMultiple.value = "";
+            // Append the file name text to the list item
+            li.appendChild(document.createTextNode(" " + fileList[i].name));
+
+            li.appendChild(crossIconifyIcon);
+
+            // Append the list item to the unordered list
+            ul.appendChild(li);
+        }
     });
-    // ================================================ Upload Multiple image js End here  ================================================
+    // ================================================ Upload image & show it's name js end ================================================
 </script>
 
 <?php
