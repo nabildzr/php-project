@@ -98,7 +98,7 @@ if (isset($_POST['addMenu'])) {
 
                         </td>
                         <td>
-                           Rp.  <?= $menu['item_price'] ?>
+                            Rp. <?= $menu['item_price'] ?>
 
                         </td>
                         <td>
@@ -107,8 +107,7 @@ if (isset($_POST['addMenu'])) {
                         </td>
                         <td>
                             <!-- ternary operator -> jika image_url ada maka tampilkan image_url, jika tidak maka tampilkan blanknotfound -->
-
-                            <img style="width: 200px; height: 200px; object-fit: cover;" class="rounded" src="<?= $menu['item_image_url'] ?: 'https://i.pinimg.com/236x/52/48/c2/5248c280324fcda02107c062c423b601.jpg' ?>" alt="<?= $menu['item_name'] ?>">
+                            <img style="width: 200px; height: 200px; object-fit: cover;" class="rounded" src="../images/<?= $menu['item_image'] ?>" alt="Image">
 
                         </td>
                         <td>
@@ -133,7 +132,7 @@ if (isset($_POST['addMenu'])) {
 <div class="modal fade" id="addMenuModal" tabindex="-1" aria-labelledby="addMenuModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form method="POST" action="">
+            <form enctype="multipart/form-data" method="POST" action="">
                 <div class="modal-header">
                     <span class="d-flex gap-2 align-items-center">
                         <iconify-icon icon="material-symbols-light:menu-book-outline-rounded" class="text-2xl text-primary"></iconify-icon>
@@ -175,7 +174,7 @@ if (isset($_POST['addMenu'])) {
                             </select>
                         </div>
                         <div class="col-12">
-                            <label class="form-label">Item Caategory</label>
+                            <label class="form-label">Item Category</label>
                             <select name="menu_category" placeholder="Item Category" class="form-control">
                                 <option value="">Select Category</option>
 
@@ -192,7 +191,7 @@ if (isset($_POST['addMenu'])) {
 
                                 <!-- menerapkan -->
                                 <?php foreach ($enum2 as $value2): ?>
-                                    <option  value="<?= trim($value2, "'") ?>"><?= trim($value2, "'") ?></option>
+                                    <option value="<?= trim($value2, "'") ?>"><?= trim($value2, "'") ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -211,9 +210,19 @@ if (isset($_POST['addMenu'])) {
                             <textarea type="text" name="menu_description" placeholder="Enter Description" class="form-control"></textarea>
                         </div>
                         <div class="col-12">
-                            <label class="form-label">Image (URL ONLY)</label>
-                            <div class="input-group">
-                                <input type="text" name="menu_url" class="form-control" placeholder="https://">
+                            <label class="form-label">Image Menu</label>
+
+                            <div class="upload-image-wrapper d-flex align-items-center gap-3 flex-wrap">
+                                <div class="uploaded-imgs-container d-flex gap-3 flex-wrap"></div>
+
+                                <label class="upload-file-multiple h-120-px w-120-px border input-form-light radius-8 overflow-hidden border-dashed bg-neutral-50 bg-hover-neutral-200 d-flex align-items-center flex-column justify-content-center gap-1" for="upload-file-multiple">
+                                    <iconify-icon icon="solar:camera-outline" class="text-xl text-secondary-light"></iconify-icon>
+                                    <span class="fw-semibold text-secondary-light">Upload</span>
+                                    <input id="upload-file-multiple" type="file"
+
+                                        name="item_image"
+                                        multiple>
+                                </label>
                             </div>
                         </div>
 

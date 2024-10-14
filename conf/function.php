@@ -29,7 +29,7 @@ function addMembership($data)
     $registerDate = htmlspecialchars($data['register_date']);
     $password = htmlspecialchars($data['password']);
     $passwordhash = password_hash($password, PASSWORD_DEFAULT);
-    
+
     $query1 = "INSERT INTO accounts (email, register_date, phone_number, password) VALUES (
     '$email',
     '$registerDate',
@@ -46,13 +46,14 @@ function addMembership($data)
     '$idAccount
     )";
 
-        mysqli_query($conn, $query2);
-        
+    mysqli_query($conn, $query2);
+
 
     return mysqli_affected_rows($conn);
 }
 
-function editMembership($data) {
+function editMembership($data)
+{
     global $conn;
 
     $memberId = htmlspecialchars($data['member_id']);
@@ -71,12 +72,12 @@ function editMembership($data) {
 function addStaff($data)
 {
     global $conn;
-    
+
     $idAccount = htmlspecialchars($data['account_id']);
     $idStaff = htmlspecialchars($data['staff_id']);
     $staffName = htmlspecialchars($data['staff_name']);
     $staffPassword = htmlspecialchars($data['password']);
-    $passwordhash = password_hash ($staffPassword, PASSWORD_DEFAULT);
+    $passwordhash = password_hash($staffPassword, PASSWORD_DEFAULT);
     $staffEmail = htmlspecialchars($data['staff_email']);
     $staffRole = htmlspecialchars($data['staff_role']);
     $registerDate = htmlspecialchars($data['register_date']);
@@ -113,7 +114,8 @@ function addStaff($data)
     return mysqli_affected_rows($conn);
 }
 
-function editStaff($data) {
+function editStaff($data)
+{
     global $conn;
 
     $staffId = htmlspecialchars($data['staff_id']);
@@ -126,7 +128,7 @@ function editStaff($data) {
     $staffRoleOld = mysqli_query($conn, "SELECT staff_role FROM staff WHERE staff_id = '$staffId'");
 
     $query = $staffRole == $staffRoleOld ?
-    "UPDATE staff SET
+        "UPDATE staff SET
         staff_name = '$staffName',
         staff_email = '$staffEmail',
         staff_role = '$staffRole',
@@ -141,7 +143,7 @@ function editStaff($data) {
         WHERE staff_id = '$staffId'
     ";
 
-  
+
 
     mysqli_query($conn, $query);
 
@@ -149,38 +151,41 @@ function editStaff($data) {
 }
 
 // Function to get the next available account ID
-    function getNextAvailableAccountID() {
-        global $conn;
+function getNextAvailableAccountID()
+{
+    global $conn;
 
-        $sql = "SELECT MAX(account_id) as max_account_id FROM Accounts";
-        $result = mysqli_query($conn, $sql);
-        $row = mysqli_fetch_assoc($result);
-        $next_account_id = $row['max_account_id'] + 1;
-        return $next_account_id;
-    }
+    $sql = "SELECT MAX(account_id) as max_account_id FROM Accounts";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($result);
+    $next_account_id = $row['max_account_id'] + 1;
+    return $next_account_id;
+}
 
-    // Function to get the next available Staff ID
-    function getNextAvailableStaffID() {
-        global $conn;
+// Function to get the next available Staff ID
+function getNextAvailableStaffID()
+{
+    global $conn;
 
-        $sql = "SELECT MAX(staff_id) as max_staff_id FROM Staff";
-        $result = mysqli_query($conn, $sql);
-        $row = mysqli_fetch_assoc($result);
-        $next_staff_id = $row['max_staff_id'] + 1;
-        return $next_staff_id;
-    }
+    $sql = "SELECT MAX(staff_id) as max_staff_id FROM Staff";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($result);
+    $next_staff_id = $row['max_staff_id'] + 1;
+    return $next_staff_id;
+}
 
 
-    // Function to get the next available Staff ID
-    function getNextAvailableMemberID() {
-        global $conn;
+// Function to get the next available Staff ID
+function getNextAvailableMemberID()
+{
+    global $conn;
 
-        $sql = "SELECT MAX(member_id) as max_member_id FROM memberships";
-        $result = mysqli_query($conn, $sql);
-        $row = mysqli_fetch_assoc($result);
-        $next_member_id = $row['max_member_id'] + 1;
-        return $next_member_id;
-    }
+    $sql = "SELECT MAX(member_id) as max_member_id FROM memberships";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($result);
+    $next_member_id = $row['max_member_id'] + 1;
+    return $next_member_id;
+}
 
 // this is for add menu
 function addMenu($data)
@@ -193,13 +198,72 @@ function addMenu($data)
     $menuCategory = htmlspecialchars($data['menu_category']);
     $menuPrice = htmlspecialchars($data['menu_price']);
     $menuDescription = htmlspecialchars($data['menu_description']);
-    $menuUrl = htmlspecialchars($data['menu_url']);
+    
+    $menuImage = uploadGambar() ;
+    if (!$menuImage) {
+        return false;
+    }
 
-    $query = "INSERT INTO menu (item_id, item_name, item_type, item_category, item_price, item_description, item_image_url) VALUES(
-        '$menuID', '$menuName', '$menuType', '$menuCategory', $menuPrice, '$menuDescription', '$menuUrl'
-        )";
+    $query = "INSERT INTO menu (item_id, item_name, item_type, item_category, item_price, item_description, item_image) VALUES(
+        '$menuID', '$menuName', '$menuType', '$menuCategory', $menuPrice, '$menuDescription', '$menuImage'
+    )";
+
+  
 
     mysqli_query($conn, $query);
 
+    // $queryImage = "INSERT INTO images (image_name) VALUES ('$menuName') WHERE item_id = '$menuID'";
+
+
+    // $image = file_get_contents(__DIR__ ."\images\$menuImage");
+
+    // $stmt = mysqli_prepare($conn, $queryImage);
+
+    // mysqli_stmt_bind_param($stmt, "ss", $menuName);
+
     return mysqli_affected_rows($conn);
+}
+
+
+function uploadGambar() {
+
+    // ambil data file gambar dari variable $_FILES
+    $namaFile = $_FILES['item_image']['name'];
+    $ukuranFile = $_FILES['item_image']['size'];
+    $error = $_FILES['item_image']['error'];
+    $tmpName = $_FILES['item_image']['tmp_name'];
+
+    if ($error === 4) {
+        echo "<script>alert('None Selected')</script>";
+        return false;
+    }
+
+    // cek apakah yang diupload adalah gambar
+
+    $ekstensiGambarValid = ['jpg', 'jpeg', 'png', 'gif'];
+    $ekstensiGambar = explode('.', $namaFile);
+    $ekstensiGambar = strtolower(end($ekstensiGambar));
+
+    if (!in_array($ekstensiGambar, $ekstensiGambarValid)) {
+        echo "<script>alert('Format gambar yang diupload salah')</script>";
+        return false;
+    }
+
+    // cek jika ukuran file terlalu besar
+    if ($ukuranFile > 15000000) {
+        echo "<script>alert('Ukuran gambar terlalu besar')</script>";
+        return false;
+    }
+
+    // generate nama baru untuk gambar
+    $namaFileBaru = uniqid(). '.'. $ekstensiGambar;
+    // $namaFileBaru = uniqid();
+    // $namaFileBaru .= '.';
+    // $namaFileBaru .= $ekstensiGambar;
+
+
+    // upload gambar ke folder images
+    move_uploaded_file($tmpName, '../images/'. $namaFileBaru);
+   
+    return $namaFileBaru;
 }
