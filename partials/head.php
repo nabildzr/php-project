@@ -30,7 +30,9 @@
     <!-- file upload css -->
     <link rel="stylesheet" href="/admin-restaurant/assets/css/lib/file-upload.css">
     <!-- sweetAlert -->
-       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    
 
     <link rel=" stylesheet" href="/admin-restaurant/assets/css/lib/audioplayer.css">
     <!-- main css -->

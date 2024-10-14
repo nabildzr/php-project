@@ -56,7 +56,7 @@
                                 <label class="upload-file-multiple h-120-px w-120-px border input-form-light radius-8 overflow-hidden border-dashed bg-neutral-50 bg-hover-neutral-200 d-flex align-items-center flex-column justify-content-center gap-1" for="upload-file-multiple">
                                     <iconify-icon icon="solar:camera-outline" class="text-xl text-secondary-light"></iconify-icon>
                                     <span class="fw-semibold text-secondary-light">Upload</span>
-                                    <input id="upload-file-multiple" type="file"  multiple>
+                                    <input id="upload-file-multiple" type="file" hidden multiple>
                                 </label>
                             </div>
 

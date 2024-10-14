@@ -251,6 +251,10 @@ if (isset($_POST['addMenu'])) {
                 myInput.focus()
                 });
                 </script>
+
+                <script>
+                
+                </script>
                 
                 '; ?>
 
