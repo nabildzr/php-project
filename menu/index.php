@@ -158,18 +158,10 @@ if (isset($_POST['addMenu'])) {
 
                                 <!-- mengambil isi/values length dari enum type -->
                                 <?php
-                                $query = "SHOW COLUMNS FROM menu LIKE 'item_type'";
-                                $result = $conn->query($query);
-                                $row = $result->fetch_assoc();
-                                $type = $row['Type'];
-                                preg_match('/^enum\((.*)\)$/', $type, $matches);
-                                $enum = explode(',', $matches[1]);
-
-                                ?>
-
-                                <!-- menerapkan -->
-                                <?php foreach ($enum as $value): ?>
-                                    <option value="<?= trim($value, "'") ?>"><?= trim($value, "'") ?></option>
+                                
+                                $enumValues = getEnumValues('menu', 'item_type');
+                                foreach ($enumValues as $value): ?>
+                                    <option name="menu_type" value="<?= $value ?>"><?= $value ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -212,13 +204,19 @@ if (isset($_POST['addMenu'])) {
                         <div class="col-12">
                             <label class="form-label">Image Menu</label>
 
-                            <div class="">
-                                <label for="file-upload-name" class="mb-16 border border-neutral-600 fw-medium text-secondary-light px-16 py-12 radius-12 d-inline-flex align-items-center gap-2 bg-hover-neutral-200">
-                                    <iconify-icon icon="solar:upload-linear" class="text-xl"></iconify-icon>
-                                    Click to upload
-                                    <input type="file" class="form-control w-auto mt-24 form-control-lg" id="file-upload-name" name="item_image" hidden>
+                            <div class="upload-image-wrapper d-flex align-items-center gap-3">
+                                <div class="uploaded-img d-none position-relative h-120-px w-120-px border input-form-light radius-8 overflow-hidden border-dashed bg-neutral-50">
+                                    <button type="button" class="uploaded-img__remove position-absolute top-0 end-0 z-1 text-2xxl line-height-1 me-8 mt-8 d-flex">
+                                        <iconify-icon icon="radix-icons:cross-2" class="text-xl text-danger-600"></iconify-icon>
+                                    </button>
+                                    <img id="uploaded-img__preview" class="w-100 h-100 object-fit-cover" src="assets/images/user.png" alt="image">
+                                </div>
+
+                                <label class="upload-file h-120-px w-120-px border input-form-light radius-8 overflow-hidden border-dashed bg-neutral-50 bg-hover-neutral-200 d-flex align-items-center flex-column justify-content-center gap-1" for="upload-file">
+                                    <iconify-icon icon="solar:camera-outline" class="text-xl text-secondary-light"></iconify-icon>
+                                    <span class="fw-semibold text-secondary-light">Upload</span>
+                                    <input id="upload-file" type="file" name="item_image">
                                 </label>
-                                <ul id="uploaded-img-names" class=""></ul>
                             </div>
                         </div>
 

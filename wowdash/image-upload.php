@@ -56,7 +56,7 @@
                                 <label class="upload-file-multiple h-120-px w-120-px border input-form-light radius-8 overflow-hidden border-dashed bg-neutral-50 bg-hover-neutral-200 d-flex align-items-center flex-column justify-content-center gap-1" for="upload-file-multiple">
                                     <iconify-icon icon="solar:camera-outline" class="text-xl text-secondary-light"></iconify-icon>
                                     <span class="fw-semibold text-secondary-light">Upload</span>
-                                    <input id="upload-file-multiple" type="file" hidden multiple>
+                                    <input id="upload-file-multiple" type="file" hidden>
                                 </label>
                             </div>
 
@@ -72,7 +72,7 @@
                             <label for="file-upload-name" class="mb-16 border border-neutral-600 fw-medium text-secondary-light px-16 py-12 radius-12 d-inline-flex align-items-center gap-2 bg-hover-neutral-200">
                                 <iconify-icon icon="solar:upload-linear" class="text-xl"></iconify-icon>
                                 Click to upload
-                                <input type="file" class="form-control w-auto mt-24 form-control-lg" id="file-upload-name" multiple hidden>
+                                <input type="file" class="form-control w-auto mt-24 form-control-lg" id="file-upload-name" multiple >
                             </label>
                             <ul id="uploaded-img-names" class=""></ul>
                         </div>

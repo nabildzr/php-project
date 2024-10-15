@@ -250,8 +250,11 @@ function uploadGambar() {
     }
 
     // cek jika ukuran file terlalu besar
-    if ($ukuranFile > 15000000) {
-        echo "<script>alert('Ukuran gambar terlalu besar')</script>";
+    if ($ukuranFile > 1500000) {
+        echo "
+        <script>
+            alert('File size too big.')
+        </script>";
         return false;
     }
 
@@ -266,4 +269,20 @@ function uploadGambar() {
     move_uploaded_file($tmpName, '../images/'. $namaFileBaru);
    
     return $namaFileBaru;
+}
+
+
+// 
+function getEnumValues($table, $column) {
+    global $conn;
+
+    $query = "SHOW COLUMNS FROM $table LIKE '$column'";
+    $result = $conn->query($query);
+    $row = $result->fetch_assoc();
+    $type = $row['Type'];
+    preg_match('/^enum\((.*)\)$/', $type, $matches);
+    $enum = explode(',', $matches[1]);
+    return array_map(function($value) {
+        return trim($value, "'");
+    }, $enum);
 }

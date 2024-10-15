@@ -31,58 +31,25 @@
 <script src="/admin-restaurant/assets/js/app.js"></script>
 
 <script>
-    // ================================================ Upload Multiple image js Start here ================================================
-    document.querySelector("#file-upload-name").addEventListener("change", function(event) {
-        var fileInput = event.target;
-        var fileList = fileInput.files;
-        var ul = document.querySelector("#uploaded-img-names");
+    // =============================== Upload Single Image js start here ================================================
+    const fileInput = document.getElementById("upload-file");
+    const imagePreview = document.getElementById("uploaded-img__preview");
+    const uploadedImgContainer = document.querySelector(".uploaded-img");
+    const removeButton = document.querySelector(".uploaded-img__remove");
 
-        // Check if a file has already been uploaded
-        if (ul.children.length > 0) {
-            alert('You can only upload one image.');
-            fileInput.value = ''; // Clear the file input
-            return;
-        }
-
-        // Add show-uploaded-img-name class to the ul element if not already added
-        ul.classList.add("show-uploaded-img-name");
-
-        // Append each uploaded file name as a list item with Font Awesome and Iconify icons
-        for (var i = 0; i < fileList.length; i++) {
-            var li = document.createElement("li");
-            li.classList.add("uploaded-image-name-list", "text-primary-600", "fw-semibold", "d-flex", "align-items-center", "gap-2");
-
-            // Create the Link Iconify icon element
-            var iconifyIcon = document.createElement("iconify-icon");
-            iconifyIcon.setAttribute("icon", "ph:link-break-light");
-            iconifyIcon.classList.add("text-xl", "text-secondary-light");
-
-            // Create the Cross Iconify icon element
-            var crossIconifyIcon = document.createElement("iconify-icon");
-            crossIconifyIcon.setAttribute("icon", "radix-icons:cross-2");
-            crossIconifyIcon.classList.add("remove-image", "text-xl", "text-secondary-light", "text-hover-danger-600");
-
-            // Add event listener to remove the image on click
-            crossIconifyIcon.addEventListener("click", (function(liToRemove) {
-                return function() {
-                    ul.removeChild(liToRemove); // Remove the corresponding list item
-                    fileInput.value = ''; // Clear the file input
-                };
-            })(li)); // Pass the current list item as a parameter to the closure
-
-            // Append both icons to the list item
-            li.appendChild(iconifyIcon);
-
-            // Append the file name text to the list item
-            li.appendChild(document.createTextNode(" " + fileList[i].name));
-
-            li.appendChild(crossIconifyIcon);
-
-            // Append the list item to the unordered list
-            ul.appendChild(li);
+    fileInput.addEventListener("change", (e) => {
+        if (e.target.files.length) {
+            const src = URL.createObjectURL(e.target.files[0]);
+            imagePreview.src = src;
+            uploadedImgContainer.classList.remove("d-none");
         }
     });
-    // ================================================ Upload image & show it's name js end ================================================
+    removeButton.addEventListener("click", () => {
+        imagePreview.src = "";
+        uploadedImgContainer.classList.add("d-none");
+        fileInput.value = "";
+    });
+    // =============================== Upload Single Image js End here ================================================
 </script>
 
 <?php
