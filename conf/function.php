@@ -118,34 +118,46 @@ function editStaff($data)
 {
     global $conn;
 
+    $accountId = htmlspecialchars($data['account_id']);
     $staffId = htmlspecialchars($data['staff_id']);
     $staffName = htmlspecialchars($data['staff_name']);
-    $staffEmail = htmlspecialchars($data['staff_email']);
+    $email = htmlspecialchars($data['email']);
     $staffRole = htmlspecialchars($data['staff_role']);
     $registerDate = htmlspecialchars($data['register_date']);
-    $staffPhone = htmlspecialchars($data['staff_phone']);
+    $phoneNumber = htmlspecialchars($data['phone_number']);
+
+    // Fatal error: Uncaught mysqli_sql_exception: Data truncated for column 'staff_role' at row 1 in C:\laragon\www\admin-restaurant\conf\function.php:133 Stack trace: #0 C:\laragon\www\admin-restaurant\conf\function.php(133): mysqli_query(Object(mysqli), 'UPDATE staff SE...') #1 C:\laragon\www\admin-restaurant\staff\edit-staff.php(15): editStaff(Array) #2 {main} thrown in C:\laragon\www\admin-restaurant\conf\function.php on line 133
+
+    // untuk menghindari error tersebut maka di cek dulu apakah role yang di inputkan masih sama dengan sebelumnya jika masih sama maka column role record nya tidak akan di update
 
     $staffRoleOld = mysqli_query($conn, "SELECT staff_role FROM staff WHERE staff_id = '$staffId'");
 
-    $query = $staffRole == $staffRoleOld ?
-        "UPDATE staff SET
-        staff_name = '$staffName',
-        staff_email = '$staffEmail',
-        staff_role = '$staffRole',
-        register_date = '$registerDate',
-        staff_phone = '$staffPhone'
-        WHERE staff_id = '$staffId'
-    " : "UPDATE staff SET
-        staff_name = '$staffName',
-        staff_email = '$staffEmail',
-        register_date = '$registerDate',
-        staff_phone = '$staffPhone'
-        WHERE staff_id = '$staffId'
-    ";
+
+    // $queryStaff = ($staffRole === $staffRoleOld) ? "UPDATE staff SET staff_name = '$staffName', staff_role = '$staffRole' WHERE staff_id = $staffId
+    //     " : "UPDATE staff SET staff_name = '$staffName', staff_role = '$staffRole' WHERE staff_id = $staffId
+    //     ";
+
+    if ($staffRole === $staffRoleOld) {
+        $queryStaff = "UPDATE staff SET staff_name = '$staffName', staff_role = '$staffRole' WHERE staff_id = $staffId
+        ";
+    } else {
+        $queryStaff = "UPDATE staff SET staff_name = '$staffName', staff_role = '$staffRole' WHERE staff_id = $staffId
+        ";
+    }
+
+    mysqli_query($conn, $queryStaff);
 
 
+    $queryAccount = "UPDATE  accounts SET 
+   email = '$email',
+   register_date =  '$registerDate',
+   phone_number = '$phoneNumber'
+   WHERE account_id = $accountId
+   ";
 
-    mysqli_query($conn, $query);
+
+    mysqli_query($conn, $queryAccount);
+
 
     return mysqli_affected_rows($conn);
 }
@@ -198,17 +210,18 @@ function addMenu($data)
     $menuCategory = htmlspecialchars($data['menu_category']);
     $menuPrice = htmlspecialchars($data['menu_price']);
     $menuDescription = htmlspecialchars($data['menu_description']);
-    
-    $menuImage = uploadGambar() ;
+
+    $menuImage = uploadGambar();
     if (!$menuImage) {
         return false;
     }
+
 
     $query = "INSERT INTO menu (item_id, item_name, item_type, item_category, item_price, item_description, item_image) VALUES(
         '$menuID', '$menuName', '$menuType', '$menuCategory', $menuPrice, '$menuDescription', '$menuImage'
     )";
 
-  
+
 
     mysqli_query($conn, $query);
 
@@ -225,7 +238,8 @@ function addMenu($data)
 }
 
 
-function uploadGambar() {
+function uploadGambar()
+{
 
     // ambil data file gambar dari variable $_FILES
     $namaFile = $_FILES['item_image']['name'];
@@ -250,7 +264,7 @@ function uploadGambar() {
     }
 
     // cek jika ukuran file terlalu besar
-    if ($ukuranFile > 1500000) {
+    if ($ukuranFile > 10000000) {
         echo "
         <script>
             alert('File size too big.')
@@ -259,21 +273,22 @@ function uploadGambar() {
     }
 
     // generate nama baru untuk gambar
-    $namaFileBaru = uniqid(). '.'. $ekstensiGambar;
+    $namaFileBaru = uniqid() . '.' . $ekstensiGambar;
     // $namaFileBaru = uniqid();
     // $namaFileBaru .= '.';
     // $namaFileBaru .= $ekstensiGambar;
 
 
     // upload gambar ke folder images
-    move_uploaded_file($tmpName, '../images/'. $namaFileBaru);
-   
+    move_uploaded_file($tmpName, '../images/' . $namaFileBaru);
+
     return $namaFileBaru;
 }
 
 
 // 
-function getEnumValues($table, $column) {
+function getEnumValues($table, $column)
+{
     global $conn;
 
     $query = "SHOW COLUMNS FROM $table LIKE '$column'";
@@ -282,7 +297,7 @@ function getEnumValues($table, $column) {
     $type = $row['Type'];
     preg_match('/^enum\((.*)\)$/', $type, $matches);
     $enum = explode(',', $matches[1]);
-    return array_map(function($value) {
+    return array_map(function ($value) {
         return trim($value, "'");
     }, $enum);
 }

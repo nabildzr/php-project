@@ -34,7 +34,7 @@ if (isset($_GET['staff_id'])) {
         </script>
 <?php
     } else {
-        $data = query("SELECT * FROM staff WHERE staff_id = $staffId")[0];
+        $data = query("SELECT * FROM staff INNER JOIN accounts ON staff.account_id = accounts.account_id WHERE staff.staff_id = $staffId")[0];
     }
 }
 
@@ -52,8 +52,12 @@ if (isset($_GET['staff_id'])) {
 
 
             <div class="col-12">
+                <label class="form-label">Account ID</label>
+                <input class="form-control" type="text" value="<?= $staffId ?>" name="account_id" placeholder="Account ID" value="<?= $data['account_id'] ?>" readonly>
+            </div>
+            <div class="col-12">
                 <label class="form-label">Staff ID</label>
-                <input class="form-control" type="text" value="<?= $staffId ?>" name="staff_id" placeholder="ID" value="<?= $data['staff_name'] ?>" readonly>
+                <input class="form-control" type="text" value="<?= $staffId ?>" name="staff_id" placeholder="Staff ID" value="<?= $data['staff_name'] ?>" readonly>
             </div>
             <div class="col-12">
                 <label class="form-label">Staff Name</label>
@@ -61,7 +65,7 @@ if (isset($_GET['staff_id'])) {
             </div>
             <div class="col-12">
                 <label class="form-label">Staff Email</label>
-                <input type="text" name="staff_email" value="<?= $data['staff_email']?>" placeholder="nabildzikrika@gmail.com" class="form-control">
+                <input type="text" name="email" value="<?= $data['email']?>" placeholder="nabildzikrika@gmail.com" class="form-control">
             </div>
           
             <div class="col-12">
@@ -70,15 +74,13 @@ if (isset($_GET['staff_id'])) {
                     <option value="" hidden><?= $data['staff_role'] ?></option>
 
                     <!-- mengambil isi/values length dari enum type -->
-                    <?php
-                    $query = "SHOW COLUMNS FROM staff LIKE 'staff_role'";
-                    $result = $conn->query($query);
-                    $row = $result->fetch_assoc();
-                    $type = $row['Type'];
-                    preg_match('/^enum\((.*)\)$/', $type, $matches);
-                    $enum = explode(',', $matches[1]);
+    
+                    <?php 
+                    
+                    $enum = getEnumValues('staff', 'staff_role');
 
                     ?>
+                    
 
                     <!-- menerapkan -->
                     <?php foreach ($enum as $value): ?>
@@ -88,12 +90,12 @@ if (isset($_GET['staff_id'])) {
             </div>
             <div class="col-12">
                 <label class="form-label">Register Date</label>
-                <input type="date" name="register_date" value="<?= $data['register_date'] ?>" class="form-control">
+                <input type="date" name="register_date" value="<?= $data['register_date'] ?>" class="form-control" >
             </div>
 
             <div class="col-12">
                 <label for="" class="form-label">Staff Phone Number</label>
-                <input type="number" class="form-control" value="<?= $data['staff_phone'] ?>" name="staff_phone" placeholder="+62 12345678910">
+                <input type="number" class="form-control" value="<?= $data['phone_number'] ?>" name="phone_number" placeholder="+62 12345678910">
             </div>
             <div class="modal-footer gap-10">
                 <a href="index.php">
@@ -107,32 +109,35 @@ if (isset($_GET['staff_id'])) {
 </div>
 
 <?php
-//? Mengambil nilai account_id terbesar dan menginisialisasinya sebagai kodeTerbesar
-$query = mysqli_query($conn, "SELECT max(account_id) as kodeTerbesar FROM memberships");
+// //? Mengambil nilai account_id terbesar dan menginisialisasinya sebagai kodeTerbesar
+// $query = mysqli_query($conn, "SELECT max(account_id) as kodeTerbesar FROM memberships");
 
-//? Mengambil hasil query sebagai array
-$data = mysqli_fetch_array($query);
-
-
-
-$idAccount = (int) $data['kodeTerbesar']; //? Mengonversi langsung ke integer
-
-switch ($idAccount) {
-        // jika 0 maka ganti ke 1
-    case 0:
-        $idAccount = 1;
-        break;
-        // mengembalikan seperti normal
-    default:
-        $idAccount++;
-        break;
-}
+// //? Mengambil hasil query sebagai array
+// $data = mysqli_fetch_array($query);
 
 
 
-//? Menggunakan nilai integer langsung tanpa mengonversi ke string
+// $idAccount = (int) $data['kodeTerbesar']; //? Mengonversi langsung ke integer
+
+// switch ($idAccount) {
+//         // jika 0 maka ganti ke 1
+//     case 0:
+//         $idAccount = 1;
+//         break;
+//         // mengembalikan seperti normal
+//     default:
+//         $idAccount++;
+//         break;
+// }
+
+
+
+// //? Menggunakan nilai integer langsung tanpa mengonversi ke string
+// 
 ?>
 
+<?php 
+?>
 
 <!-- Modal -->
 <div class="modal fade" id="addMemberModal" tabindex="-1" aria-labelledby="addMemberModalLabel" aria-hidden="true">
@@ -150,7 +155,7 @@ switch ($idAccount) {
                 <div class="modal-body card">
                     <div class="row gy-3">
                         <div class="col-12">
-                            <label class="form-label">Membership Name</label>
+                            <label class="form-label">Staff Name</label>
                             <input type="text" name="member_name" placeholder="Name" class="form-control">
                         </div>
                         <div class="col-12">

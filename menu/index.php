@@ -153,16 +153,18 @@ if (isset($_POST['addMenu'])) {
                         </div>
                         <div class="col-12">
                             <label class="form-label">Item Type</label>
-                            <select name="menu_type" placeholder="Item Type" class="form-control">
+                            <select name="menu_type" placeholder="Item Type" class="form-control"  required>
                                 <option value="">Select Type</option>
+                                <option value="Steak and Ribs">Steak and Ribs</option>
+                                <option value="Seafood">Seafood</option>
 
                                 <!-- mengambil isi/values length dari enum type -->
-                                <?php
+                                <!-- <?php
                                 
                                 $enumValues = getEnumValues('menu', 'item_type');
                                 foreach ($enumValues as $value): ?>
                                     <option name="menu_type" value="<?= $value ?>"><?= $value ?></option>
-                                <?php endforeach; ?>
+                                <?php endforeach; ?> -->
                             </select>
                         </div>
                         <div class="col-12">
@@ -215,7 +217,7 @@ if (isset($_POST['addMenu'])) {
                                 <label class="upload-file h-120-px w-120-px border input-form-light radius-8 overflow-hidden border-dashed bg-neutral-50 bg-hover-neutral-200 d-flex align-items-center flex-column justify-content-center gap-1" for="upload-file">
                                     <iconify-icon icon="solar:camera-outline" class="text-xl text-secondary-light"></iconify-icon>
                                     <span class="fw-semibold text-secondary-light">Upload</span>
-                                    <input id="upload-file" type="file" name="item_image">
+                                    <input id="upload-file" type="file" name="item_image" required>
                                 </label>
                             </div>
                         </div>
