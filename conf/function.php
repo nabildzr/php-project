@@ -43,7 +43,7 @@ function addMembership($data)
     $idMember,
     '$memberName',
     '$points',
-    '$idAccount
+    $idAccount
     )";
 
     mysqli_query($conn, $query2);
