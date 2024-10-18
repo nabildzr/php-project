@@ -4,7 +4,7 @@ $host = 'localhost';
 $user = 'root';
 $password = '';
 
-$database = 'db_restaurant_v1.1';
+$database = 'db_restaurant_v1_2';
 
 $conn = mysqli_connect($host, $user, $password, $database);
 

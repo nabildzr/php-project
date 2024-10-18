@@ -40,7 +40,7 @@ function addMembership($data)
     mysqli_query($conn, $query1);
 
     $query2 = "INSERT INTO memberships (member_id, member_name, points, account_id) VALUES (
-    '$idMember',
+    $idMember,
     '$memberName',
     '$points',
     '$idAccount
