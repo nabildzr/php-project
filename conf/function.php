@@ -1,5 +1,6 @@
 <?php
 require 'connection.php';
+require 'security.php';
 
 function query($query)
 {
@@ -52,7 +53,7 @@ function addMembership($data)
     return mysqli_affected_rows($conn);
 }
 
-function editMembership($data)
+function editMembership2($data)
 {
     global $conn;
 

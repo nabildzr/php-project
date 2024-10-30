@@ -1,4 +1,4 @@
- <!--<
+<?php
 
 $title = 'Edit Memberships';
 $subTitle = 'Restaurant';
@@ -7,21 +7,21 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/admin-restaurant/conf/function.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/admin-restaurant/conf/connection.php';
 
 ?>
-<!-- 
-< include_once $_SERVER['DOCUMENT_ROOT'] . '/admin-restaurant/partials/layouts/layoutTop.php'; ?>
 
-<
+<?php include_once $_SERVER['DOCUMENT_ROOT'] . '/admin-restaurant/partials/layouts/layoutTop.php'; ?>
+
+<?php
 if (isset($_POST['confirm'])) {
-    if (editMembership($_POST) > 0) {
+    if (editMembership2($_POST) > 0) {
 ?>
         <script>
-            window.location.href = "/admin-restaurant/memberships/?alert=20";
+            window.location.href = "/admin-restaurant/memberships2/?alert=20";
         </script>
-    <   } else { ?>
+    <?php    } else { ?>
         <script>
-            window.location.href = "/admin-restaurant/memberships/edit-members?member_id=<?= $memberId ?>&alert=21";
+            window.location.href = "/admin-restaurant/memberships2/edit-members?member_id=<?= $memberId ?>&alert=21";
         </script>
-    <
+    <?php
     }
 } 
 
@@ -30,16 +30,16 @@ if (isset($_GET['member_id'])) {
     if (empty($_GET['member_id'])) {
     ?>
         <script>
-            window.location.href = "/admin-restaurant/memberships/?alert=21";
+            window.location.href = "/admin-restaurant/memberships2/?alert=21";
         </script>
-<
+<?php
     } else {
-        $data = query("SELECT * FROM memberships WHERE member_id = $memberId")[0];
+        $data = query("SELECT * FROM memberships2 WHERE member_id = $memberId")[0];
 
     }
 }
 
-?> -->
+?>
 
 
 <div class="card basic-data-table">
@@ -78,7 +78,7 @@ if (isset($_GET['member_id'])) {
 
 <?php
 //? Mengambil nilai account_id terbesar dan menginisialisasinya sebagai kodeTerbesar
-$query = mysqli_query($conn, "SELECT max(account_id) as kodeTerbesar FROM memberships");
+$query = mysqli_query($conn, "SELECT max(account_id) as kodeTerbesar FROM memberships2");
 
 //? Mengambil hasil query sebagai array
 $data = mysqli_fetch_array($query);
@@ -161,4 +161,4 @@ switch ($idAccount) {
                 
                 '; ?>
 
-<?php include_once $_SERVER['DOCUMENT_ROOT'] . '/admin-restaurant/partials/layouts/layoutBottom.php'; ?>  -->
+<?php include_once $_SERVER['DOCUMENT_ROOT'] . '/admin-restaurant/partials/layouts/layoutBottom.php'; ?>
