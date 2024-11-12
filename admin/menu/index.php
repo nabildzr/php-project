@@ -114,7 +114,7 @@ if (isset($_POST['addMenu'])) {
                         <td class="text-center">
 
                               <!-- if discount_status == 1 then show "Yes", else show "No" -->
-                              <?= $menu['discount_status'] ? '<span class="bg-success-focus text-success-main px-32 py-4 rounded-pill fw-medium text-sm">YES</span>' : '<span class="bg-danger-focus text-danger-main px-32 py-4 rounded-pill fw-medium text-sm">NO</span>'  ?>
+                              <?= $menu['discount_status'] ? '<span class="bg-success-focus text-success-main px-32 py-4 rounded-pill fw-medium text-sm">Active</span>' : '<span class="bg-danger-focus text-danger-main px-32 py-4 rounded-pill fw-medium text-sm">Inactive</span>'  ?>
 
                         </td>
                         <td class="text-center">

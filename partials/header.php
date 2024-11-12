@@ -123,9 +123,7 @@ if (isset($_SESSION['isLogin']) == true) {
                         <ul>
                             <li><a href="/restaurant/client/">Dashboard</a></li>
                             <li><a href="javascript:0;">Points: <?= htmlspecialchars($member['points']) ?></a></li>
-                            <li><a href="shop-single.html">Product Single</a></li>
-                            <li><a href="shop-cart.html">Cart Page</a></li>
-                            <li><a href="shop-checkout.html">Checkout</a></li>
+                            <li><a href="/restaurant/logout.php">Logout</a></li>
                         </ul>
                     </li>
                 <?php } ?>
