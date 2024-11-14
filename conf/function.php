@@ -38,4 +38,62 @@ function getEnumValues($table, $column)
 }
 
 
-?>
+function getNextAvailableAccountID()
+{
+    global $conn;
+    $query = "SELECT MAX(account_id) as max_account_id FROM Accounts";
+    $result = mysqli_query($conn, $query);
+    $row = mysqli_fetch_assoc($result);
+    $next_account_id = $row['max_account_id'] + 1;
+    return $next_account_id;
+}
+
+function getNextAvailableMemberID()
+{
+    global $conn;
+    $query = "SELECT MAX(member_id) as max_member_id FROM memberships";
+    $result = mysqli_query($conn, $query);
+    $row = mysqli_fetch_assoc($result);
+    $next_member_id = $row['max_member_id'] + 1;
+    return $next_member_id;
+}
+
+
+function register($data)
+{
+    global $conn;
+    $accountId = getNextAvailableAccountID();
+    $memberId = getNextAvailableMemberID();
+
+    $username = htmlspecialchars($data['username']);
+    $password = htmlspecialchars($data['password']);
+    $email = htmlspecialchars($data['email']);
+    $passwordhash = password_hash($password, PASSWORD_DEFAULT);
+
+    $queryEmail = query("SELECT email FROM accounts WHERE email = '$email'");
+
+    if (count($queryEmail) > 0) {
+        echo "<script>window.location.href = '/restaurant/register/?reg=-1'</script>";
+        return false;
+    }
+
+    $registerDate = date('Y-m-d');
+
+    $queryAccount = "INSERT INTO accounts (email, password, register_date) VALUES (
+    '$email',
+    '$passwordhash',
+    '$registerDate'
+  )";
+
+    mysqli_query($conn, $queryAccount);
+    $queryMembership = "INSERT INTO memberships (member_id, member_name, account_id) VALUES (
+    $memberId,
+    '$username',
+    $accountId
+    )
+    ";
+    mysqli_query($conn, $queryMembership);
+
+
+    return mysqli_affected_rows($conn);
+}

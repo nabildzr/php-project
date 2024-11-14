@@ -5,9 +5,9 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/restaurant/conf/function.php';
 
 if (isset($_SESSION['isLogin']) == true) {
 ?>
-    <script>
-        window.location.href = "../index.php"
-    </script>
+<script>
+window.location.href = "../index.php"
+</script>
 <?php
 }
 
@@ -19,10 +19,11 @@ if (isset($_SESSION['isLogin']) == true) {
 
 
 
-    <form action="log-check.php" method="post" >
+    <form action="log-check.php" method="post">
         <div style="background: black; padding: 100px;  height: 100vh; justify-content: center; display: flex;">
             <div class="submit ">
-                <h3 class="main_question" style="color: white;"><strong>100%</strong> Please fill with your details to access member area</h3>
+                <h3 class="main_question" style="color: white;"><strong>100%</strong> Please fill with your details to
+                    access member area</h3>
                 <div class="col-lg-12">
 
                     <div class="form-group">
@@ -36,10 +37,16 @@ if (isset($_SESSION['isLogin']) == true) {
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <label class="" style="color: white;">Don't have an account? <a
+                            href="/restaurant/register/">Register</a></label>
+                </div>
+
 
 
                 <div class="form-group terms">
-                    <label class="container_check" style="color: white;">Please accept our <a href="#" data-bs-toggle="modal" data-bs-target="#terms-txt">Terms and conditions</a>
+                    <label class="container_check" style="color: white;">Please accept our <a href="#"
+                            data-bs-toggle="modal" data-bs-target="#terms-txt">Terms and conditions</a>
                         <input type="checkbox" name="terms" value="Yes" class="required">
                         <span class="checkmark"></span>
                     </label>
