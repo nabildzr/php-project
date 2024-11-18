@@ -59,6 +59,20 @@ function getNextAvailableMemberID()
 }
 
 
+// hanya perlu mengisi parameter nya saja jadi function ini dapat di gunakan lagi tidak hanya untuk member_id, account_id saja tapi hanya dengan 1 function bisa di gunakan lagi untuk lain hal NextAvailable
+function getNextAvailable($column, $as, $table)
+{
+    global $conn;
+
+
+    $query = "SELECT MAX(" . $column . ") as " . $as . " FROM " . $table;
+    $result = mysqli_query($conn, $query);
+    $row = mysqli_fetch_assoc($result);
+    $next_member_id = $row[$as] + 1;
+    return $next_member_id;
+}
+
+
 function register($data)
 {
     global $conn;
@@ -96,4 +110,37 @@ function register($data)
 
 
     return mysqli_affected_rows($conn);
+}
+
+
+function addToCart($data)
+{
+    global $conn;
+    $cartId = getNextAvailable("cart_id", "next_cart_id", "cart");
+
+    $itemId = htmlspecialchars($data['item_id']);
+    $memberId = $data['member_id'];
+    $quantity = $data['quantity'];
+
+
+    $query = "SELECT * FROM cart WHERE member_id = " . $memberId . " AND item_id = $itemId";
+    $result = mysqli_query($conn, $query);
+
+
+    // jika berhasil yang dimana misalkan > 0 nya itu 1 itu maka cart telah dilakukan di satu waktu yang sama oleh user yang sama jadi harus merefresh dahulu
+    if (mysqli_num_rows($result) > 0) {
+        // -3 = sudah ditambahkan ke cart, silahkan ulangi lagi jika ingin menambahkan lagi
+        echo "<script>window.location.href = '/restaurant/cart/?cart=-3'</script>";
+        return false;
+    } else {
+
+        $queryInsert = "INSERT INTO cart (cart_id, item_id, member_id, quantity, purchased, status) VALUES (
+            $cartId,
+            $itemId,
+            $memberId,
+            $quantity,
+            0,
+            'waiting'
+        )";
+    }
 }

@@ -53,7 +53,10 @@ echo $heading;
         <div class="row">
             <div class="col-lg-6 magnific-gallery">
                 <p>
-                    <a href="/restaurant/admin/images/<?= $data['item_image'] ?>" title="<?= $data['item_name'] ?>" data-effect="mfp-zoom-in" style="justify-content: center; display: flex;"><img src="/restaurant/admin/images/<?= $data['item_image'] ?>" alt="" style="width: 20em; height: 20em; " class="img-fluid"></a>
+                    <a href="/restaurant/admin/images/<?= $data['item_image'] ?>" title="<?= $data['item_name'] ?>"
+                        data-effect="mfp-zoom-in" style="justify-content: center; display: flex;"><img
+                            src="/restaurant/admin/images/<?= $data['item_image'] ?>" alt=""
+                            style="width: 20em; height: 20em; " class="img-fluid"></a>
                 </p>
 
                 <!-- IF YOU WANT TO ADD ANOTHER IMAGE THEN WILL HAVE STATIC SCROLL -->
@@ -63,13 +66,18 @@ echo $heading;
             </div>
             <div class="col-lg-6" id="sidebar_fixed">
                 <div class="prod_info">
-                    <span class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i><em>4 reviews</em></span>
-                    <h1><?= $data['item_name'] ?></h1>
-                    <p><?= $data['item_description'] ?></p>
-                    <!-- <p>Vix patrioque cotidieque ad, iusto probatus volutpat id pri. Amet dicam omnesque at est, voluptua assueverit ut has, modo hinc nec ea. Quas nulla labore est ne, est in quod solet labitur, sit ne probo mandamus.</p> -->
-                    <div class="prod_options">
-                        <!-- THIS IS FOR DROPDOWN (SIZE) -->
-                        <!-- <div class="row">
+                    <form action="" method="post">
+
+                        <span class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i
+                                class="icon_star voted"></i><i class="icon_star voted"></i><i
+                                class="icon_star"></i><em>4
+                                reviews</em></span>
+                        <h1><?= $data['item_name'] ?></h1>
+                        <p><?= $data['item_description'] ?></p>
+                        <!-- <p>Vix patrioque cotidieque ad, iusto probatus volutpat id pri. Amet dicam omnesque at est, voluptua assueverit ut has, modo hinc nec ea. Quas nulla labore est ne, est in quod solet labitur, sit ne probo mandamus.</p> -->
+                        <div class="prod_options">
+                            <!-- THIS IS FOR DROPDOWN (SIZE) -->
+                            <!-- <div class="row">
                             <label class="col-xl-5 col-lg-5 col-md-6 col-6"><strong>Size</strong></label>
                             <div class="col-xl-4 col-lg-5 col-md-6 col-6">
                                 <div class="custom-select-form">
@@ -83,45 +91,47 @@ echo $heading;
                                 </div>
                             </div>
                         </div> -->
-                        <div class="row">
-                            <label class="col-xl-5 col-lg-5  col-md-6 col-6"><strong>Quantity</strong></label>
-                            <div class="col-xl-4 col-lg-5 col-md-6 col-6">
-                                <div class="numbers-row">
-                                    <input type="text" value="1" id="quantity_1" class="qty2" name="quantity_1">
+                            <div class="row">
+                                <label class="col-xl-5 col-lg-5  col-md-6 col-6"><strong>Quantity</strong></label>
+                                <div class="col-xl-4 col-lg-5 col-md-6 col-6">
+                                    <div class="numbers-row">
+                                        <input type="text" value="1" id="quantity_1" class="qty2" name="quantity_1">
+                                    </div>
                                 </div>
+
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-5 col-md-6">
-                            <div class="price_main">
+                        <div class="row">
+                            <div class="col-lg-5 col-md-6">
+                                <div class="price_main">
 
-                                <!-- NEW PRICE  -->
-                                 
+                                    <!-- NEW PRICE  -->
 
-                                <?= $data['discount_status'] ? "
+
+                                    <?= $data['discount_status'] ? "
                                 <span class='new_price'>Rp. $discountPriceFormatted </span>
                                 " :
 
-                                    "<span class='new_price'>Rp. $price </span>" ?>
+                                        "<span class='new_price'>Rp. $price </span>" ?>
 
 
-                                <!-- PERCENT -->
-                                 <!-- if discount is true then will show these -->
-                                <?= $data['discount_status'] ? "
+                                    <!-- PERCENT -->
+                                    <!-- if discount is true then will show these -->
+                                    <?= $data['discount_status'] ? "
                                 
                                 <span class='percentage'>$discountPercent%</span>
                                 " : "" ?>
 
 
-                                <!-- OLD PRICE -->
-                                <?= $data['discount_status'] ? "<span class='old_price'>Rp. $price </span>" : "" ?>
+                                    <!-- OLD PRICE -->
+                                    <?= $data['discount_status'] ? "<span class='old_price'>Rp. $price </span>" : "" ?>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="btn_add_to_cart"><a href="#0" class="btn_1">Add to Cart</a></div>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="btn_add_to_cart"><a href="#0" class="btn_1">Add to Cart</a></div>
-                        </div>
-                    </div>
+                    </form>
                 </div>
                 <!-- /prod_info -->
             </div>
@@ -149,7 +159,8 @@ echo $heading;
                 <div id="pane-A" class="card tab-pane fade show active" role="tabpanel" aria-labelledby="tab-A">
                     <div class="card-header" role="tab" id="heading-A">
                         <h5 class="mb-0">
-                            <a class="collapsed" data-bs-toggle="collapse" href="#collapse-A" aria-expanded="false" aria-controls="collapse-A">
+                            <a class="collapsed" data-bs-toggle="collapse" href="#collapse-A" aria-expanded="false"
+                                aria-controls="collapse-A">
                                 Description
                             </a>
                         </h5>
@@ -194,7 +205,8 @@ echo $heading;
                 <div id="pane-B" class="card tab-pane fade" role="tabpanel" aria-labelledby="tab-B">
                     <div class="card-header" role="tab" id="heading-B">
                         <h5 class="mb-0">
-                            <a class="collapsed" data-bs-toggle="collapse" href="#collapse-B" aria-expanded="false" aria-controls="collapse-B">
+                            <a class="collapsed" data-bs-toggle="collapse" href="#collapse-B" aria-expanded="false"
+                                aria-controls="collapse-B">
                                 Reviews
                             </a>
                         </h5>
@@ -205,21 +217,30 @@ echo $heading;
                                 <div class="col-lg-6">
                                     <div class="review_content">
                                         <div class="clearfix add_bottom_10">
-                                            <span class="rating"><i class="icon_star"></i><i class="icon_star"></i><i class="icon_star"></i><i class="icon_star"></i><i class="icon_star"></i><em>5.0/5.0</em></span>
+                                            <span class="rating"><i class="icon_star"></i><i class="icon_star"></i><i
+                                                    class="icon_star"></i><i class="icon_star"></i><i
+                                                    class="icon_star"></i><em>5.0/5.0</em></span>
                                             <em>Published 54 minutes ago</em>
                                         </div>
                                         <h4>"Commpletely satisfied"</h4>
-                                        <p>Eos tollit ancillae ea, lorem consulatu qui ne, eu eros eirmod scaevola sea. Et nec tantas accusamus salutatus, sit commodo veritus te, erat legere fabulas has ut. Rebum laudem cum ea, ius essent fuisset ut. Viderer petentium cu his.</p>
+                                        <p>Eos tollit ancillae ea, lorem consulatu qui ne, eu eros eirmod scaevola sea.
+                                            Et nec tantas accusamus salutatus, sit commodo veritus te, erat legere
+                                            fabulas has ut. Rebum laudem cum ea, ius essent fuisset ut. Viderer
+                                            petentium cu his.</p>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="review_content">
                                         <div class="clearfix add_bottom_10">
-                                            <span class="rating"><i class="icon_star"></i><i class="icon_star"></i><i class="icon_star"></i><i class="icon_star empty"></i><i class="icon_star empty"></i><em>4.0/5.0</em></span>
+                                            <span class="rating"><i class="icon_star"></i><i class="icon_star"></i><i
+                                                    class="icon_star"></i><i class="icon_star empty"></i><i
+                                                    class="icon_star empty"></i><em>4.0/5.0</em></span>
                                             <em>Published 1 day ago</em>
                                         </div>
                                         <h4>"Always the best"</h4>
-                                        <p>Et nec tantas accusamus salutatus, sit commodo veritus te, erat legere fabulas has ut. Rebum laudem cum ea, ius essent fuisset ut. Viderer petentium cu his.</p>
+                                        <p>Et nec tantas accusamus salutatus, sit commodo veritus te, erat legere
+                                            fabulas has ut. Rebum laudem cum ea, ius essent fuisset ut. Viderer
+                                            petentium cu his.</p>
                                     </div>
                                 </div>
                             </div>
@@ -228,21 +249,29 @@ echo $heading;
                                 <div class="col-lg-6">
                                     <div class="review_content">
                                         <div class="clearfix add_bottom_10">
-                                            <span class="rating"><i class="icon_star"></i><i class="icon_star"></i><i class="icon_star"></i><i class="icon_star"></i><i class="icon_star empty"></i><em>4.5/5.0</em></span>
+                                            <span class="rating"><i class="icon_star"></i><i class="icon_star"></i><i
+                                                    class="icon_star"></i><i class="icon_star"></i><i
+                                                    class="icon_star empty"></i><em>4.5/5.0</em></span>
                                             <em>Published 3 days ago</em>
                                         </div>
                                         <h4>"Outstanding"</h4>
-                                        <p>Eos tollit ancillae ea, lorem consulatu qui ne, eu eros eirmod scaevola sea. Et nec tantas accusamus salutatus, sit commodo veritus te, erat legere fabulas has ut. Rebum laudem cum ea, ius essent fuisset ut. Viderer petentium cu his.</p>
+                                        <p>Eos tollit ancillae ea, lorem consulatu qui ne, eu eros eirmod scaevola sea.
+                                            Et nec tantas accusamus salutatus, sit commodo veritus te, erat legere
+                                            fabulas has ut. Rebum laudem cum ea, ius essent fuisset ut. Viderer
+                                            petentium cu his.</p>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="review_content">
                                         <div class="clearfix add_bottom_10">
-                                            <span class="rating"><i class="icon_star"></i><i class="icon_star"></i><i class="icon_star"></i><i class="icon_star"></i><i class="icon_star"></i><em>5.0/5.0</em></span>
+                                            <span class="rating"><i class="icon_star"></i><i class="icon_star"></i><i
+                                                    class="icon_star"></i><i class="icon_star"></i><i
+                                                    class="icon_star"></i><em>5.0/5.0</em></span>
                                             <em>Published 4 days ago</em>
                                         </div>
                                         <h4>"Excellent"</h4>
-                                        <p>Sit commodo veritus te, erat legere fabulas has ut. Rebum laudem cum ea, ius essent fuisset ut. Viderer petentium cu his.</p>
+                                        <p>Sit commodo veritus te, erat legere fabulas has ut. Rebum laudem cum ea, ius
+                                            essent fuisset ut. Viderer petentium cu his.</p>
                                     </div>
                                 </div>
                             </div>

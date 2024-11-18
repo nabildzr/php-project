@@ -15,8 +15,10 @@ if (isset($_SESSION['isLogin']) == true) {
     <div class="container-fluid">
         <div id="logo">
             <a href="/restaurant/">
-                <img src="https://www.ansonika.com/foores/img/logo.svg" width="140" height="35" alt="" class="logo_normal">
-                <img src="https://www.ansonika.com/foores/img/logo_sticky.svg" width="140" height="35" alt="" class="logo_sticky">
+                <img src="https://www.ansonika.com/foores/img/logo.svg" width="140" height="35" alt=""
+                    class="logo_normal">
+                <img src="https://www.ansonika.com/foores/img/logo_sticky.svg" width="140" height="35" alt=""
+                    class="logo_sticky">
             </a>
         </div>
         <ul id="top_menu">
@@ -28,24 +30,31 @@ if (isset($_SESSION['isLogin']) == true) {
                         <div class="dropdown-menu">
                             <ul>
                                 <li>
-                                    <figure><img src="/restaurant/assets/img/item_placeholder_square_small.jpg" data-src="img/item_square_small_1.jpg" alt="" width="50" height="50" class="lazy"></figure>
+                                    <figure><img src="/restaurant/assets/img/item_placeholder_square_small.jpg"
+                                            data-src="img/item_square_small_1.jpg" alt="" width="50" height="50"
+                                            class="lazy"></figure>
                                     <strong><span>1x Pizza Napoli</span>$12.00</strong>
                                     <a href="#0" class="action"><i class="icon_trash_alt"></i></a>
                                 </li>
                                 <li>
-                                    <figure><img src="/restaurant/assets/img/item_placeholder_square_small.jpg" data-src="img/item_square_small_2.jpg" alt="" width="50" height="50" class="lazy"></figure>
+                                    <figure><img src="/restaurant/assets/img/item_placeholder_square_small.jpg"
+                                            data-src="img/item_square_small_2.jpg" alt="" width="50" height="50"
+                                            class="lazy"></figure>
                                     <strong><span>1x Hamburgher Maxi</span>$10.00</strong>
                                     <a href="#0" class="action"><i class="icon_trash_alt"></i></a>
                                 </li>
                                 <li>
-                                    <figure><img src="/restaurant/assets/img/item_placeholder_square_small.jpg" data-src="img/item_square_small_3.jpg" alt="" width="50" height="50" class="lazy"></figure>
+                                    <figure><img src="/restaurant/assets/img/item_placeholder_square_small.jpg"
+                                            data-src="img/item_square_small_3.jpg" alt="" width="50" height="50"
+                                            class="lazy"></figure>
                                     <strong><span>1x Red Wine Bottle</span>$20.00</strong>
                                     <a href="#0" class="action"><i class="icon_trash_alt"></i></a>
                                 </li>
                             </ul>
                             <div class="total_drop">**** you. Hey, Cortana.
                                 <div class="clearfix add_bottom_15"><strong>Total</strong><span>$32.00</span></div>
-                                <a href="shop-cart.html" class="btn_1 outline">View Cart</a><a href="shop-checkout.html" class="btn_1">Checkout</a>
+                                <a href="shop-cart.html" class="btn_1 outline">View Cart</a><a href="shop-checkout.html"
+                                    class="btn_1">Checkout</a>
                             </div>
                         </div>
                     </div>
@@ -62,13 +71,15 @@ if (isset($_SESSION['isLogin']) == true) {
                 <a href="#0" class="open_close">
                     <i class="icon_close"></i><span>Menu</span>
                 </a>
-                <a href="/restaurant/"><img src="https://www.ansonika.com/foores/img/logo.svg" width="140" height="35" alt=""></a>
+                <a href="/restaurant/"><img src="https://www.ansonika.com/foores/img/logo.svg" width="140" height="35"
+                        alt=""></a>
             </div>
             <ul>
                 <li class="submenu">
                     <a href="#0" class="show-submenu">Home</a>
                     <ul>
-                        <li><a href="index-7.html">KenBurns Slider <span class="badge text-bg-danger">New</span></a></li>
+                        <li><a href="index-7.html">KenBurns Slider <span class="badge text-bg-danger">New</span></a>
+                        </li>
                         <li><a href="index.html">Slider 1</a></li>
                         <li><a href="index-2.html">Slider 2</a></li>
                         <li><a href="index-6.html">Slider 3</a></li>
@@ -84,7 +95,8 @@ if (isset($_SESSION['isLogin']) == true) {
                         <li><a href="menu-2.html">Menu Add To Cart</a></li>
                         <li><a href="menu-3.html">Menu With Tabs</a></li>
                         <li><a href="menu-4.html">Menu Grid</a></li>
-                        <li><a href="menu-of-the-day.html">Menu of the Day <span class="badge badge-danger">HOT</span></a></li>
+                        <li><a href="menu-of-the-day.html">Menu of the Day <span
+                                    class="badge badge-danger">HOT</span></a></li>
                         <li><a href="order-food.html">Order Food</a></li>
                         <li><a href="confirm.html">Confirm</a></li>
                     </ul>
@@ -108,7 +120,7 @@ if (isset($_SESSION['isLogin']) == true) {
                 </li>
                 <li class="submenu">
                     <a href="/restaurant/shop/" class="show-submenu">Shop</a>
-                  
+
                 </li>
                 <li><a href="/restaurant/reservation/">Reservations</a></li>
 
@@ -119,10 +131,15 @@ if (isset($_SESSION['isLogin']) == true) {
 
                 <?php } else { ?>
                     <li class="submenu">
-                        <a href="#0" class="show-submenu btn_top "><i class="ri-id-card-line" style="margin-right: 7px"></i><?= $member['member_name']  ?></a>
+                        <a href="#0" class="show-submenu btn_top "><i class="ri-id-card-line"
+                                style="margin-right: 7px"></i><?= $member['member_name'] ?: 'Guest'  ?></a>
                         <ul>
                             <li><a href="/restaurant/client/">Dashboard</a></li>
-                            <li><a href="javascript:0;">Points: <?= htmlspecialchars($member['points']) ?></a></li>
+
+                            <!-- jika member point kosong maka akan di berikan 0 dan itupun berlaku untuk point jika null -->
+                            <li><a href="javascript:0;">Points:
+                                    <?= $member['points'] == null  ? '0' : $member['points'] ?></a>
+                            </li>
                             <li><a href="/restaurant/logout.php">Logout</a></li>
                         </ul>
                     </li>
