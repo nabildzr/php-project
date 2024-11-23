@@ -3,19 +3,83 @@
 require_once $_SERVER['DOCUMENT_ROOT'] .  '/restaurant/conf/function.php';
 ?>
 
+
+
 <?php
 
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-    $query = "SELECT m.*, md.* FROM menu m JOIN menu_description md ON m.item_id = md.item_id WHERE m.item_id ='$id'";
-    $data = query($query)[0];
+// Mendapatkan id member yang sedang login
+$userId = $_SESSION['memberId'];
 
-    // format price, ex = 10000 -> 10.000
+
+if (isset($_GET['id'])) {
+    // Mendapatkan id item yang akan ditampilkan
+    $id = $_GET['id'];
+
+    // Query untuk mendapatkan data item dan deskripsinya
+    // Join antara table menu dan menu_description berdasarkan item_id
+    // Sehingga kita dapat mendapatkan data item dan deskripsinya dalam satu query
+    $query = "SELECT m.*, md.* 
+              FROM menu m 
+              JOIN menu_description md 
+              ON m.item_id = md.item_id 
+              WHERE m.item_id ='$id'";
+
+    // Original code
+    // $data = query($query)[0];
+
+    // Jalankan query dan simpan hasilnya dalam variabel $data
+    $result = query($query);
+    // Karena query di atas mengembalikan array 2 dimensi maka kita perlu mengambil data yang pertama
+    // dengan menggunakan index array [0]
+    $data = $result[0];
+
+    // format harga, contoh = 10000 -> 10.000
     $price = number_format($data['item_price'], 0, ',', '.');
+
+    // hitung diskon dalam persen, contoh diskon 25%
     $discountPercent = round($data['discount']);
 
+    // hitung harga setelah diskon
     $discountPrice = $data['item_price'] - ($data['item_price'] * ($data['discount'] / 100));
+
+    // format harga setelah diskon, contoh = 7500 -> 7.500
     $discountPriceFormatted = number_format($discountPrice, 0, ',', '.');
+
+
+    // dapatkan cart user berdasarkan member_id dan item_id
+    $queryCart = "SELECT quantity FROM cart WHERE member_id = $userId AND item_id = '$id'";
+    $resultCart = query($queryCart);
+
+    // Jika hasil query cart tidak kosong maka simpan hasilnya dalam variabel $cart
+    // Jika hasil query cart kosong maka simpan null dalam variabel $cart
+    $cart = (!empty($resultCart)) ? $resultCart[0] : null;
+    
+}
+
+// Jika user menekan tombol "Add to cart" maka akan masuk ke dalam fungsi addToCart()
+// Fungsi addToCart() akan mengembalikan nilai berupa angka, yang mana angka tersebut menunjukkan status dari proses add to cart
+// Jika nilai yang dikembalikan adalah 1 maka statusnya adalah 1, jika nilai yang dikembalikan adalah 4 maka statusnya adalah 4, jika nilai yang dikembalikan adalah 5 maka statusnya adalah 5
+// Jika nilai yang dikembalikan adalah 14 maka statusnya adalah 4
+// Jika nilai yang dikembalikan adalah 3 maka statusnya adalah 3
+// Redirect ke halaman shop-single.php dengan mengirimkan parameter item_id, status, item, dan quantity
+if (isset($_POST['addToCart'])) {
+    $result = addToCart($_POST); // Call addToCart() only once
+
+    // Berikut ini adalah penjelasan tentang match expression yang digunakan
+    // untuk mengubah nilai yang dikembalikan oleh fungsi addToCart() menjadi status yang sesuai
+    // Nilai yang dikembalikan oleh addToCart() dapat berupa angka, maka kita gunakan match expression untuk mengubahnya menjadi status yang sesuai
+    // Contoh, jika nilai yang dikembalikan adalah 1 maka statusnya adalah 1, jika nilai yang dikembalikan adalah 4 maka statusnya adalah 4, jika nilai yang dikembalikan adalah 5 maka statusnya adalah 5, jika nilai yang dikembalikan adalah 14 maka statusnya adalah 4, jika nilai yang dikembalikan adalah 3 maka statusnya adalah 3
+    // Jika nilai yang dikembalikan tidak ada di dalam match expression maka statusnya adalah 0
+    $status = match ($result) {
+        1 => 1,
+        4 => 4,
+        5 => 5,
+        14 => 4,
+        3 => 3,
+        default => 0,
+    };
+
+    echo "<script>window.location.href = '/restaurant/shop/shop-single.php?id=" . $_POST['item_id'] . "&status=" . $status . "&item=" . $data['item_name'] . "&quantity=" . $_POST['quantity_1'] . "'</script>";
 }
 
 
@@ -66,7 +130,11 @@ echo $heading;
             </div>
             <div class="col-lg-6" id="sidebar_fixed">
                 <div class="prod_info">
-                    <form action="" method="post">
+
+                    <!-- form start -->
+                    <form action="" method="POST">
+                        <input type="text" name="item_id" value="<?= $data['item_id'] ?>" class="form-control" hidden />
+                        <input type="text" name="member_id" value="<?= $userId ?>" class="form-control" hidden />
 
                         <span class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i
                                 class="icon_star voted"></i><i class="icon_star voted"></i><i
@@ -76,21 +144,19 @@ echo $heading;
                         <p><?= $data['item_description'] ?></p>
                         <!-- <p>Vix patrioque cotidieque ad, iusto probatus volutpat id pri. Amet dicam omnesque at est, voluptua assueverit ut has, modo hinc nec ea. Quas nulla labore est ne, est in quod solet labitur, sit ne probo mandamus.</p> -->
                         <div class="prod_options">
-                            <!-- THIS IS FOR DROPDOWN (SIZE) -->
-                            <!-- <div class="row">
-                            <label class="col-xl-5 col-lg-5 col-md-6 col-6"><strong>Size</strong></label>
-                            <div class="col-xl-4 col-lg-5 col-md-6 col-6">
-                                <div class="custom-select-form">
-                                    <select class="wide">
-                                        <option value="" selected>Small</option>
-                                        <option value="">Medium</option>
-                                        <option value="">Large</option>
-                                        <option value="">Extra Large</option>
-                                        <option value="">Extra Extra Large</option>
-                                    </select>
+                            <div class="row">
+                                <div class="col-auto">
+                                    <?php if($cart): ?>
+                                    <p class="mb-0">This item is already in your cart, if you want to change the quantity or remove it, please <a href="/restaurant/client/ ">check your cart.</a></p>
+                                    <?php else: ?>
+                                    <p class="mb-0"><a>You haven't add this item to your cart yet.</a></p>
+                                    <?php endif; ?>
                                 </div>
+                  
+                                <div class="col">
+                                    <p class="mb-0">In Cart: <b> <?= $cart ? $cart['quantity'] : 0 ?> <?= $data['item_name'] ?></b></p>
+                                </div>''
                             </div>
-                        </div> -->
                             <div class="row">
                                 <label class="col-xl-5 col-lg-5  col-md-6 col-6"><strong>Quantity</strong></label>
                                 <div class="col-xl-4 col-lg-5 col-md-6 col-6">
@@ -98,7 +164,6 @@ echo $heading;
                                         <input type="text" value="1" id="quantity_1" class="qty2" name="quantity_1">
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                         <div class="row">
@@ -109,8 +174,8 @@ echo $heading;
 
 
                                     <?= $data['discount_status'] ? "
-                                <span class='new_price'>Rp. $discountPriceFormatted </span>
-                                " :
+                                    <span class='new_price'>Rp. $discountPriceFormatted </span>
+                                    " :
 
                                         "<span class='new_price'>Rp. $price </span>" ?>
 
@@ -128,10 +193,17 @@ echo $heading;
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-6">
-                                <div class="btn_add_to_cart"><a href="#0" class="btn_1">Add to Cart</a></div>
+                                <div class="btn_add_to_cart">
+                                    <button type="submit" name="addToCart" style="width: 100%;" class="btn_1">
+                                        Add to Cart
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </form>
+
+                    <!-- form end -->
+
                 </div>
                 <!-- /prod_info -->
             </div>
@@ -299,8 +371,14 @@ $script = "
 	</script>
     ";
 
+
+
 echo $script;
 
 ?>
+
+
+
+
 
 <?php include_once $_SERVER['DOCUMENT_ROOT'] . '/restaurant/partials/layouts/layout-bottom.php';

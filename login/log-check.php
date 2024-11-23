@@ -1,10 +1,9 @@
-/************* ✨ Codeium Command 🌟 *************/
 <?php
 
 /*
- * Login Check
+ * Cek Login
  *
- * Check if the user has successfully logged in
+ * Cek apakah user berhasil login
  *
  */
 session_start();
@@ -15,20 +14,19 @@ if (isset($_POST['signin'])) {
 
     $email = $_POST['email'];
     $password = $_POST['password'];
-
     /*
-     * First, check if the email exist in the database
+     * Pertama, cek apakah email ada di database
      */
     $query = "SELECT email, account_id FROM accounts WHERE email = '$email'";
     $result = mysqli_query($conn, $query);
 
     if (!$result) {
-        die("Query failed: " . mysqli_error($conn));
+        die("Query gagal: " . mysqli_error($conn));
     }
 
     $row = mysqli_num_rows($result);
 
-    // Check if the query returned any rows
+    // Cek jika query mengembalikan baris
     if ($row > 0) {
 
         $account = mysqli_fetch_assoc($result);
@@ -36,36 +34,36 @@ if (isset($_POST['signin'])) {
         if ($account) {
 
             $accountID = $account['account_id'];
-
             /*
-             * Second, check if the password is correct
+             * Kedua, cek apakah password benar
              */
-            // Get the password from the accounts table based on account_id
+            // Dapatkan password dari table accounts berdasarkan account_id
             $accountQuery = "SELECT password FROM accounts WHERE account_id = $accountID";
             $accountResult = mysqli_query($conn, $accountQuery);
 
+            // Jika query gagal, tampilkan pesan error
             if (!$accountResult) {
-                die("Query failed: " . mysqli_error($conn));
+                die("Query gagal: " . mysqli_error($conn));
             }
 
             $accountPassword = mysqli_fetch_assoc($accountResult);
 
             if ($accountPassword && password_verify($password, $accountPassword['password'])) {
 
-                /*
-                 * Third, get the member data from the memberships table
+                /**
+                 * Ketiga, dapatkan data member dari table memberships
                  */
                 $members = mysqli_query($conn, "SELECT * FROM memberships WHERE account_id = $accountID");
 
                 if (!$members) {
-                    die("Query failed: " . mysqli_error($conn));
+                    die("Query gagal: " . mysqli_error($conn));
                 }
 
                 $member = mysqli_fetch_assoc($members);
 
                 if ($member) {
 
-                    // Set the session variables
+                    // Set session variable
                     $_SESSION['username'] = $member['member_name'];
                     $_SESSION['points'] = $member['points'];
                     $_SESSION['memberId'] = $member['member_id'];
@@ -73,28 +71,27 @@ if (isset($_POST['signin'])) {
                     $_SESSION['memberImage'] = $member['member_image'];
                     $_SESSION['isLogin'] = true;
 
-                    // Redirect to the index page
+                    // Redirect ke halaman index
                     header('location: /restaurant/?in=1');
                     exit();
                 } else {
 
-                    // Redirect to the login page with error message
+                    // Redirect ke halaman login dengan pesan error
                     header('location: /restaurant/login/?in=-3');
                 }
             } else {
 
-                // Redirect to the login page with error message
+                // Redirect ke halaman login dengan pesan error
                 header('location: /restaurant/login/?in=-2');
             }
         } else {
 
-            // Redirect to the login page with error message
+            // Redirect ke halaman login dengan pesan error
             header('location: /restaurant/login/?in=-1');
         }
     } else {
 
-        // Redirect to the login page with error message
+        // Redirect ke halaman login dengan pesan error
         header('location: /restaurant/login/?in=0');
     }
 }
-/******  6445b3be-c9f8-4374-b324-4b9da8d1f3bb  *******/

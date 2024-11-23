@@ -115,32 +115,55 @@ function register($data)
 
 function addToCart($data)
 {
+    // Mendapatkan id cart yang akan di tambahkan dengan 1
     global $conn;
     $cartId = getNextAvailable("cart_id", "next_cart_id", "cart");
 
+    // Mendapatkan data yang di kirimkan dari form
     $itemId = htmlspecialchars($data['item_id']);
     $memberId = $data['member_id'];
-    $quantity = $data['quantity'];
+    $quantity = $data['quantity_1'];
+
+    // Jika quantity lebih dari 10 maka akan di arahkan ke halaman shop-single.php dengan parameter status = 3
+    if ($quantity > 10) {
+        echo "<script>window.location.href = '/restaurant/shop/shop-single.php?id=" . $itemId . "&status=3</script>";
+        return 5;
+    }
+
+    // Jika quantity lebih dari 11 maka akan di arahkan ke halaman shop-single.php dengan parameter status = 5
+    if($quantity > 11) {
+        echo "<script>window.location.href = '/restaurant/shop/shop-single.php?id=" . $itemId . "&status=5</script>";
+        return 4;
+    }
 
 
-    $query = "SELECT * FROM cart WHERE member_id = " . $memberId . " AND item_id = $itemId";
+    // Mengecek apakah item yang akan di tambahkan sudah ada di dalam cart
+    $query = "SELECT * FROM cart WHERE member_id = " . $memberId . " AND item_id = '$itemId'";
     $result = mysqli_query($conn, $query);
+    $row = mysqli_fetch_assoc($result);
 
-
-    // jika berhasil yang dimana misalkan > 0 nya itu 1 itu maka cart telah dilakukan di satu waktu yang sama oleh user yang sama jadi harus merefresh dahulu
+    // Jika item sudah ada di dalam cart maka akan di update quantity nya
     if (mysqli_num_rows($result) > 0) {
-        // -3 = sudah ditambahkan ke cart, silahkan ulangi lagi jika ingin menambahkan lagi
-        echo "<script>window.location.href = '/restaurant/cart/?cart=-3'</script>";
-        return false;
+        // Jika quantity yang akan di tambahkan lebih dari 10 maka akan di arahkan ke halaman shop-single.php dengan parameter status = 4
+        if($row['quantity'] + $quantity > 10) {
+            echo "<script>window.location.href = '/restaurant/shop/shop-single.php?id=" . $itemId . "&status=4</script>";
+            return 14;
+        }
+        $query = "UPDATE cart SET quantity = quantity + $quantity WHERE member_id = $memberId AND item_id = '$itemId'";
+        mysqli_query($conn, $query);
     } else {
-
-        $queryInsert = "INSERT INTO cart (cart_id, item_id, member_id, quantity, purchased, status) VALUES (
+        // Jika item belum ada di dalam cart maka akan di tambahkan ke dalam cart
+        $query = "INSERT INTO cart (cart_id, member_id, item_id, quantity, purchased, status) VALUES (
             $cartId,
-            $itemId,
             $memberId,
+            '$itemId',
             $quantity,
             0,
             'waiting'
         )";
+        mysqli_query($conn, $query);
     }
+
+    // Mengembalikan nilai yang di kembalikan oleh mysqli_affected_rows()
+    return mysqli_affected_rows($conn);
 }

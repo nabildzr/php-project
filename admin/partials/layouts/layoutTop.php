@@ -5,7 +5,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] .  '/restaurant/conf/connection.php';
 if (!isset($_SESSION['isAdmin'])) {
 ?>
     <script>
-        window.location.href = "/restaurant/admin/sign-in.php"; 
+        window.location.href = "/restaurant/admin/sign-in.php";
     </script>
 <?php
 }

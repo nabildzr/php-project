@@ -18,13 +18,13 @@
 
 
 <script>
-		// Sticky sidebar
-		$('#sidebar_fixed').theiaStickySidebar({
-			minWidth: 991,
-			updateSidebarHeight: true,
-			additionalMarginTop: 90
-		});
-	</script>
+// Sticky sidebar
+$('#sidebar_fixed').theiaStickySidebar({
+    minWidth: 991,
+    updateSidebarHeight: true,
+    additionalMarginTop: 90
+});
+</script>
 <?php
 
 if (isset($_GET['in'])) {
@@ -195,9 +195,76 @@ if (isset($_GET['reg'])) {
 
 ?>
 
-
-
-
-<!-- JIKA ADA SCRIPT TAMBAHAN DENGAN FILE YANG BERBEDA (except one or another one) -->
-
+<script>
+<!-- JIKA ADA SCRIPT TAMBAHAN DENGAN FILE YANG BERBEDA (except one or another one) 
+-->
 <?php echo (isset($script) ? $script   : '') ?>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const status = urlParams.get('status');
+    const quantity = urlParams.get('quantity');
+    const itemName = urlParams.get('item');
+
+
+    if (status) {
+        const x = parseInt(status, 10);
+
+        if (x == 1) {
+            Swal.fire({
+                icon: 'success',
+                html: 'Successfully added <b>' + quantity + '</b>' + '<b> ' + itemName +
+                    '</b> to cart successfully!',
+                showConfirmButton: false,
+                position: 'bottom-right',
+                timer: 2500,
+            });
+        } else if (x == 2) {
+            Swal.fire({
+                icon: 'success',
+                html: 'Item quantity updated in cart successfully!',
+                showConfirmButton: false,
+                position: 'bottom-right',
+                timer: 2500,
+            });
+        } else if (x == 4) {
+            Swal.fire({
+                icon: 'error',
+                html: 'You already added <b>10</b> ' + itemName +
+                    ' to cart, you can\'t add more than 10 items in one item, please <a href="/restaurant/client/">Check your cart.</a>',
+                showConfirmButton: false,
+                position: 'bottom-right',
+                timer: 2500,
+            });
+        } else if (x == 5) {
+            Swal.fire({
+                icon: 'error',
+                html: 'You can\'t add more than 10 items in one item',
+                showConfirmButton: false,
+                position: 'bottom-right',
+                timer: 2500,
+            });
+        } else if (x == 11) {
+            Swal.fire({
+                icon: 'error',
+                text: 'Failed to add item, you need to login first!',
+                showConfirmButton: false,
+                position: 'bottom-right',
+                timer: 2500,
+            });
+        }
+
+        // Remove the 'status' parameter from the URL
+        var url = new URL(window.location.href);
+        url.searchParams.delete('status');
+        window.history.replaceState({}, document.title, url.toString());
+
+        // Remove the 'Quantity' parameter from the URL
+        var url = new URL(window.location.href);
+        url.searchParams.delete('quantity');
+        window.history.replaceState({}, document.title, url.toString());
+    }
+});
+</script>
