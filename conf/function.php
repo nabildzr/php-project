@@ -41,16 +41,21 @@ function getEnumValues($table, $column)
 function getNextAvailableAccountID()
 {
     global $conn;
+    // query untuk mendapatkan nilai terbesar dari kolom account_id di table Accounts
+    // nilai terbesar di tambah 1 untuk mendapatkan nilai yang belum di gunakan
     $query = "SELECT MAX(account_id) as max_account_id FROM Accounts";
     $result = mysqli_query($conn, $query);
     $row = mysqli_fetch_assoc($result);
     $next_account_id = $row['max_account_id'] + 1;
     return $next_account_id;
+
 }
 
 function getNextAvailableMemberID()
 {
     global $conn;
+    // query untuk mendapatkan nilai terbesar dari kolom member_id di table memberships
+    // nilai terbesar di tambah 1 untuk mendapatkan nilai yang belum di gunakan
     $query = "SELECT MAX(member_id) as max_member_id FROM memberships";
     $result = mysqli_query($conn, $query);
     $row = mysqli_fetch_assoc($result);
@@ -65,6 +70,9 @@ function getNextAvailable($column, $as, $table)
     global $conn;
 
 
+    // query untuk mendapatkan nilai terbesar dari kolom yang di tentukan
+    // misal kita ingin mendapatkan nilai terbesar dari kolom member_id di table memberships
+    // maka query nya akan seperti ini
     $query = "SELECT MAX(" . $column . ") as " . $as . " FROM " . $table;
     $result = mysqli_query($conn, $query);
     $row = mysqli_fetch_assoc($result);
@@ -79,11 +87,15 @@ function register($data)
     $accountId = getNextAvailableAccountID();
     $memberId = getNextAvailableMemberID();
 
+    // data yang di kirimkan dari form
     $username = htmlspecialchars($data['username']);
     $password = htmlspecialchars($data['password']);
     $email = htmlspecialchars($data['email']);
+
+    // enkripsi password
     $passwordhash = password_hash($password, PASSWORD_DEFAULT);
 
+    // cek apakah email sudah ada di database
     $queryEmail = query("SELECT email FROM accounts WHERE email = '$email'");
 
     if (count($queryEmail) > 0) {
@@ -91,8 +103,10 @@ function register($data)
         return false;
     }
 
+    // tanggal pendaftaran
     $registerDate = date('Y-m-d');
 
+    // insert data ke database
     $queryAccount = "INSERT INTO accounts (email, password, register_date) VALUES (
     '$email',
     '$passwordhash',
@@ -100,6 +114,8 @@ function register($data)
   )";
 
     mysqli_query($conn, $queryAccount);
+
+    // insert data ke table memberships
     $queryMembership = "INSERT INTO memberships (member_id, member_name, account_id) VALUES (
     $memberId,
     '$username',
@@ -149,17 +165,25 @@ function addToCart($data)
             echo "<script>window.location.href = '/restaurant/shop/shop-single.php?id=" . $itemId . "&status=4</script>";
             return 14;
         }
-        $query = "UPDATE cart SET quantity = quantity + $quantity WHERE member_id = $memberId AND item_id = '$itemId'";
+
+
+        // added_at = now() artinya mengupdate waktu saat item di tambahkan ke cart dengan waktu sekarang
+        $query = "UPDATE cart SET quantity = quantity + $quantity, added_at = NOW() WHERE member_id = $memberId AND item_id = '$itemId'";
+
+
         mysqli_query($conn, $query);
+
+        
     } else {
         // Jika item belum ada di dalam cart maka akan di tambahkan ke dalam cart
-        $query = "INSERT INTO cart (cart_id, member_id, item_id, quantity, purchased, status) VALUES (
+        $query = "INSERT INTO cart (cart_id, member_id, item_id, quantity, purchased, status, added_at) VALUES (
             $cartId,
             $memberId,
             '$itemId',
             $quantity,
             0,
-            'waiting'
+            'waiting',
+            NOW()
         )";
         mysqli_query($conn, $query);
     }

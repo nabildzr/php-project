@@ -147,7 +147,7 @@ echo $heading;
                             <div class="row">
                                 <div class="col-auto">
                                     <?php if($cart): ?>
-                                    <p class="mb-0">This item is already in your cart, if you want to change the quantity or remove it, please <a href="/restaurant/client/ ">check your cart.</a></p>
+                                    <p class="mb-0">This item is already in your cart, if you want to change the quantity or remove it, please <a href="/restaurant/client/ ">Check your cart.</a></p>
                                     <?php else: ?>
                                     <p class="mb-0"><a>You haven't add this item to your cart yet.</a></p>
                                     <?php endif; ?>
@@ -155,7 +155,7 @@ echo $heading;
                   
                                 <div class="col">
                                     <p class="mb-0">In Cart: <b> <?= $cart ? $cart['quantity'] : 0 ?> <?= $data['item_name'] ?></b></p>
-                                </div>''
+                                </div>
                             </div>
                             <div class="row">
                                 <label class="col-xl-5 col-lg-5  col-md-6 col-6"><strong>Quantity</strong></label>

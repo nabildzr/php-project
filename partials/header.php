@@ -26,34 +26,28 @@ if (isset($_SESSION['isLogin']) == true) {
 
             <?php if (isset($_SESSION['isLogin']) == true) : ?><li>
                     <div class="dropdown dropdown-cart">
-                        <a href="shop-cart.html" class="cart_bt"><strong>2</strong></a>
+                        <a href="javascript:0;" class="cart_bt"><strong>2</strong></a>
                         <div class="dropdown-menu">
                             <ul>
+                                <?php
+                                $cart = query("SELECT c.quantity, m.item_name, m.item_price, m.item_image, c.added_at 
+                                    FROM cart c JOIN menu m ON c.item_id = m.item_id 
+                                    WHERE c.member_id = $memberID ORDER BY c.added_at DESC" );
+                                foreach ($cart as $item) :
+                                ?>
                                 <li>
-                                    <figure><img src="/restaurant/assets/img/item_placeholder_square_small.jpg"
-                                            data-src="img/item_square_small_1.jpg" alt="" width="50" height="50"
-                                            class="lazy"></figure>
-                                    <strong><span>1x Pizza Napoli</span>$12.00</strong>
+                                    <figure><img src="/restaurant/admin/images/<?= $item['item_image'] ?>" 
+                                        alt="" width="50" height="50" class="lazy"></figure>
+                                    <strong><span><?= $item['quantity'] . 'x ' . $item['item_name'] ?></span><?= 'Rp. ' . number_format($item['quantity'] * $item['item_price'], 0, ',', '.') ?></strong>
                                     <a href="#0" class="action"><i class="icon_trash_alt"></i></a>
                                 </li>
-                                <li>
-                                    <figure><img src="/restaurant/assets/img/item_placeholder_square_small.jpg"
-                                            data-src="img/item_square_small_2.jpg" alt="" width="50" height="50"
-                                            class="lazy"></figure>
-                                    <strong><span>1x Hamburgher Maxi</span>$10.00</strong>
-                                    <a href="#0" class="action"><i class="icon_trash_alt"></i></a>
-                                </li>
-                                <li>
-                                    <figure><img src="/restaurant/assets/img/item_placeholder_square_small.jpg"
-                                            data-src="img/item_square_small_3.jpg" alt="" width="50" height="50"
-                                            class="lazy"></figure>
-                                    <strong><span>1x Red Wine Bottle</span>$20.00</strong>
-                                    <a href="#0" class="action"><i class="icon_trash_alt"></i></a>
-                                </li>
+
+
+                                <?php endforeach; ?>
                             </ul>
-                            <div class="total_drop">**** you. Hey, Cortana.
+                            <div class="total_drop">
                                 <div class="clearfix add_bottom_15"><strong>Total</strong><span>$32.00</span></div>
-                                <a href="shop-cart.html" class="btn_1 outline">View Cart</a><a href="shop-checkout.html"
+                                <a href="javascript:0;" class="btn_1 outline">View Cart</a><a href="shop-checkout.html"
                                     class="btn_1">Checkout</a>
                             </div>
                         </div>
