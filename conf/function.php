@@ -139,6 +139,7 @@ function addToCart($data)
     $itemId = htmlspecialchars($data['item_id']);
     $memberId = $data['member_id'];
     $quantity = $data['quantity_1'];
+    $price = $data['price'];
 
     // Jika quantity lebih dari 10 maka akan di arahkan ke halaman shop-single.php dengan parameter status = 3
     if ($quantity > 10) {
@@ -168,7 +169,7 @@ function addToCart($data)
 
 
         // added_at = now() artinya mengupdate waktu saat item di tambahkan ke cart dengan waktu sekarang
-        $query = "UPDATE cart SET quantity = quantity + $quantity, added_at = NOW() WHERE member_id = $memberId AND item_id = '$itemId'";
+        $query = "UPDATE cart SET quantity = quantity + $quantity, added_at = NOW(), price = price + $price WHERE member_id = $memberId AND item_id = '$itemId'";
 
 
         mysqli_query($conn, $query);
@@ -176,14 +177,15 @@ function addToCart($data)
         
     } else {
         // Jika item belum ada di dalam cart maka akan di tambahkan ke dalam cart
-        $query = "INSERT INTO cart (cart_id, member_id, item_id, quantity, purchased, status, added_at) VALUES (
+        $query = "INSERT INTO cart (cart_id, member_id, item_id, quantity, purchased, status, added_at, price) VALUES (
             $cartId,
             $memberId,
             '$itemId',
             $quantity,
             0,
             'waiting',
-            NOW()
+            NOW(),
+            $price
         )";
         mysqli_query($conn, $query);
     }

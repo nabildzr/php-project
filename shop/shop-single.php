@@ -42,6 +42,8 @@ if (isset($_GET['id'])) {
     // hitung harga setelah diskon
     $discountPrice = $data['item_price'] - ($data['item_price'] * ($data['discount'] / 100));
 
+    
+
     // format harga setelah diskon, contoh = 7500 -> 7.500
     $discountPriceFormatted = number_format($discountPrice, 0, ',', '.');
 
@@ -135,6 +137,13 @@ echo $heading;
                     <form action="" method="POST">
                         <input type="text" name="item_id" value="<?= $data['item_id'] ?>" class="form-control" hidden />
                         <input type="text" name="member_id" value="<?= $userId ?>" class="form-control" hidden />
+
+                        <?php
+
+                        $lastPrice = ($data['discount_status'] > 0) ? $discountPrice : $data['item_price'];
+                         
+                        ?>
+                        <input type="text" name="price" value="<?= $lastPrice ?>" class="form-control" hidden />
 
                         <span class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i
                                 class="icon_star voted"></i><i class="icon_star voted"></i><i

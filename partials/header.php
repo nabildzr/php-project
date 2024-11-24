@@ -32,21 +32,37 @@ if (isset($_SESSION['isLogin']) == true) {
                                 <?php
                                 $cart = query("SELECT c.quantity, m.item_name, m.item_price, m.item_image, c.added_at 
                                     FROM cart c JOIN menu m ON c.item_id = m.item_id 
-                                    WHERE c.member_id = $memberID ORDER BY c.added_at DESC" );
+                                    WHERE c.member_id = $memberID ORDER BY c.added_at DESC");
                                 foreach ($cart as $item) :
                                 ?>
-                                <li>
-                                    <figure><img src="/restaurant/admin/images/<?= $item['item_image'] ?>" 
-                                        alt="" width="50" height="50" class="lazy"></figure>
-                                    <strong><span><?= $item['quantity'] . 'x ' . $item['item_name'] ?></span><?= 'Rp. ' . number_format($item['quantity'] * $item['item_price'], 0, ',', '.') ?></strong>
-                                    <a href="#0" class="action"><i class="icon_trash_alt"></i></a>
-                                </li>
+                                    <li>
+                                        <figure><img src="/restaurant/admin/images/<?= $item['item_image'] ?>"
+                                                alt="" width="50" height="50" class="lazy"></figure>
+                                        <strong><span><?= $item['quantity'] . 'x ' . $item['item_name'] ?></span><?= 'Rp. ' . number_format($item['quantity'] * $item['item_price'], 0, ',', '.') ?></strong>
+                                        <a href="#0" class="action"><i class="icon_trash_alt"></i></a>
+                                    </li>
 
 
                                 <?php endforeach; ?>
                             </ul>
                             <div class="total_drop">
-                                <div class="clearfix add_bottom_15"><strong>Total</strong><span>$32.00</span></div>
+                                <?php
+                                // hitung total biaya dengan menjumlahkan setiap item di cart
+                                // foreach digunakan untuk mengulang setiap item di cart
+                                // $total diinisialisasi dengan 0, lalu dijumlahkan dengan biaya setiap item di cart
+                                $total = array_reduce($cart, function ($total, $item) {
+                                    return $total + ($item['quantity'] * $item['item_price']);
+                                }, 0);
+                                ?>
+
+                                <!-- menghitung total biaya dengan menjumlahkan setiap item di cart -->
+
+
+                                <!-- number_format digunakan untuk memformat angka menjadi format rupiah -->
+                                <!-- number_format memiliki 4 parameter, yaitu: nilai yang ingin diformat, berapa banyak angka di belakang koma, karakter pemisah ribuan, dan karakter pemisah desimal -->
+                                <!-- dalam contoh ini, kita menggunakan 0 untuk berapa banyak angka di belakang koma, ',' sebagai karakter pemisah ribuan, dan '.' sebagai karakter pemisah desimal -->
+                                 
+                                <div class="clearfix add_bottom_15"><strong>Total</strong><span><?= 'Rp. ' . number_format($total, 0, ',', '.'); ?></span></div>
                                 <a href="javascript:0;" class="btn_1 outline">View Cart</a><a href="shop-checkout.html"
                                     class="btn_1">Checkout</a>
                             </div>
