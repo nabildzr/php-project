@@ -39,13 +39,13 @@ if (isset($_GET['id'])) {
     // hitung diskon dalam persen, contoh diskon 25%
     $discountPercent = round($data['discount']);
 
-    // hitung harga setelah diskon
-    $discountPrice = $data['item_price'] - ($data['item_price'] * ($data['discount'] / 100));
-
     
+    $discountPrice = $data['item_price'] - ($data['item_price'] * ($data['discount'] / 100));
 
     // format harga setelah diskon, contoh = 7500 -> 7.500
     $discountPriceFormatted = number_format($discountPrice, 0, ',', '.');
+
+
 
 
     // dapatkan cart user berdasarkan member_id dan item_id

@@ -218,7 +218,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 html: 'Successfully added <b>' + quantity + '</b>' + '<b> ' + itemName +
                     '</b> to cart successfully!',
                 showConfirmButton: false,
-                position: 'bottom-right',
                 timer: 2500,
             });
         } else if (x == 2) {
@@ -226,7 +225,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 icon: 'success',
                 html: 'Item quantity updated in cart successfully!',
                 showConfirmButton: false,
-                position: 'bottom-right',
                 timer: 2500,
             });
         } else if (x == 4) {
@@ -235,7 +233,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 html: 'You already added <b>10</b> ' + itemName +
                     ' to cart, you can\'t add more than 10 items in one item, please <a href="/restaurant/client/">Check your cart.</a>',
                 showConfirmButton: false,
-                position: 'bottom-right',
                 timer: 2500,
             });
         } else if (x == 5) {
@@ -243,7 +240,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 icon: 'error',
                 html: 'You can\'t add more than 10 items in one item',
                 showConfirmButton: false,
-                position: 'bottom-right',
                 timer: 2500,
             });
         } else if (x == 11) {
@@ -251,7 +247,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 icon: 'error',
                 text: 'Failed to add item, you need to login first!',
                 showConfirmButton: false,
-                position: 'bottom-right',
                 timer: 2500,
             });
         }

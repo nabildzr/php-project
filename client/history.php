@@ -29,9 +29,11 @@ $subTitle = 'Purchase History';
         </div>
         <div class="d-flex flex-wrap align-items-center gap-3">
             <select class="form-select form-select-sm w-auto">
-                <option>Satatus</option>
-                <option>Paid</option>
-                <option>Pending</option>
+                <option value=""hidden>Status</option>
+                <option value="">Waiting</option>
+                <option value="">Success</option>
+                <option value="">Failed</option>
+                
             </select>
             <a href="invoice-add.php" class="btn btn-sm btn-primary-600"><i class="ri-add-line"></i> Create Invoice</a>
         </div>
@@ -40,43 +42,51 @@ $subTitle = 'Purchase History';
         <table class="table bordered-table mb-0">
             <thead>
                 <tr>
-                    <th scope="col">
-                        <div class="form-check style-check d-flex align-items-center">
-                            <input class="form-check-input" type="checkbox" value="" id="checkAll">
-                            <label class="form-check-label" for="checkAll">
-                                S.L
-                            </label>
-                        </div>
-                    </th>
-                    <th scope="col">Invoice</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Issued Date</th>
-                    <th scope="col">Amount</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Action</th>
+                    <th scope="col" class="text-center"> Cart ID</th>
+                    <th scope="col" class="text-center">Item Name</th>
+                    <th scope="col" class="text-center">Date</th>
+                    <th scope="col" class="text-center">Total</th>
+                    <th scope="col" class="text-center">Status</th>
+                    <th scope="col" class="text-center">Action</th>
                 </tr>
             </thead>
             <tbody>
+                <?php
+                $memberID = $_SESSION['memberId'];
+                $carts = query("SELECT c.quantity, m.item_name, m.item_price, m.item_image, c.added_at, c.status, c.cart_id
+                    FROM cart c JOIN menu m ON c.item_id = m.item_id 
+                    WHERE c.member_id = $memberID ORDER BY c.added_at DESC");
+                foreach ($carts as $cart) :
+                ?>
                 <tr>
-                    <td>
-                        <div class="form-check style-check d-flex align-items-center">
-                            <input class="form-check-input" type="checkbox" value="" id="check1">
-                            <label class="form-check-label" for="check1">
-                                01
-                            </label>
-                        </div>
-                    </td>
-                    <td><a href="javascript:void(0)" class="text-primary-600">#526534</a></td>
-                    <td>
+                    <td class="text-center"><?= $cart['cart_id'] ?></td>
+                    
+                    <td class="text-center">
                         <div class="d-flex align-items-center">
-                            <img src="assets/images/user-list/user-list1.png" alt="" class="flex-shrink-0 me-12 radius-8">
-                            <h6 class="text-md mb-0 fw-medium flex-grow-1">Kathryn Murphy</h6>
+                            <img src="/restaurant/admin/images/<?= $cart['item_image'] ?>" alt="" class="flex-shrink-0 me-12 radius-8" width="50" height="50">
+                            <h6 class="text-md mb-0 fw-medium flex-grow-1"><?= $cart['item_name'] ?></h6>
                         </div>
                     </td>
-                    <td>25 Jan 2024</td>
-                    <td>$200.00</td>
-                    <td> <span class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm">Paid</span> </td>
-                    <td>
+                    <td class="text-center"><?= $cart['added_at'] ?></td>
+                    <td class="text-center"><?= 'Rp. ' . number_format($cart['quantity'] * $cart['item_price'], 0, ',', '.') ?></td>
+                    <td class="text-center">
+                        <?php
+                        switch ($cart['status']) {
+                            case 'success':
+                                echo '<span class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm">Success</span>';
+                                break;
+                            case 'failed':
+                                echo '<span class="bg-danger-focus text-danger-main px-24 py-4 rounded-pill fw-medium text-sm">Failed</span>';
+                                break;
+                            case 'waiting':
+                                echo '<span class="bg-warning-focus text-warning-main px-24 py-4 rounded-pill fw-medium text-sm">Waiting</span>';
+                                break;
+                            default:
+                                echo '<span class="bg-gray-200 text-gray-600 px-24 py-4 rounded-pill fw-medium text-sm">-</span>';
+                        }
+                        ?>
+                    </td>
+                    <td class="text-center">
                         <a href="javascript:void(0)" class="w-32-px h-32-px bg-primary-light text-primary-600 rounded-circle d-inline-flex align-items-center justify-content-center">
                             <iconify-icon icon="iconamoon:eye-light"></iconify-icon>
                         </a>
@@ -88,285 +98,7 @@ $subTitle = 'Purchase History';
                         </a>
                     </td>
                 </tr>
-                <tr>
-                    <td>
-                        <div class="form-check style-check d-flex align-items-center">
-                            <input class="form-check-input" type="checkbox" value="" id="check2">
-                            <label class="form-check-label" for="check2">
-                                02
-                            </label>
-                        </div>
-                    </td>
-                    <td><a href="javascript:void(0)" class="text-primary-600">#696589</a></td>
-                    <td>
-                        <div class="d-flex align-items-center">
-                            <img src="assets/images/user-list/user-list2.png" alt="" class="flex-shrink-0 me-12 radius-8">
-                            <h6 class="text-md mb-0 fw-medium flex-grow-1">Annette Black</h6>
-                        </div>
-                    </td>
-                    <td>25 Jan 2024</td>
-                    <td>$200.00</td>
-                    <td> <span class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm">Paid</span> </td>
-                    <td>
-                        <a href="javascript:void(0)" class="w-32-px h-32-px bg-primary-light text-primary-600 rounded-circle d-inline-flex align-items-center justify-content-center">
-                            <iconify-icon icon="iconamoon:eye-light"></iconify-icon>
-                        </a>
-                        <a href="javascript:void(0)" class="w-32-px h-32-px bg-success-focus text-success-main rounded-circle d-inline-flex align-items-center justify-content-center">
-                            <iconify-icon icon="lucide:edit"></iconify-icon>
-                        </a>
-                        <a href="javascript:void(0)" class="w-32-px h-32-px bg-danger-focus text-danger-main rounded-circle d-inline-flex align-items-center justify-content-center">
-                            <iconify-icon icon="mingcute:delete-2-line"></iconify-icon>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="form-check style-check d-flex align-items-center">
-                            <input class="form-check-input" type="checkbox" value="" id="check3">
-                            <label class="form-check-label" for="check3">
-                                03
-                            </label>
-                        </div>
-                    </td>
-                    <td><a href="javascript:void(0)" class="text-primary-600">#256584</a></td>
-                    <td>
-                        <div class="d-flex align-items-center">
-                            <img src="assets/images/user-list/user-list3.png" alt="" class="flex-shrink-0 me-12 radius-8">
-                            <h6 class="text-md mb-0 fw-medium flex-grow-1">Ronald Richards</h6>
-                        </div>
-                    </td>
-                    <td>10 Feb 2024</td>
-                    <td>$200.00</td>
-                    <td> <span class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm">Paid</span> </td>
-                    <td>
-                        <a href="javascript:void(0)" class="w-32-px h-32-px bg-primary-light text-primary-600 rounded-circle d-inline-flex align-items-center justify-content-center">
-                            <iconify-icon icon="iconamoon:eye-light"></iconify-icon>
-                        </a>
-                        <a href="javascript:void(0)" class="w-32-px h-32-px bg-success-focus text-success-main rounded-circle d-inline-flex align-items-center justify-content-center">
-                            <iconify-icon icon="lucide:edit"></iconify-icon>
-                        </a>
-                        <a href="javascript:void(0)" class="w-32-px h-32-px bg-danger-focus text-danger-main rounded-circle d-inline-flex align-items-center justify-content-center">
-                            <iconify-icon icon="mingcute:delete-2-line"></iconify-icon>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="form-check style-check d-flex align-items-center">
-                            <input class="form-check-input" type="checkbox" value="" id="check4">
-                            <label class="form-check-label" for="check4">
-                                04
-                            </label>
-                        </div>
-                    </td>
-                    <td><a href="javascript:void(0)" class="text-primary-600">#526587</a></td>
-                    <td>
-                        <div class="d-flex align-items-center">
-                            <img src="assets/images/user-list/user-list4.png" alt="" class="flex-shrink-0 me-12 radius-8">
-                            <h6 class="text-md mb-0 fw-medium flex-grow-1">Eleanor Pena</h6>
-                        </div>
-                    </td>
-                    <td>10 Feb 2024</td>
-                    <td>$150.00</td>
-                    <td> <span class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm">Paid</span> </td>
-                    <td>
-                        <a href="javascript:void(0)" class="w-32-px h-32-px bg-primary-light text-primary-600 rounded-circle d-inline-flex align-items-center justify-content-center">
-                            <iconify-icon icon="iconamoon:eye-light"></iconify-icon>
-                        </a>
-                        <a href="javascript:void(0)" class="w-32-px h-32-px bg-success-focus text-success-main rounded-circle d-inline-flex align-items-center justify-content-center">
-                            <iconify-icon icon="lucide:edit"></iconify-icon>
-                        </a>
-                        <a href="javascript:void(0)" class="w-32-px h-32-px bg-danger-focus text-danger-main rounded-circle d-inline-flex align-items-center justify-content-center">
-                            <iconify-icon icon="mingcute:delete-2-line"></iconify-icon>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="form-check style-check d-flex align-items-center">
-                            <input class="form-check-input" type="checkbox" value="" id="check5">
-                            <label class="form-check-label" for="check5">
-                                05
-                            </label>
-                        </div>
-                    </td>
-                    <td><a href="javascript:void(0)" class="text-primary-600">#105986</a></td>
-                    <td>
-                        <div class="d-flex align-items-center">
-                            <img src="assets/images/user-list/user-list5.png" alt="" class="flex-shrink-0 me-12 radius-8">
-                            <h6 class="text-md mb-0 fw-medium flex-grow-1">Leslie Alexander</h6>
-                        </div>
-                    </td>
-                    <td>15 March 2024</td>
-                    <td>$150.00</td>
-                    <td> <span class="bg-warning-focus text-warning-main px-24 py-4 rounded-pill fw-medium text-sm">Pending</span> </td>
-                    <td>
-                        <a href="javascript:void(0)" class="w-32-px h-32-px bg-primary-light text-primary-600 rounded-circle d-inline-flex align-items-center justify-content-center">
-                            <iconify-icon icon="iconamoon:eye-light"></iconify-icon>
-                        </a>
-                        <a href="javascript:void(0)" class="w-32-px h-32-px bg-success-focus text-success-main rounded-circle d-inline-flex align-items-center justify-content-center">
-                            <iconify-icon icon="lucide:edit"></iconify-icon>
-                        </a>
-                        <a href="javascript:void(0)" class="w-32-px h-32-px bg-danger-focus text-danger-main rounded-circle d-inline-flex align-items-center justify-content-center">
-                            <iconify-icon icon="mingcute:delete-2-line"></iconify-icon>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="form-check style-check d-flex align-items-center">
-                            <input class="form-check-input" type="checkbox" value="" id="check6">
-                            <label class="form-check-label" for="check6">
-                                06
-                            </label>
-                        </div>
-                    </td>
-                    <td><a href="javascript:void(0)" class="text-primary-600">#526589</a></td>
-                    <td>
-                        <div class="d-flex align-items-center">
-                            <img src="assets/images/user-list/user-list6.png" alt="" class="flex-shrink-0 me-12 radius-8">
-                            <h6 class="text-md mb-0 fw-medium flex-grow-1">Albert Flores</h6>
-                        </div>
-                    </td>
-                    <td>15 March 2024</td>
-                    <td>$150.00</td>
-                    <td> <span class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm">Paid</span> </td>
-                    <td>
-                        <a href="javascript:void(0)" class="w-32-px h-32-px bg-primary-light text-primary-600 rounded-circle d-inline-flex align-items-center justify-content-center">
-                            <iconify-icon icon="iconamoon:eye-light"></iconify-icon>
-                        </a>
-                        <a href="javascript:void(0)" class="w-32-px h-32-px bg-success-focus text-success-main rounded-circle d-inline-flex align-items-center justify-content-center">
-                            <iconify-icon icon="lucide:edit"></iconify-icon>
-                        </a>
-                        <a href="javascript:void(0)" class="w-32-px h-32-px bg-danger-focus text-danger-main rounded-circle d-inline-flex align-items-center justify-content-center">
-                            <iconify-icon icon="mingcute:delete-2-line"></iconify-icon>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="form-check style-check d-flex align-items-center">
-                            <input class="form-check-input" type="checkbox" value="" id="check7">
-                            <label class="form-check-label" for="check7">
-                                07
-                            </label>
-                        </div>
-                    </td>
-                    <td><a href="javascript:void(0)" class="text-primary-600">#526520</a></td>
-                    <td>
-                        <div class="d-flex align-items-center">
-                            <img src="assets/images/user-list/user-list7.png" alt="" class="flex-shrink-0 me-12 radius-8">
-                            <h6 class="text-md mb-0 fw-medium flex-grow-1">Jacob Jones</h6>
-                        </div>
-                    </td>
-                    <td>27 April 2024</td>
-                    <td>$250.00</td>
-                    <td> <span class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm">Paid</span> </td>
-                    <td>
-                        <a href="javascript:void(0)" class="w-32-px h-32-px bg-primary-light text-primary-600 rounded-circle d-inline-flex align-items-center justify-content-center">
-                            <iconify-icon icon="iconamoon:eye-light"></iconify-icon>
-                        </a>
-                        <a href="javascript:void(0)" class="w-32-px h-32-px bg-success-focus text-success-main rounded-circle d-inline-flex align-items-center justify-content-center">
-                            <iconify-icon icon="lucide:edit"></iconify-icon>
-                        </a>
-                        <a href="javascript:void(0)" class="w-32-px h-32-px bg-danger-focus text-danger-main rounded-circle d-inline-flex align-items-center justify-content-center">
-                            <iconify-icon icon="mingcute:delete-2-line"></iconify-icon>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="form-check style-check d-flex align-items-center">
-                            <input class="form-check-input" type="checkbox" value="" id="check8">
-                            <label class="form-check-label" for="check8">
-                                08
-                            </label>
-                        </div>
-                    </td>
-                    <td><a href="javascript:void(0)" class="text-primary-600">#256584</a></td>
-                    <td>
-                        <div class="d-flex align-items-center">
-                            <img src="assets/images/user-list/user-list8.png" alt="" class="flex-shrink-0 me-12 radius-8">
-                            <h6 class="text-md mb-0 fw-medium flex-grow-1">Jerome Bell</h6>
-                        </div>
-                    </td>
-                    <td>27 April 2024</td>
-                    <td>$250.00</td>
-                    <td> <span class="bg-warning-focus text-warning-main px-24 py-4 rounded-pill fw-medium text-sm">Pending</span> </td>
-                    <td>
-                        <a href="javascript:void(0)" class="w-32-px h-32-px bg-primary-light text-primary-600 rounded-circle d-inline-flex align-items-center justify-content-center">
-                            <iconify-icon icon="iconamoon:eye-light"></iconify-icon>
-                        </a>
-                        <a href="javascript:void(0)" class="w-32-px h-32-px bg-success-focus text-success-main rounded-circle d-inline-flex align-items-center justify-content-center">
-                            <iconify-icon icon="lucide:edit"></iconify-icon>
-                        </a>
-                        <a href="javascript:void(0)" class="w-32-px h-32-px bg-danger-focus text-danger-main rounded-circle d-inline-flex align-items-center justify-content-center">
-                            <iconify-icon icon="mingcute:delete-2-line"></iconify-icon>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="form-check style-check d-flex align-items-center">
-                            <input class="form-check-input" type="checkbox" value="" id="check9">
-                            <label class="form-check-label" for="check9">
-                                09
-                            </label>
-                        </div>
-                    </td>
-                    <td><a href="javascript:void(0)" class="text-primary-600">#200257</a></td>
-                    <td>
-                        <div class="d-flex align-items-center">
-                            <img src="assets/images/user-list/user-list9.png" alt="" class="flex-shrink-0 me-12 radius-8">
-                            <h6 class="text-md mb-0 fw-medium flex-grow-1">Marvin McKinney</h6>
-                        </div>
-                    </td>
-                    <td>30 April 2024</td>
-                    <td>$250.00</td>
-                    <td> <span class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm">Paid</span> </td>
-                    <td>
-                        <a href="javascript:void(0)" class="w-32-px h-32-px bg-primary-light text-primary-600 rounded-circle d-inline-flex align-items-center justify-content-center">
-                            <iconify-icon icon="iconamoon:eye-light"></iconify-icon>
-                        </a>
-                        <a href="javascript:void(0)" class="w-32-px h-32-px bg-success-focus text-success-main rounded-circle d-inline-flex align-items-center justify-content-center">
-                            <iconify-icon icon="lucide:edit"></iconify-icon>
-                        </a>
-                        <a href="javascript:void(0)" class="w-32-px h-32-px bg-danger-focus text-danger-main rounded-circle d-inline-flex align-items-center justify-content-center">
-                            <iconify-icon icon="mingcute:delete-2-line"></iconify-icon>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="form-check style-check d-flex align-items-center">
-                            <input class="form-check-input" type="checkbox" value="" id="check110">
-                            <label class="form-check-label" for="check110">
-                                10
-                            </label>
-                        </div>
-                    </td>
-                    <td><a href="javascript:void(0)" class="text-primary-600">#526525</a></td>
-                    <td>
-                        <div class="d-flex align-items-center">
-                            <img src="assets/images/user-list/user-list10.png" alt="" class="flex-shrink-0 me-12 radius-8">
-                            <h6 class="text-md mb-0 fw-medium flex-grow-1">Cameron Williamson</h6>
-                        </div>
-                    </td>
-                    <td>30 April 2024</td>
-                    <td>$250.00</td>
-                    <td> <span class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm">Paid</span> </td>
-                    <td>
-                        <a href="javascript:void(0)" class="w-32-px h-32-px bg-primary-light text-primary-600 rounded-circle d-inline-flex align-items-center justify-content-center">
-                            <iconify-icon icon="iconamoon:eye-light"></iconify-icon>
-                        </a>
-                        <a href="javascript:void(0)" class="w-32-px h-32-px bg-success-focus text-success-main rounded-circle d-inline-flex align-items-center justify-content-center">
-                            <iconify-icon icon="lucide:edit"></iconify-icon>
-                        </a>
-                        <a href="javascript:void(0)" class="w-32-px h-32-px bg-danger-focus text-danger-main rounded-circle d-inline-flex align-items-center justify-content-center">
-                            <iconify-icon icon="mingcute:delete-2-line"></iconify-icon>
-                        </a>
-                    </td>
-                </tr>
+                <?php endforeach; ?>
             </tbody>
         </table>
 

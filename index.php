@@ -71,7 +71,7 @@
 
 	<ul id="banners_grid" class="clearfix">
 		<li>
-			<a href="menu-1.html" class="img_container">
+			<a href="/restaurant/shop/" class="img_container">
 				<img src="/restaurant/assets/img/banners_cat_placeholder.jpg" data-src="https://images.pexels.com/photos/26076229/pexels-photo-26076229/free-photo-of-delicious-japanese-wraps-on-plate.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" class="lazy">
 				<div class="short_info opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)">
 					<h3>Our Menu</h3>
@@ -80,7 +80,7 @@
 			</a>
 		</li>
 		<li>
-			<a href="order-food.html" class="img_container">
+			<a href="/restaurant/" class="img_container">
 				<img src="/restaurant/assets/img/banners_cat_placeholder.jpg" data-src="https://images.pexels.com/photos/1640772/pexels-photo-1640772.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" class="lazy">
 				<div class="short_info opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)">
 					<h3>Delivery</h3>

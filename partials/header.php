@@ -26,19 +26,49 @@ if (isset($_SESSION['isLogin']) == true) {
 
             <?php if (isset($_SESSION['isLogin']) == true) : ?><li>
                     <div class="dropdown dropdown-cart">
-                        <a href="javascript:0;" class="cart_bt"><strong>2</strong></a>
+                        <?php $count = count(query("SELECT * FROM cart WHERE member_id = $memberID")); ?>
+                        <a href="/restaurant/cart/" class="cart_bt">
+                            <strong>
+                                <?= $count ?>
+                            </strong>
+                        </a>
                         <div class="dropdown-menu">
                             <ul>
                                 <?php
-                                $cart = query("SELECT c.quantity, m.item_name, m.item_price, m.item_image, c.added_at 
+                                $cart = query("SELECT c.quantity, m.item_name, m.item_price, m.item_image, c.added_at , m.discount, m.item_price
                                     FROM cart c JOIN menu m ON c.item_id = m.item_id 
                                     WHERE c.member_id = $memberID ORDER BY c.added_at DESC");
+
+
                                 foreach ($cart as $item) :
+                                    // Kode di bawah ini digunakan untuk menghitung harga setelah diskon
+                                    // $discountPrice dihitung dari harga asli, dan dijumlahkan dengan biaya setiap item di cart
+                                    // Jika item memiliki diskon, maka harga yang dihitung adalah harga setelah diskon
+                                    // Jika item tidak memiliki diskon, maka harga yang dihitung adalah harga asli
+                                    $discountPrice = $item['item_price'] - $item['item_price'] * ($item['discount'] / 100);
                                 ?>
                                     <li>
-                                        <figure><img src="/restaurant/admin/images/<?= $item['item_image'] ?>"
-                                                alt="" width="50" height="50" class="lazy"></figure>
-                                        <strong><span><?= $item['quantity'] . 'x ' . $item['item_name'] ?></span><?= 'Rp. ' . number_format($item['quantity'] * $item['item_price'], 0, ',', '.') ?></strong>
+                                        <figure>
+                                            <img src="/restaurant/admin/images/<?= $item['item_image'] ?>"
+                                                alt="" width="50" height="50" class="lazy">
+                                        </figure>
+                                        <strong>
+                                            <span>
+                                                <?php // Kode di bawah ini digunakan untuk menampilkan jumlah item 
+                                                ?>
+                                                <?= $item['quantity'] . 'x ' . $item['item_name'] ?>
+                                            </span>
+                                            <?php
+                                            //
+                                            // Kode di bawah ini digunakan untuk menampilkan harga setelah diskon
+                                            // - Jika item memiliki diskon maka harga yang dihitung adalah harga asli
+                                            //   dikurangi diskon, contoh harga asli 10000, diskon 25% maka harga setelah diskon adalah 7500
+                                            // - Jika item tidak memiliki diskon maka harga yang dihitung adalah harga asli
+                                            // - Harga yang dihitung dijumlahkan dengan biaya setiap item di cart
+                                            // - Lalu di format menjadi string dengan menggunakan number_format()
+                                            ?>
+                                            <?= 'Rp. ' . number_format(($item['discount'] > 0 ? $discountPrice : $item['item_price']) * $item['quantity'], 0, ',', '.') ?>
+                                        </strong>
                                         <a href="#0" class="action"><i class="icon_trash_alt"></i></a>
                                     </li>
 
@@ -47,24 +77,51 @@ if (isset($_SESSION['isLogin']) == true) {
                             </ul>
                             <div class="total_drop">
                                 <?php
-                                // hitung total biaya dengan menjumlahkan setiap item di cart
-                                // foreach digunakan untuk mengulang setiap item di cart
-                                // $total diinisialisasi dengan 0, lalu dijumlahkan dengan biaya setiap item di cart
+                                // Kode di bawah ini digunakan untuk menghitung total biaya
+                                // yang dihitung dari setiap item di cart, lalu dijumlahkan
+                                // menjadi total biaya yang harus dibayarkan
+                                //
+                                // array_reduce() digunakan untuk menggabungkan nilai-nilai
+                                // di dalam array dengan menggunakan fungsi yang di
+                                // tentukan, dan mengembalikan nilai yang dihasilkan
+                                //
+                                // $total diinisialisasi dengan 0, lalu dijumlahkan dengan
+                                // biaya setiap item di cart
+                                //
+                                // $discountPrice dihitung dari harga asli, dan dijumlahkan
+                                // dengan biaya setiap item di cart. Jika item memiliki
+                                // diskon, maka harga yang dihitung adalah harga asli
+                                // dikurangi diskon.
                                 $total = array_reduce($cart, function ($total, $item) {
-                                    return $total + ($item['quantity'] * $item['item_price']);
+                                    $discountPrice = $item['item_price'] - ($item['item_price'] * ($item['discount'] / 100));
+                                    return $total + $item['quantity'] * $discountPrice;
                                 }, 0);
                                 ?>
 
-                                <!-- menghitung total biaya dengan menjumlahkan setiap item di cart -->
 
+                                <?php
+                                // kode di bawah ini digunakan untuk menghitung total biaya
+                                // yang dihitung dari setiap item di cart, lalu dijumlahkan
+                                // menjadi total biaya yang harus dibayarkan
+                                //
+                                //* Diskon dihitung dari harga asli, dan dijumlahkan dengan biaya setiap item di cart
+                                //* Jika item memiliki diskon, maka harga yang dihitung adalah harga setelah diskon
+                                //* Jika item tidak memiliki diskon, maka harga yang dihitung adalah harga asli
+                                //
+                                ?>
 
-                                <!-- number_format digunakan untuk memformat angka menjadi format rupiah -->
-                                <!-- number_format memiliki 4 parameter, yaitu: nilai yang ingin diformat, berapa banyak angka di belakang koma, karakter pemisah ribuan, dan karakter pemisah desimal -->
-                                <!-- dalam contoh ini, kita menggunakan 0 untuk berapa banyak angka di belakang koma, ',' sebagai karakter pemisah ribuan, dan '.' sebagai karakter pemisah desimal -->
-                                 
-                                <div class="clearfix add_bottom_15"><strong>Total</strong><span><?= 'Rp. ' . number_format($total, 0, ',', '.'); ?></span></div>
-                                <a href="javascript:0;" class="btn_1 outline">View Cart</a><a href="shop-checkout.html"
-                                    class="btn_1">Checkout</a>
+                                <div class="clearfix add_bottom_15">
+                                    <strong>Total</strong><span>
+                                        <?= 'Rp. ' . number_format($total, 0, ',', '.'); ?>
+                                    </span>
+                                </div>
+                                <a href="/restaurant/cart/" class="btn_1 outline">
+                                    View Cart
+                                </a>
+                                <a href="/restaurant/checkout"
+                                    class="btn_1">
+                                    Checkout
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -86,7 +143,7 @@ if (isset($_SESSION['isLogin']) == true) {
             </div>
             <ul>
                 <li class="submenu">
-                    <a href="#0" class="show-submenu">Home</a>
+                    <a href="/restaurant/" class="show-submenu">Home</a>
                     <ul>
                         <li><a href="index-7.html">KenBurns Slider <span class="badge text-bg-danger">New</span></a>
                         </li>
