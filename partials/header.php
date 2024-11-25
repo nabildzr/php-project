@@ -35,7 +35,7 @@ if (isset($_SESSION['isLogin']) == true) {
                         <div class="dropdown-menu">
                             <ul>
                                 <?php
-                                $cart = query("SELECT c.quantity, m.item_name, m.item_price, m.item_image, c.added_at , m.discount, m.item_price
+                                $cart = query("SELECT c.quantity, m.item_name, m.item_price, m.item_image, c.added_at , m.item_id, m.discount, m.item_price
                                     FROM cart c JOIN menu m ON c.item_id = m.item_id 
                                     WHERE c.member_id = $memberID ORDER BY c.added_at DESC");
 
@@ -69,7 +69,11 @@ if (isset($_SESSION['isLogin']) == true) {
                                             ?>
                                             <?= 'Rp. ' . number_format(($item['discount'] > 0 ? $discountPrice : $item['item_price']) * $item['quantity'], 0, ',', '.') ?>
                                         </strong>
-                                        <a href="#0" class="action"><i class="icon_trash_alt"></i></a>
+                                        
+
+
+                                        <!-- delete cart -->
+                                        <a href="/restaurant/shop/delete-cart.php?itemId=<?= $item['item_id'] ?>" class="action"><i class="icon_trash_alt"></i></a>
                                     </li>
 
 

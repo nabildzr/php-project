@@ -273,6 +273,9 @@ function addMenu($data)
         return false;
     }
 
+    
+  
+
     // Generate random sale_id with length 11
     // $saleID = generateRandomID(11);
 
@@ -281,7 +284,15 @@ function addMenu($data)
     )";
     mysqli_query($conn, $query);
 
+  // Ambil item_description_id terbesar untuk menambahkan yang terbaru
+  $queryDescriptionID = "SELECT MAX(item_description_id) as max_item_description_id FROM menu_description";
+  $resultDescriptionID = mysqli_query($conn, $queryDescriptionID);
+  $rowDescriptionID = mysqli_fetch_assoc($resultDescriptionID);
+  $itemDescriptionID = $rowDescriptionID['max_item_description_id'] + 1;
 
+
+  $queryDescription = "INSERT INTO menu_description (item_description_id, item_id) VALUES ($itemDescriptionID,'$menuID')";
+  mysqli_query($conn, $queryDescription);
 
 
 

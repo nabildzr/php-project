@@ -191,3 +191,10 @@ function addToCart($data)
     // Mengembalikan nilai yang di kembalikan oleh mysqli_affected_rows()
     return mysqli_affected_rows($conn);
 }
+
+function deleteCart($memberId, $itemId) {
+    global $conn;
+    $query = "DELETE FROM cart WHERE member_id = $memberId AND item_id = '$itemId'";
+    mysqli_query($conn, $query);
+    return mysqli_affected_rows($conn);
+}

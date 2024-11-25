@@ -195,6 +195,82 @@ if (isset($_GET['reg'])) {
 
 ?>
 
+
+
+<?php
+
+if (isset($_GET['updated'])) {
+    $x = intval($_GET['updated']);
+    echo "<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var x = $x;
+           if (x == 1) {
+            Swal.fire({
+                icon: 'success',
+                html: 'Item updated in cart successfully!',
+                showConfirmButton: false,
+                timer: 2500,
+            });
+        } else if (x == 0) {
+            Swal.fire({
+                icon: 'error',
+                text: 'Failed to update your cart, please try again!',
+                showConfirmButton: false,
+                timer: 2500,
+            });
+        } else if (x == -1) {
+            Swal.fire({
+                icon: 'error',
+                text: 'Failed to update your cart, item can\'t more than 10!',
+                showConfirmButton: false,
+                timer: 2500,
+            });
+        }
+
+        // Remove the 'updated' parameter from the URL
+        var url = new URL(window.location.href);
+        url.searchParams.delete('updated');
+        window.history.replaceState({}, document.title, url.toString());
+    });
+</script>";
+}
+
+?>
+
+<?php
+
+
+if (isset($_GET['cart_deleted'])) {
+    $x = intval($_GET['cart_deleted']);
+    echo "<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var x = $x;
+           if (x == 1) {
+            Swal.fire({
+                icon: 'success',
+                html: 'Item deleted from your cart',
+                showConfirmButton: false,
+                timer: 2500,
+            });
+        } else if (x == 0) {
+            Swal.fire({
+                icon: 'error',
+                text: 'Failed to delete item from your cart, please try again!',
+                showConfirmButton: false,
+                timer: 2500,
+            });
+        }
+            
+        // Remove the 'cart_deleted' parameter from the URL
+        var url = new URL(window.location.href);
+        url.searchParams.delete('cart_deleted');
+        window.history.replaceState({}, document.title, url.toString());
+    });
+</script>";
+}
+
+?>
+
 <script>
 <!-- JIKA ADA SCRIPT TAMBAHAN DENGAN FILE YANG BERBEDA (except one or another one) 
 -->
