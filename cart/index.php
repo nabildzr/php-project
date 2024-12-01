@@ -174,7 +174,7 @@ echo $heading;
             }
 
 
-            echo "affected rows: " . mysqli_affected_rows($conn) . "<br>";
+            // echo "affected rows: " . mysqli_affected_rows($conn) . "<br>";
 
             ?>
         </div>
