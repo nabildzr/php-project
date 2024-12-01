@@ -155,27 +155,26 @@ echo $heading;
                     }
 
                     // Jika quantity lebih dari 10 maka akan di arahkan ke halaman shop-single.php dengan parameter status = 3
-                  
+
 
                     // Jika quantity lebih dari 11 maka akan di arahkan ke halaman shop-single.php dengan parameter status = 5
                     if ($quantity > 11 || $quantity == 11) {
                         echo "<script>window.location.href = '/restaurant/cart/?updated=-1'</script>";
-                        return false;
+                        exit;
                     }
 
                     $query = "UPDATE cart SET quantity = $quantity WHERE member_id = $memberId AND item_id = '$itemId'";
-                    mysqli_query($conn, $query);
+                    $result = mysqli_query($conn, $query);
 
                     // jika gagal dan jika berhasil akan mengarahkan ke halaman cart lagi tetapi diberikan juga notifikiasi nya, gagal atau berhasil itu berdasarkan isi parameter 0 atau 1
                     if (mysqli_affected_rows($conn) > 0) {
                         echo "<script>window.location.href = '/restaurant/cart/?updated=1'</script>";
-                    } else {
-                        echo "<script>window.location.href = '/restaurant/cart/?updated=0'</script>";
-                    };
+                    }
                 }
             }
 
 
+            echo "affected rows: " . mysqli_affected_rows($conn) . "<br>";
 
             ?>
         </div>

@@ -99,7 +99,7 @@ if (isset($_SESSION['isLogin']) == true) {
                                 $total = array_reduce($cart, function ($total, $item) {
                                     $discountPrice = $item['item_price'] - ($item['item_price'] * ($item['discount'] / 100));
                                     return $total + $item['quantity'] * $discountPrice;
-                                }, 0);
+                                }, 0); // initial value untuk $total, jika array kosong maka $total = 0
                                 ?>
 
 

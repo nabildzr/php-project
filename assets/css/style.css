@@ -1153,8 +1153,8 @@ ul#top_menu li a.search-overlay-menu-btn:before {
   background-color: transparent;
 }
 .dropdown-cart .dropdown-menu a.btn_1.outline:hover {
-  -webkit-filter: brightness(none !important);
-  filter: brightness(none !important);
+  -webkit-filter: brightness(115%) !important;
+  filter: brightness(115%) !important;
   color: #fff !important;
   background-color: #978667;
 }
