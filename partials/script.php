@@ -240,6 +240,7 @@ if (isset($_GET['updated'])) {
 <?php
 
 
+
 if (isset($_GET['cart_deleted'])) {
     $x = intval($_GET['cart_deleted']);
     echo "<script>
