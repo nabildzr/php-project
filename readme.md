@@ -14,6 +14,7 @@ Aplikasi ini dibuat untuk memudahkan pengguna dalam mengelola restoran, seperti 
 * Laporan keuangan
 * Pembelian menu
 * Client Mengelola menu yang di simpan / cart
+* Profile pada pengguna maupun staff
 
 ## Instalasi
 
@@ -21,7 +22,15 @@ Aplikasi ini dibuat untuk memudahkan pengguna dalam mengelola restoran, seperti 
 2. Jalankan laragon/xampp (apache & mysql)
 3. Collision database harus utf8mb4_general_ci
 4. Menjalankan address harus http://localhost/restaurant/
-5. 
+5. Jalankan.
+
+## Username dan Password
+- Admin
+    1. id : 11, password: 12345
+
+- Client
+    1. email: tarzan@gmail.com, password: 12345
+    2. email: giga@gmail.com, password: 12345
 
 ## Konfigurasi
 
