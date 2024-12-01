@@ -32,6 +32,15 @@ Aplikasi ini dibuat untuk memudahkan pengguna dalam mengelola restoran, seperti 
     1. email: tarzan@gmail.com, password: 12345
     2. email: giga@gmail.com, password: 12345
 
+
+## Halaman Login
+
+- Admin
+    /restaurant/admin/login.php atau /restaurant/admin/ saja jika belum login
+
+- Client
+    /restaurant/login/ atau klik saja button "Login" yang ada pada navbar maupun sidebar versi android
+
 ## Konfigurasi
 
 Ada dua konfigurasi, yaitu database untuk bagian admin dan ada juga untuk bagian client nya. Konfigurasi admin menggunakan database yang ada di folder admin/conf/ dan client menggunakan database yang ada di folder conf/config.php untuk isi variable nya dan juga untuk conf/connection.php untuk koneksi nya seperti mysqli_connect() nya yang akan digunakan nanti
