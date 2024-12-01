@@ -21,7 +21,7 @@ Aplikasi ini dibuat untuk memudahkan pengguna dalam mengelola restoran, seperti 
 1. Clone repository ini
 2. Jalankan laragon/xampp (apache & mysql)
 3. Collision database harus utf8mb4_general_ci
-4. Menjalankan address harus http://localhost/restaurant/
+4. domain address harus http://localhost/restaurant/
 5. Jalankan.
 
 ## Username dan Password
