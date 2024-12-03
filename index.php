@@ -1,5 +1,6 @@
 	<?php include_once $_SERVER['DOCUMENT_ROOT'] . '/restaurant/partials/layouts/layout-top.php';
 
+	// connection
 	require_once $_SERVER['DOCUMENT_ROOT'] .  '/restaurant/conf/connection.php';
 	?>
 
