@@ -5,7 +5,10 @@
 $title = 'Dashboard';
 $subTitle = 'eCommerce';
 ?>
-<?php include_once $_SERVER['DOCUMENT_ROOT'] . '/restaurant/admin/partials/layouts/layoutTop.php' ?>
+<?php include_once $_SERVER['DOCUMENT_ROOT'] . '/restaurant/admin/partials/layouts/layoutTop.php';
+?>
+
+
 
 <div class="row gy-4">
     <div class="col-xxl-9">

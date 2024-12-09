@@ -121,10 +121,13 @@ if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] === true) {
             $accountPassword = mysqli_fetch_assoc($accountResult);
 
             if (password_verify($password, $accountPassword['password'])) {
+                session_unset();
                 $_SESSION['username'] = $staff['staff_name'];
                 $_SESSION['accountId'] = $staff['account_id'];
                 $_SESSION['role'] = $staff['staff_role'];
                 $_SESSION['isAdmin'] = true;
+
+    
 
                 header('location: index.php');
                 exit();

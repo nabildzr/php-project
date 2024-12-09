@@ -11,6 +11,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] .  '/restaurant/conf/function.php';
 $userId = $_SESSION['memberId'];
 
 
+if(isset($_SESSION['isLogin']) == false) {
+    echo '<script>window.location.href = "/restaurant/login/"</script>';
+} 
+
 if (isset($_GET['id'])) {
     // Mendapatkan id item yang akan ditampilkan
     $id = $_GET['id'];

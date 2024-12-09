@@ -62,7 +62,7 @@ if (isset($_POST['signin'])) {
                 $member = mysqli_fetch_assoc($members);
 
                 if ($member) {
-
+                    session_unset();
                     // Set session variable
                     $_SESSION['username'] = $member['member_name'];
                     $_SESSION['points'] = $member['points'];
